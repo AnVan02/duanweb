@@ -1,0 +1,22 @@
+RewriteEngine On
+
+RewriteRule "index.html" "index.php"
+
+RewriteRule "^([a-zA-Z0-9]+).html$" "?page=$1"
+
+RewriteCond %{REQUEST_URI} !\.[a-zA-Z]{2,4}$ [NC]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+
+RewriteRule ^(.*[^/])$ $1.php [L]
+
+RewriteCond %{THE_REQUEST} \s([^.]+)\.php[\s?] [NC]
+
+RewriteRule ^ %1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+                                   
+RewriteRule ^index\.php$ /trangchu.php [R=301,L]
+
