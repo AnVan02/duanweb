@@ -1,0 +1,312 @@
+[08-Feb-2025 11:01:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:04:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:05:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:07:01 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:07:02 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:07:02 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:07:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:07:02 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:13
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(13): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:08:26 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:08:26 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:08:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_link in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 16
+[08-Feb-2025 11:08:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 17
+[08-Feb-2025 11:08:26 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:17
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(17): mysqli_query()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 17
+[08-Feb-2025 11:09:08 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:09:08 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:09:08 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_link in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 16
+[08-Feb-2025 11:09:08 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 17
+[08-Feb-2025 11:09:08 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_query(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:17
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(17): mysqli_query()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 17
+[08-Feb-2025 11:09:19 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:09:19 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:09:19 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:09:19 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:13
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(13): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:10:49 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:10:49 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:10:49 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:10:49 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:13
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(13): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:11:50 Asia/Ho_Chi_Minh] PHP Warning:  include(/home/nvpbgqcv/public_html/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:11:50 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '/home/nvpbgqcv/public_html/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:11:50 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 14
+[08-Feb-2025 11:11:50 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:14
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(14): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 14
+[08-Feb-2025 11:12:43 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:12:43 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:12:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:12:43 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:13
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(13): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:12:51 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:12:51 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:12:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:12:51 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:13
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(13): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:13:30 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:13:30 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:13:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:13:30 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:13
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(13): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:14:12 Asia/Ho_Chi_Minh] PHP Warning:  include(../admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:14:12 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 5
+[08-Feb-2025 11:14:12 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:14:12 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:13
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(13): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[08-Feb-2025 11:21:06 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:21:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:35:53 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:39:20 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[08-Feb-2025 11:40:10 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $undefined_variable in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 13
+[14-Feb-2025 14:25:21 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 61
+[14-Feb-2025 14:25:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 61
+[14-Feb-2025 14:25:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 61
+[14-Feb-2025 14:25:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 61
+[14-Feb-2025 14:39:40 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $currentPageItems in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 88
+[14-Feb-2025 14:39:40 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 88
+[14-Feb-2025 14:39:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $currentPageItems in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 88
+[14-Feb-2025 14:39:59 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 88
+[14-Feb-2025 14:43:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $page in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 27
+[14-Feb-2025 14:43:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 30
+[14-Feb-2025 14:43:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $limit in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 30
+[14-Feb-2025 14:43:45 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to a member function fetch_all() on bool in /home/nvpbgqcv/public_html/tintuc_test/template.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:50:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:50:44 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:50:46 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:50:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:50:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:51:01 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:51:03 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 33
+[14-Feb-2025 14:52:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 63
+[14-Feb-2025 14:53:01 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 63
+[14-Feb-2025 14:53:03 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 63
+[14-Feb-2025 14:53:21 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 62
+[14-Feb-2025 14:53:24 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $start in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 62
+[14-Feb-2025 15:02:18 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $news in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 58
+[14-Feb-2025 15:02:18 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/nvpbgqcv/public_html/tintuc_test/template.php:58
+Stack trace:
+#0 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 58
+[14-Feb-2025 15:28:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $totalpage in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 110
+[14-Feb-2025 15:28:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $totalpage in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 134
+[14-Feb-2025 15:28:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $totalpage in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 110
+[14-Feb-2025 15:28:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $totalpage in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 134
+[16-Feb-2025 22:47:50 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $featuredNews in /home/nvpbgqcv/public_html/tintuc_test/template.php on line 74
+[17-Feb-2025 11:03:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $tags in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 55
+[17-Feb-2025 11:03:34 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 55
+[17-Feb-2025 11:03:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $tags in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 55
+[17-Feb-2025 11:03:38 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 55
+[17-Feb-2025 11:04:54 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $tags in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 55
+[17-Feb-2025 11:04:54 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 55
+[17-Feb-2025 11:10:54 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_tab" in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 54
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $featuredNews in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $featuredNews in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $featuredNews in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $featuredNews in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:46:10 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:52:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 11:52:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:52:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 11:52:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:53:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:53:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 11:53:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 11:53:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 11:55:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 43
+[17-Feb-2025 11:55:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 43
+[17-Feb-2025 12:00:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 12:00:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 12:00:46 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date " in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 12:00:46 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date " in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 13:51:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:51:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:51:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:51:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:53:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:53:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:53:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 47
+[17-Feb-2025 13:53:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:53:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:53:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 47
+[17-Feb-2025 13:54:22 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:54:22 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:54:22 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 47
+[17-Feb-2025 13:54:22 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:54:22 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 46
+[17-Feb-2025 13:54:22 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 47
+[17-Feb-2025 13:56:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 49
+[17-Feb-2025 13:56:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 50
+[17-Feb-2025 13:56:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 49
+[17-Feb-2025 13:56:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 50
+[17-Feb-2025 14:01:09 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 14:01:09 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 44
+[17-Feb-2025 14:02:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 14:02:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 14:03:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $formatted_date in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 14:03:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $formatted_date in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 14:04:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_date in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 14:04:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_date in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 14:05:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[17-Feb-2025 14:05:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_date" in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 45
+[19-Feb-2025 00:28:40 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:28:40 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:28:40 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:28:40 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:29:47 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:29:47 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:29:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:29:47 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:29:53 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:29:53 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:29:53 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:29:53 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:29:56 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:29:56 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:29:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:29:56 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:30:43 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:30:43 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:30:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:30:43 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:31:13 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:31:13 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:31:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:31:13 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:33:00 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:33:00 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 00:33:00 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 00:33:00 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:09:28 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:09:28 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:09:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:09:28 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:11:13 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:11:13 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:11:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:11:13 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:11:42 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:11:42 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:11:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:11:42 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:11:45 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:11:45 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:11:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:11:45 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:13:51 Asia/Ho_Chi_Minh] PHP Warning:  include(../tintuc/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:13:51 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening '../tintuc/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 13
+[19-Feb-2025 09:13:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[19-Feb-2025 09:13:51 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php:21
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tintuc.php(21): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 21
+[20-Feb-2025 00:08:52 Asia/Ho_Chi_Minh] PHP Warning:  include(tintuc_test/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 11
+[20-Feb-2025 00:08:52 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening 'tintuc_test/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 11
+[20-Feb-2025 00:08:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 17
+[20-Feb-2025 00:08:52 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tag.php:17
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tag.php(17): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 17
+[20-Feb-2025 00:08:58 Asia/Ho_Chi_Minh] PHP Warning:  include(tintuc_test/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 11
+[20-Feb-2025 00:08:58 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening 'tintuc_test/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 11
+[20-Feb-2025 00:08:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 17
+[20-Feb-2025 00:08:58 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tag.php:17
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tag.php(17): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 17
+[20-Feb-2025 00:09:29 Asia/Ho_Chi_Minh] PHP Warning:  include(tintuc_test/admin/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 11
+[20-Feb-2025 00:09:29 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening 'tintuc_test/admin/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 11
+[20-Feb-2025 00:09:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $mysqli in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 17
+[20-Feb-2025 00:09:29 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_real_escape_string(): Argument #1 ($mysql) must be of type mysqli, null given in /home/nvpbgqcv/public_html/tintuc_test/tag.php:17
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/tag.php(17): mysqli_real_escape_string()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 17
+[20-Feb-2025 09:22:46 Asia/Ho_Chi_Minh] PHP Warning:  include(admin_copy/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 18
+[20-Feb-2025 09:22:46 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening 'admin_copy/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 18
+[20-Feb-2025 09:22:50 Asia/Ho_Chi_Minh] PHP Warning:  include(admin_copy/config/config.php): Failed to open stream: No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 18
+[20-Feb-2025 09:22:50 Asia/Ho_Chi_Minh] PHP Warning:  include(): Failed opening 'admin_copy/config/config.php' for inclusion (include_path='.:/opt/alt/php80/usr/share/pear:/opt/alt/php80/usr/share/php:/usr/share/pear:/usr/share/php') in /home/nvpbgqcv/public_html/tintuc_test/tag.php on line 18
+[20-Feb-2025 09:58:08 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $riticle_id in /home/nvpbgqcv/public_html/tintuc_test/tintuc.php on line 24

@@ -1,0 +1,288 @@
+[08-Feb-2025 13:46:36 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_num_rows(): Argument #1 ($result) must be of type mysqli_result, bool given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php:30
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php(30): mysqli_num_rows()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 30
+[08-Feb-2025 14:54:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 3
+[08-Feb-2025 14:54:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 33
+[08-Feb-2025 14:54:35 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 3
+[08-Feb-2025 14:54:35 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 33
+[08-Feb-2025 15:10:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:11:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:11:13 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/1738912994_nhom-ai.jpg): No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 72
+[08-Feb-2025 15:11:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:11:38 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 72
+[08-Feb-2025 15:12:09 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:12:09 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/1739002238_): No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 72
+[08-Feb-2025 15:12:19 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:12:19 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 72
+[08-Feb-2025 15:12:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_links in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:28 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_links in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:32 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_links in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:36 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_links in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:39 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_links in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:13:47 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:15:11 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:15:15 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:15:54 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/1739002371_): No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 114
+[08-Feb-2025 15:16:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:21:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:21:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:21:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 19
+[08-Feb-2025 15:21:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:22:00 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "data" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 5
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 19
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:13 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 19
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 19
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:30 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 19
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:38 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 15
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 19
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:22:42 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:24:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:24:15 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:24:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_image in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 17
+[08-Feb-2025 15:24:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:24:36 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:24:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_image in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 17
+[08-Feb-2025 15:24:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:24:41 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:25:02 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:25:05 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:25:22 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:25:22 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 110
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_link" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 7
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_author" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 8
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_title" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_summary" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 10
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_content" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 11
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 12
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_image" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 13
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 16
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_links in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:25:48 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[08-Feb-2025 15:26:23 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/1739002920_): No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 71
+[08-Feb-2025 15:28:28 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 109
+[08-Feb-2025 15:28:28 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 109
+[08-Feb-2025 15:28:31 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_ids in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 109
+[08-Feb-2025 15:28:31 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 109
+[08-Feb-2025 15:38:53 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/1739002611_): No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 114
+[08-Feb-2025 16:07:38 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 115
+[10-Feb-2025 08:39:34 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 113
+[10-Feb-2025 08:39:41 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 113
+[10-Feb-2025 10:14:25 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 117
+[10-Feb-2025 10:42:46 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/1738912994_nhom-ai.jpg): No such file or directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 117
+[10-Feb-2025 10:42:46 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 117
+[10-Feb-2025 10:42:46 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 117
+[10-Feb-2025 10:42:46 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 117
+[10-Feb-2025 10:42:46 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 117
+[10-Feb-2025 11:28:36 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 97
+[10-Feb-2025 11:29:01 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 97
+[10-Feb-2025 11:37:59 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 120
+[10-Feb-2025 11:54:45 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 118
+[10-Feb-2025 12:02:15 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 118
+[10-Feb-2025 12:02:15 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 118
+[11-Feb-2025 09:57:52 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 118
+[11-Feb-2025 11:42:03 Asia/Ho_Chi_Minh] PHP Warning:  unlink(uploads/): Is a directory in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 118
+[14-Feb-2025 16:40:34 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_num_rows(): Argument #1 ($result) must be of type mysqli_result, bool given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php:34
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php(34): mysqli_num_rows()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 34
+[14-Feb-2025 16:45:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $article_tab in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 85
+[14-Feb-2025 22:33:10 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php:88
+Stack trace:
+#0 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 88
+[14-Feb-2025 22:35:54 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php:88
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php(88): mysqli_stmt->bind_param()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 88
+[14-Feb-2025 23:52:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $stmt in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[14-Feb-2025 23:52:51 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to a member function execute() on null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 9
+[17-Feb-2025 09:17:59 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php:107
+Stack trace:
+#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php(107): mysqli_stmt->bind_param()
+#1 {main}
+  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 107
+[18-Feb-2025 15:34:18 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:34:25 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:34:40 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:34:46 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:34:52 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:34:58 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:36:27 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:37:01 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:37:06 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:37:10 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:37:17 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:37:24 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:43:47 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:43:54 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:43:57 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:44:03 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:44:06 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 15:44:10 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 16:12:04 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 16:12:04 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 16:19:17 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 16:20:07 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116
+[18-Feb-2025 16:22:42 Asia/Ho_Chi_Minh] PHP Warning:  foreach() argument must be of type array|object, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/xuly.php on line 116

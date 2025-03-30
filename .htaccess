@@ -1,0 +1,24 @@
+RewriteEngine On
+RewriteBase /tintuc_test/
+
+# Rewrite pretty URLs like tintuc/a-b-c or tintuc/a-b-c.d to tintuc.php?id=...
+RewriteRule ^tintuc/([a-zA-Z0-9\-.]+)$ tintuc.php?link=$1 [L,QSA]
+
+# Rewrite URL từ tintuc/a-b-c.php thành tintuc.php?link=a-b-c.php
+RewriteRule ^tintuc/([^/]+)$ tintuc.php?link=$1 [L,QSA]
+
+
+
+# Định tuyến bài viết (VD: /tintuc/bai-viet-1)
+RewriteRule ^tintuc/([a-zA-Z0-9\-_]+)$ tintuc.php?link=$1 [L,QSA]
+
+
+# Định tuyến tab của bài viết (VD: /tintuc/tab/cong-nghe/bai-viet-1)
+RewriteRule ^tintuc/tag/([^/]+)/([^/]+)$ tag.php?tag=$1&link=$2 [L,QSA]
+
+
+# Định tuyến tab (tất cả bài viết thuộc một tab)
+RewriteRule ^tintuc/tag/([^/]+)$ tag.php?tag=$1 [L,QSA]
+
+
+
