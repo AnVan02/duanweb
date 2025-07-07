@@ -1,5 +1,12 @@
 
 <title>Tin Tức</title>
+    <!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/./">TRANG CHỦ</a></li>
+        <li class="breadcrumb-item"><a href="../product.php">TIN TỨC </a></li>
+    </ol>
+</nav>
 <?php
 // Bật hiển thị lỗi
 ini_set('display_errors', 1);
@@ -8,160 +15,175 @@ error_reporting(E_ALL);
 
 ?>
 
-
 <?php
-// Thông tin kết nối
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'database';
+    // Thông tin kết nối
+    $host = 'localhost';
+    $username = 'root';
+    $password = '';
+    $database = 'database';
+    
+   $conn = new mysqli($host, $username, $password, $database);
+    if ($conn->connect_error) {
+        die("Kết nối thất bại: " . $conn->connect_error);
+    }
+    $conn->set_charset("utf8mb4");
+    
 
-$conn = new mysqli($host, $username, $password, $database);
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
-$conn->set_charset("utf8mb4");
+    // Lấy danh sách bài viết
+    $sql = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_date DESC"; // Sắp xếp theo ngày
+    $result = $conn->query($sql);
 
-// Lấy bài viết nổi bật (bài viết mới nhất)
-$sqlFeatured = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_date DESC LIMIT 1";
-$resultFeatured = $conn->query($sqlFeatured);
-$featuredNews = ($resultFeatured->num_rows > 0) ? $resultFeatured->fetch_assoc() : null;
+    if ($result->num_rows > 0) {
+        $news = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        $news = [];
+    }
 
-// Lấy trang hiện tại từ URL
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = 9; // Số bài viết mỗi trang (trang 1 sẽ khác biệt)
-$start = ($page - 1) * $limit;
+    // Lấy bài viết nổi bật (bài viết mới nhất)
 
-// Nếu là trang đầu tiên, hiển thị bài viết nổi bật + bài viết cũ hơn
-if ($page == 1) {
-    $sql = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_date DESC LIMIT 1, $limit"; // Bỏ qua bài viết mới nhất
-} else {
-    $sql = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_date DESC LIMIT $start, $limit";
-}
-$result = $conn->query($sql);
-$currentPageItems = ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    $sqlFeatured = "SELECT * FROM article WHERE article_featured = 1 ORDER BY article_date DESC LIMIT 2";
+    // $resultFeatured = $conn->query($sqlFeatured);
 
-// Tính tổng số bài viết và trang
-$sqlCount = "SELECT COUNT(*) AS total FROM article WHERE article_status = 1";
-$resultCount = $conn->query($sqlCount);
-$totalItems = ($resultCount->num_rows > 0) ? $resultCount->fetch_assoc()['total'] : 0;
-$totalPages = ceil($totalItems / $limit);
+    // if ($resultFeatured->num_rows > 0) {
+    //     $featuredNews = $resultFeatured->fetch_assoc();
+    // } else {
+    //     $featuredNews = null;
+    // }
+    
+    // Lấy trang hiện tại từ URL
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+    // Số bài viết mỗi trang
+    $limit = ($page == 1) ? 4 : 9;
+
+    // Tính toán vị trí bắt đầu
+    $start = ($page - 1) * $limit;
+
+    // Tính tổng số bài viết và trang
+    $totalItems = count($news);
+    $totalPages = ceil($totalItems / $limit);
+
+    // Lấy danh sách bài viết cho trang hiện tại
+    $currentPageItems = array_slice($news, $start, $limit);
+    
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $limit = 9; // Hiển thị 9 bài viết mỗi trang, ngoại trừ trang đầu tiên
+    $start = ($page - 2) * $limit;
+
+    // Đối với trang đầu tiên, chỉ lấy các bài viết cũ (bỏ qua bài viết mới nhất)
+    if ($page == 1) {
+        $sql = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_date ASC LIMIT $limit";
+        $result = $conn->query($sql);
+        $currentPageItems = ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    } else {
+        // Đối với trang thứ hai trở đi, lấy bài viết mới nhất và tiếp tục với các bài viết khác
+        $start = ($page - 2) * $limit; // Điều chỉnh vị trí bắt đầu
+        $sql = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_date DESC LIMIT $start, $limit";
+        $result = $conn->query($sql);
+        $currentPageItems = ($result->num_rows > 0) ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+
+    // Tính tổng số bài viết và trang
+    $totalItems = count($news);
+    $totalPages = ceil(($totalItems - 9) / 9) + 1; // Trừ 9 bài đầu tiên cho trang đầu
+
+    // Phân trang bài viết 
+    
+
+
+    // Xử lý khi bấm vào link bài viết
+    if (isset($_GET['link'])) {
+        $articleLink = $_GET['link'];
+        $sql = "SELECT * FROM article WHERE article_link = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $articleLink);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $article = $result->fetch_assoc();
+            // Hiển thị thông tin bài viết
+        } else {
+            echo "Bài viết không tồn tại.";
+        }
+    }
 ?>
 
-<div class="featured-news"> 
-    <h4>TIN TỨC NỔI BẬT</h4>
-    <?php if ($featuredNews): ?>
-        <div class="news-item">
-            <div class="news-image">
-                <img src="../tintuc_test/admin/modules/blog/uploads/<?= htmlspecialchars($featuredNews['article_image']); ?>" alt="Featured Image">
+<div class="featured-news">
+    <h1>Tin tức nổi bật</h1>
+    <div class="featured-container">
+        <?php foreach ($featuredNews as $newsItem): ?>
+            <div class="news-item">
+                <div class="news-image">
+                    <img src="../tintuc_test/admin/modules/blog/uploads/<?= htmlspecialchars($newsItem['article_image']); ?>" alt="Featured Image">
+                </div>
+                <div class="news-content">
+                    <h2>
+                        <a href="tintuc/<?= htmlspecialchars($newsItem['article_link']); ?>">
+                            <?= htmlspecialchars($newsItem['article_title']); ?>
+                        </a>
+                    </h2>
+                    <small>Ngày: <?= date("d/m/Y", strtotime(htmlspecialchars($featuredNews['article_date']))); ?></small>
+                    <small>Người viết: <?= htmlspecialchars($newsItem['article_author']); ?></small>
+                    <p class="description"><?= htmlspecialchars_decode($newsItem['article_content']); ?></p>
+                </div>
             </div>
-            <div class="news-content">
-                <h2>
-                    <a href="tintuc/<?= htmlspecialchars($featuredNews['article_link']); ?>">
-                        <?= htmlspecialchars($featuredNews['article_title']); ?>
-                    </a>
-                </h2>
-                <small>Ngày: <?= date("d/m/Y", strtotime($featuredNews['article_date'])); ?></small>
-                <small>Người viết: <?= htmlspecialchars($featuredNews['article_author']); ?></small>
-                <p class="description"><?= htmlspecialchars_decode($featuredNews['article_content']); ?></p>
-            </div>
-        </div>
-    <?php else: ?>
-        <p>Không có bài viết nổi bật.</p>
-    <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
 </div>
-
 
 <div class="news-container">
     <?php foreach ($currentPageItems as $item): ?>
         <div class="news-item">
-            <a href="tintuc/<?= htmlspecialchars($item['article_link']); ?>">
-                <div class="news-image">
-                    <img src="../tintuc_test/admin/modules/blog/uploads/<?= htmlspecialchars($item['article_image']); ?>" alt="Image">
-                </div>
-            </a>
-
+            <div class="news-image">
+                <img src="../tintuc_test/admin/modules/blog/uploads/<?= htmlspecialchars($item['article_image']); ?>" alt="Image">
+            </div>
             <div class="news-content">
                 <h2>
                     <a href="tintuc/<?= htmlspecialchars($item['article_link']); ?>">
                         <?= htmlspecialchars($item['article_title']); ?>
                     </a>
                 </h2>
-                <small>Ngày: <?= date("d/m/Y", strtotime($item['article_date'])); ?></small>
-                <small >Người viết: <?= htmlspecialchars($item['article_author']); ?></small>
+                <small>Ngày: <?= date("d/m/Y", strtotime(htmlspecialchars($featuredNews['article_date']))); ?></small>
+                <small>Người viết: <?= htmlspecialchars($item['article_author']); ?></small>
                 <p class="description"><?= htmlspecialchars_decode($item['article_content']); ?></p>
             </div>
         </div>
     <?php endforeach; ?>
 </div>
-
 <div class="pagination">
-    <?php if ($page > 1): ?>
-        <a href="?page=<?= $page - 1; ?>">&larr;</a>
-    <?php endif; ?>
-
-    <?php if ($page > 3): ?>
-        <a href="?page=1">1</a>
-        <?php if ($page > 4): ?>
-            <span>...</span>
-        <?php endif; ?>
-    <?php endif; ?>
-
-    <?php for ($i = max(1, $page - 2); $i <= min($totalPages, $page + 2); $i++): ?>
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
         <a href="?page=<?= $i; ?>" <?= $i == $page ? "class='active'" : ""; ?>><?= $i; ?></a>
     <?php endfor; ?>
-
-    <?php if ($page < $totalPages - 2): ?>
-        <?php if ($page < $totalPages - 3): ?>
-            <span>...</span>
-        <?php endif; ?>
-        <a href="?page=<?= $totalPages; ?>"><?= $totalPages; ?></a>
-    <?php endif; ?>
-
-    <?php if ($page < $totalPages): ?>
-        <a href="?page=<?= $page + 1; ?>">&rarr;</a>
-    <?php endif; ?>
 </div>
-
-<?php $conn->close(); ?>
-
-
+    <?php $conn->close(); ?>
 <style>
-a {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
  
+
 /* Global Styles */
-/*body {*/
-/*    font-family: Arial, sans-serif;*/
-/*    background-color: #f9f9f9;*/
-/*    color: #333;*/
-/*    line-height: 1.8;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.8;
+    margin: 0;
+    padding: 0;
+}
 
 /* Featured News Section */
 .featured-news {
     background-color: #fff;
-    padding: 29px 15%;
+    padding: 120px 15%;
     margin-bottom: 40px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.featured-news h4 {
-    font-size: 2.0rem;
+.featured-news h1 {
+    font-size: 2.5rem;
     text-align: center;
     margin-bottom: 30px;
     color: #333;
-    font-weight: bold;
-    
 }
 
 .featured-news .news-item {
@@ -184,8 +206,8 @@ a:hover {
 }
 
 .featured-news .news-image img {
-    width: 86%;
-    height: 99%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -256,14 +278,13 @@ a:hover {
 
 .news-content small {
     display: block;
-    color:#0a0a0a;
+    color: #666;
     margin-bottom: 10px;
-    font-size: 0.9rem;
 }
 
 .news-content p {
     font-size: 0.95rem;
-    color:#0a0a0a;
+    color: #555;
     line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -295,48 +316,6 @@ a:hover {
 
 .pagination a.active {
     background-color: #003366;
-}
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-}
-
-.pagination a, .pagination span {
-    padding: 10px 15px;
-    margin: 0 5px;
-    text-decoration: none;
-    /*background-color: #fff;*/
-    /*color: #333;*/
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    display: inline-block;
-    transition: all 0.3s ease;
-}
-
-.pagination a:hover {
-    background-color: #0066cc;
-    color: white;
-}
-
-.pagination a.active {
-    background-color: #ff0000;
-    color: white;
-    font-weight: bold;
-}
-
-.pagination span {
-    border: none;
-    font-weight: bold;
-    color: #666;
-}
-
-.pagination a:first-child, .pagination a:last-child {
-    font-weight: bold;
-    background-color: red;
-    /*color: #666;*/
-    border: none;
 }
 
 /* Responsive Design */

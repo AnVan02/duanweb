@@ -1,169 +1,113 @@
 <?php
-// Bật hiển thị lỗi
+// Bật hiển thị lỗi để debug
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+
+// Xử lý ảnh upload từ CKEditor (ngay trong chính file này)
+if (isset($_GET['upload-image']) && isset($_FILES['upload'])) {
+    $uploadDir = 'uploads/ckeditor/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $fileName = time() . '_' . basename($_FILES['upload']['name']);
+    $targetFile = $uploadDir . $fileName;
+    $webPath = '/' . $uploadDir . $fileName;
+
+    if (move_uploaded_file($_FILES['upload']['tmp_name'], $targetFile)) {
+        $funcNum = $_GET['CKEditorFuncNum'];
+        echo "<script>window.parent.CKEDITOR.tools.callFunction($funcNum, '$webPath', 'Upload ảnh thành công');</script>";
+    } else {
+        echo "Upload ảnh thất bại!";
+    }
+    exit;
+}
+
 ?>
 
-    <!-- Tải Froala CSS và JS -->
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
 </head>
 <body>
-<div class="row" style="margin-bottom: 10px;">
-    <div class="col d-flex" style="justify-content: space-between; align-items: flex-end;">
-        <h3>Thêm bài viết</h3>
-        <a href="index.php?action=article&query=article_list" class="btn btn-outline-dark btn-fw">
-            <i class="mdi mdi-reply"></i> Quay lại
-        </a>
-    </div>
-</div>
-
-<form method="POST" action="modules/blog/xuly.php" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-lg-8 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-content">
-                        <div class="input-item form-group">
-                            <label for="author" class="d-block">Tên tác giả</label>
-                            <input id="author" type="text" name="article_author" class="d-block form-control" value="" placeholder="">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="article_date">Ngày đăng bài:</label>
-                            <input type="date" name="article_date" id="article_date" class="form-control" 
-                            
-                                   value="<?php echo date('Y-m-d'); ?>">
-                        </div>
-                        
-                        <div class="input-item form-group">
-                            <label for="article_link" class="d-block">Link bài viết</label>
-                            <input type="text" name="article_link" class="form-control" value="">
-                        </div>
-                        
-                        <div class="input-item form-group">
-                            <label for="article_tag" class="d-block">Tag bài viết</label>
-                            <input type="text" name="article_tag" class="d-block form-control" value="">
-                        </div>
-                      
-                        <div class="input-item form-group">
-                            <label for="title" class="d-block">Tiêu đề bài viết</label>
-                            <input type="text" name="article_title" class="d-block form-control" value="" placeholder="">
-                        </div>
-
-                        <div class="input-item form-group">
-                            <label for="article_content" class="d-block">Nội dung tóm tắt</label>
-                            <textarea name="article_content" id="article_content" class="form-control" placeholder="Tóm tắt bài viết"></textarea>
-                        </div>
-
-                        <div class="input-item form-group">
-                            <label for="article_summary" class="d-block">Nội dung chính bài viết</label>
-                            <textarea name="article_summary" id="article_summary" class="form-control" placeholder="Nhập nội dung chính"></textarea>
-                        </div>
-
-                        <form method="POST" action="modules/blog/xuly.php" enctype="multipart/form-data">
-                        <!-- Các input khác -->
-                        
-                        <div class="input-item form-group">
-                            <label for="video" class="d-block">Video</label>
-                            <input type="file" name="video" class="form-control" accept="video/*">
-                        </div>
-
-                        <button type="submit" name="article_add" class="btn btn-primary btn-icon-text mg-t-16">
-                            <i class="ti-file btn-icon-prepend"></i> Thêm
-                        </button>
-                    </form>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col d-flex justify-content-between align-items-end">
+                <h3>Thêm bài viết</h3>
+                <a href="index.php?action=article&query=article_list" class="btn btn-outline-dark">
+                    <i class="mdi mdi-reply"></i> Quay lại
+                </a>
             </div>
         </div>
-        <div class="col-lg-4 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-content">
-                        <div class="main-pane-top">
-                            <h4 class="card-title">Sản phẩm theo danh mục</h4>
-                            <h6></h6>
+
+        <form method="POST" action="modules/blog/xuly.php" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="author">Tên tác giả</label>
+                                <input id="author" type="text" name="article_author" class="form-control" placeholder="Nhập tên tác giả" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="article_date">Ngày đăng bài</label>
+                                <input type="date" name="article_date" id="article_date" class="form-control" 
+                                       value="<?php echo date('Y-m-d'); ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="article_link">Link bài viết</label>
+                                <input type="text" name="article_link" class="form-control" placeholder="Nhập link bài viết (ví dụ: bai-viet-1)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="article_tag">Thẻ bài viết</label>
+                                <input type="text" name="article_tag" class="form-control" placeholder="Nhập các thẻ, ví dụ: tintuc,congnghe">
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Tiêu đề bài viết</label>
+                                <input type="text" name="article_title" class="form-control" placeholder="Tiêu đề bài viết" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="article_content">Nội dung tóm tắt</label>
+                                <textarea name="article_content" id="article_content" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="article_summary">Nội dung chính bài viết</label>
+                                <textarea name="article_summary" id="article_summary" class="form-control"></textarea>
+                            </div>
+                            <button type="submit" name="article_add" class="btn btn-primary btn-icon-text mt-3">
+                                <i class="mdi mdi-file-check btn-icon-prepend"></i> Thêm
+                            </button>
                         </div>
- 
-                        <div class="input-item form-group">
-                            <label for="article_status">Trạng thái bài viết:</label>
-                            <select name="article_status" id="article_status" required>
-                                <option value="1">Xuất bản</option>
-                                <option value="0">Chưa xuất bản</option>
-                            </select>
-                        </div>
-                        <div class="input-item form-group">
-                            <label for="image" class="d-block">Image</label>
-                            <input type="file" class="" name="article_image">
+                    </div>
+                </div>
+                <div class="col-lg-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="article_status">Trạng thái bài viết</label>
+                                <select name="article_status" id="article_status" class="form-control" required>
+                                    <option value="1">Xuất bản</option>
+                                    <option value="0">Chưa xuất bản</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="article_image">Hình ảnh đại diện</label>
+                                <input type="file" id="article_image" name="article_image" class="form-control-file" accept="image/*">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
+ <!-- Khởi tạo CKEditor cho các textarea -->
+    <script>
+        CKEDITOR.replace('article_content', {
+            filebrowserUploadUrl: '?upload-image=1',
+            filebrowserUploadMethod: 'form'
+        });
 
-<!-- Script khởi tạo Froala -->
-<script>
-    new FroalaEditor('#article_content', {
-        height: 200,
-        imageUploadURL: 'modules/blog/xuly.php',
-        videoUploadURL: 'modules/blog/xuly.php',
-        toolbarButtons: ['bold', 'italic', 'underline', '|', 'insertImage', 'insertVideo', 'insertLink'],
-        language: 'vi',
-        videoAllowedTypes: ['mp4', 'webm', 'ogg', 'mov', 'avi'],
-        videoMaxSize: 50 * 1024 * 1024,
-        events: {
-            'video.beforeUpload': function (video) {
-                console.log('Bắt đầu upload video:', video[0].name, video[0].size, video[0].type);
-            },
-            'video.uploaded': function (response) {
-                console.log('Video uploaded successfully:', response);
-            },
-            'video.uploadError': function (error, response) {
-                console.log('Lỗi upload video:', error, response);
-                let errorMsg = response ? JSON.parse(response).error : error.message;
-                console.log('Chi tiết lỗi:', errorMsg);
-                alert('Lỗi upload video: ' + errorMsg);
-            }
-        }
-    });
-
-    new FroalaEditor('#article_summary', {
-        height: 300,
-        imageUploadURL: 'modules/blog/xuly.php',
-        videoUploadURL: 'modules/blog/xuly.php',
-        toolbarButtons: ['bold', 'italic', 'underline', '|', 'insertImage', 'insertVideo', 'insertLink'],
-        language: 'vi',
-        videoAllowedTypes: ['mp4', 'webm', 'ogg', 'mov', 'avi'],
-        videoMaxSize: 50 * 1024 * 1024,
-        events: {
-            'video.beforeUpload': function (video) {
-                console.log('Bắt đầu upload video:', video[0].name, video[0].size, video[0].type);
-            },
-            'video.uploaded': function (response) {
-                console.log('Video uploaded successfully:', response);
-            },
-            'video.uploadError': function (error, response) {
-                console.log('Lỗi upload video:', error, response);
-                let errorMsg = response ? JSON.parse(response).error : error.message;
-                console.log('Chi tiết lỗi:', errorMsg);
-                alert('Lỗi upload video: ' + errorMsg);
-            }
-        }
-    });
-
-    const client = filestack.init('YOUR_API_KEY');
-        client.picker({
-            onUploadDone: (res) => {
-                console.log('Video uploaded successfully:', res);
-            },
-            onError: (error) => {
-                console.error('Error uploading video:', error);
-            }
-        }).open();
-
-        
-</script>
+        CKEDITOR.replace('article_summary', {
+            filebrowserUploadUrl: '?upload-image=1',
+            filebrowserUploadMethod: 'form'
+        });
+    </script>

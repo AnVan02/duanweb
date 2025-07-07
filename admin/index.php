@@ -3,16 +3,14 @@ session_start();
 if (!isset($_SESSION['login'])) {
   header('Location:login.php');
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Admin </title>
+  <title>Admin</title>
 
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
@@ -34,25 +32,21 @@ if (!isset($_SESSION['login'])) {
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
-  <!-- auto compelete -->
+  <!-- auto complete -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
 
   <script src="js/toast_message.js"></script>
-
   <script src="https://kit.fontawesome.com/a2e1cc550d.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <!-- <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>  -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script> -->
-  <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+  <script src="plugins/ckeditor/ckeditor.js"></script>
+  <link rel="stylesheet" href="plugins/ckeditor/">
+
+
   <script src="js/validator.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-
 </head>
 <body>
-  <div id="toast">
-
-  </div>
+  <div id="toast"></div>
   <div class="container-scroller">
     <?php
     include('config/config.php');
@@ -85,7 +79,6 @@ if (!isset($_SESSION['login'])) {
   <script src="vendors/chart.js/Chart.min.js"></script>
   <script src="vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <script src="vendors/progressbar.js/progressbar.min.js"></script>
-
   <!-- End plugin js for this page -->
   <!-- inject:js -->
   <script src="js/off-canvas.js"></script>
@@ -100,11 +93,8 @@ if (!isset($_SESSION['login'])) {
   <script src="js/dashboard.js"></script>
   <script src="js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
-
-
   <!-- morris dashboard -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 </body>
-
 </html>

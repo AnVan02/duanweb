@@ -1,492 +1,726 @@
-[08-Feb-2025 13:38:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[08-Feb-2025 13:38:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[08-Feb-2025 13:38:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[08-Feb-2025 14:15:21 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php on line 2
-[08-Feb-2025 14:15:21 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: mysqli_fetch_array(): Argument #1 ($result) must be of type mysqli_result, bool given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php:21
-Stack trace:
-#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php(21): mysqli_fetch_array()
-#1 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/main.php(109): include('/home/nvpbgqcv/...')
-#2 /home/nvpbgqcv/public_html/tintuc_test/admin/index.php(70): include('/home/nvpbgqcv/...')
-#3 {main}
-  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php on line 21
-[08-Feb-2025 14:16:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php on line 23
-[08-Feb-2025 14:16:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php on line 159
-[08-Feb-2025 14:16:43 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "article_id" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php on line 160
-[08-Feb-2025 16:56:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[08-Feb-2025 16:56:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[08-Feb-2025 16:56:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[09-Feb-2025 23:22:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[09-Feb-2025 23:22:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[09-Feb-2025 23:22:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[10-Feb-2025 08:32:49 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[10-Feb-2025 08:32:49 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[10-Feb-2025 08:32:49 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[10-Feb-2025 09:36:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[10-Feb-2025 09:36:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[10-Feb-2025 09:36:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[10-Feb-2025 11:11:56 Asia/Ho_Chi_Minh] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/sua.php on line 5
-[10-Feb-2025 13:31:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[10-Feb-2025 13:31:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[10-Feb-2025 13:31:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[10-Feb-2025 17:06:18 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[10-Feb-2025 17:06:18 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[10-Feb-2025 17:06:18 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[10-Feb-2025 17:07:06 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[10-Feb-2025 17:07:06 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[10-Feb-2025 17:07:06 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 09:55:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 09:55:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 09:55:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 11:36:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 11:36:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 11:36:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 14:00:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 14:00:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 14:00:39 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 14:26:31 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 14:26:31 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 14:26:31 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 14:30:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 14:30:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 14:30:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 15:33:46 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 15:33:46 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 15:33:46 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 17:32:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 17:32:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 17:32:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 22:00:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 22:00:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 22:00:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 22:21:14 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 56
-[11-Feb-2025 22:21:14 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 56
-[11-Feb-2025 22:21:14 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 56
-[11-Feb-2025 22:21:14 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 56
-[11-Feb-2025 22:21:14 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 56
-[11-Feb-2025 22:21:14 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 56
-[11-Feb-2025 22:42:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 52
-[11-Feb-2025 22:42:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 52
-[11-Feb-2025 22:42:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 52
-[11-Feb-2025 22:42:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 52
-[11-Feb-2025 22:42:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 52
-[11-Feb-2025 22:42:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "product_status" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 52
-[11-Feb-2025 23:39:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[11-Feb-2025 23:39:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[11-Feb-2025 23:39:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[11-Feb-2025 23:50:25 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $result in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 3
-[11-Feb-2025 23:50:25 Asia/Ho_Chi_Minh] PHP Warning:  Attempt to read property "num_rows" on null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 3
-[11-Feb-2025 23:50:55 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $result in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 3
-[11-Feb-2025 23:50:55 Asia/Ho_Chi_Minh] PHP Warning:  Attempt to read property "num_rows" on null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 3
-[12-Feb-2025 08:03:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 08:03:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 08:03:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 08:03:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 08:03:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 08:03:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 08:37:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 08:37:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 08:37:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 08:38:01 Asia/Ho_Chi_Minh] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 48
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:40 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:50 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:53 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:54 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:14:58 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:15:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:15:04 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:52 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:16:56 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:02 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:07 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:11 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:16 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:20 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:26 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:29 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:30 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:32 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:37 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:41 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:45 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:48 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:17:51 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:18:59 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 09:45:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 09:45:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 09:45:13 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 10:37:23 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 15
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 16
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 17
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 18
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Undefined variable $row in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 10:37:27 Asia/Ho_Chi_Minh] PHP Warning:  Trying to access array offset on value of type null in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 19
-[12-Feb-2025 10:41:38 Asia/Ho_Chi_Minh] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 48
-[12-Feb-2025 11:23:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 11:23:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 11:23:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 11:51:55 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught TypeError: usort(): Argument #1 ($array) must be of type array, null given in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php:81
-Stack trace:
-#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php(81): usort()
-#1 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/main.php(139): include('/home/nvpbgqcv/...')
-#2 /home/nvpbgqcv/public_html/tintuc_test/admin/index.php(70): include('/home/nvpbgqcv/...')
-#3 {main}
-  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/home.php on line 81
-[12-Feb-2025 13:36:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 13:36:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 13:36:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 14:21:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 14:21:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 14:21:42 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 16:15:57 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 16:15:57 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 16:15:57 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 16:27:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 16:27:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 16:27:15 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 17:48:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 17:48:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 17:48:52 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[12-Feb-2025 22:20:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[12-Feb-2025 22:20:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[12-Feb-2025 22:20:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 07:59:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 07:59:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 07:59:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 08:32:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 08:32:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 08:32:33 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 09:25:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 09:25:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 09:25:58 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 14:45:44 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 14:45:44 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 14:45:44 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 16:31:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 16:31:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 16:31:56 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 16:32:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 16:32:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 16:32:02 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 16:32:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 16:32:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 16:32:05 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[13-Feb-2025 22:45:31 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[13-Feb-2025 22:45:31 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[13-Feb-2025 22:45:31 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[14-Feb-2025 08:00:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[14-Feb-2025 08:00:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[14-Feb-2025 08:00:59 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[14-Feb-2025 11:39:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[14-Feb-2025 11:39:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[14-Feb-2025 11:39:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[14-Feb-2025 13:30:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[14-Feb-2025 13:30:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[14-Feb-2025 13:30:11 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[14-Feb-2025 16:08:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[14-Feb-2025 16:08:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[14-Feb-2025 16:08:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[14-Feb-2025 16:28:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[14-Feb-2025 16:28:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[14-Feb-2025 16:28:26 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[14-Feb-2025 17:24:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[14-Feb-2025 17:24:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[14-Feb-2025 17:24:47 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[14-Feb-2025 22:32:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[14-Feb-2025 22:32:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[14-Feb-2025 22:32:38 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[15-Feb-2025 08:15:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[15-Feb-2025 08:15:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[15-Feb-2025 08:15:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[15-Feb-2025 08:32:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[15-Feb-2025 08:32:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[15-Feb-2025 08:32:45 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[15-Feb-2025 08:54:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[15-Feb-2025 08:54:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[15-Feb-2025 08:54:29 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[15-Feb-2025 09:51:18 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[15-Feb-2025 09:51:18 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[15-Feb-2025 09:51:18 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[15-Feb-2025 10:33:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[15-Feb-2025 10:33:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[15-Feb-2025 10:33:36 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[15-Feb-2025 11:28:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[15-Feb-2025 11:28:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[15-Feb-2025 11:28:17 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[15-Feb-2025 15:15:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[15-Feb-2025 15:15:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[15-Feb-2025 15:15:34 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[17-Feb-2025 09:00:35 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "login" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/header.php on line 116
-[17-Feb-2025 09:00:35 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 22
-[17-Feb-2025 09:00:35 Asia/Ho_Chi_Minh] PHP Warning:  Undefined array key "account_type" in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/menu.php on line 54
-[18-Feb-2025 10:57:27 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught DivisionByZeroError: Division by zero in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/lietke.php:10
-Stack trace:
-#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/main.php(103): include()
-#1 /home/nvpbgqcv/public_html/tintuc_test/admin/index.php(70): include('/home/nvpbgqcv/...')
-#2 {main}
-  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/lietke.php on line 10
-[18-Feb-2025 10:57:33 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught DivisionByZeroError: Division by zero in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/lietke.php:10
-Stack trace:
-#0 /home/nvpbgqcv/public_html/tintuc_test/admin/modules/main.php(103): include()
-#1 /home/nvpbgqcv/public_html/tintuc_test/admin/index.php(70): include('/home/nvpbgqcv/...')
-#2 {main}
-  thrown in /home/nvpbgqcv/public_html/tintuc_test/admin/modules/blog/lietke.php on line 10
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin tức - ROSA AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* General image styling */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Container layout */
+.container-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.breadcrumb-item {
+    display: inline;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: " / ";
+    color: #6c757d;
+    margin: 0 8px;
+}
+
+.breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+
+/* Main layout */
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+/* Article section */
+.article {
+    order: 1;
+    width: 100%;
+}
+
+.article__content {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.article__content h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+    line-height: 1.3;
+    padding: 24px 20px 0;
+}
+
+/* Article meta */
+.article-info {
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.article-meta span:first-child {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.social-icons .fab.fa-facebook {
+    color: #1877F2;
+}
+
+.social-icons .fab.fa-linkedin {
+    color: #0A66C2;
+}
+
+.social-icons .fas.fa-link {
+    color: #333;
+}
+
+/* Article content */
+.article__context,
+.article__summary {
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 24px;
+    text-align: justify;
+}
+
+.article__summary h1,
+.article__summary h2,
+.article__summary h3 {
+    font-weight: 600;
+    margin: 20px 0 12px;
+    color: #1a1a1a;
+}
+
+.article__summary h1 {
+    font-size: 20px;
+}
+
+.article__summary h2 {
+    font-size: 18px;
+}
+
+.article__summary h3 {
+    font-size: 16px;
+}
+
+.article__summary p {
+    margin-bottom: 16px;
+}
+
+.article__summary a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.article__summary a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Article tags */
+.article__tag {
+    padding: 0 20px 24px;
+    border-top: 1px solid #eee;
+    margin-top: 24px;
+    padding-top: 20px;
+}
+
+.article__tag strong {
+    font-size: 14px;
+    color: #333;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+.article__tag a {
+    display: inline-block;
+    background: #f1f3f4;
+    color: #d32f2f;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin: 4px 6px 4px 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.article__tag a:hover {
+    background: #d32f2f;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Sidebar */
+.sidebar {
+    order: 2;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px 20px;
+}
+
+.sidebar h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #d32f2f;
+    font-weight: 700;
+}
+
+.sidebar > p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.news-card {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    gap: 16px;
+}
+
+.news-card:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.news-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.news-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.news-title a {
+    font-size: 15px;
+    color: #1a1a1a;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.news-title a:hover {
+    color: #d32f2f;
+}
+
+.news-date {
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+/* Copy notification */
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification-text {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Responsive design for tablets */
+@media screen and (min-width: 768px) {
+    .container-layout {
+        padding: 0 24px;
+    }
+    
+    .main-layout {
+        flex-direction: row;
+        gap: 30px;
+    }
+    
+    .article {
+        order: 1;
+        width: 70%;
+    }
+    
+    .sidebar {
+        order: 2;
+        width: 30%;
+        position: sticky;
+        top: 20px;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+    }
+    
+    .article__content h1 {
+        font-size: 28px;
+        padding: 32px 32px 0;
+    }
+    
+    .article-info {
+        padding: 0 32px;
+    }
+    
+    .article__context,
+    .article__summary {
+        padding: 0 32px;
+        font-size: 17px;
+    }
+    
+    .article__tag {
+        padding: 0 32px 32px;
+    }
+    
+    .news-card img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .news-title a {
+        font-size: 16px;
+        -webkit-line-clamp: 3;
+    }
+    
+    .social-icons a {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* Responsive design for large screens */
+@media screen and (min-width: 1024px) {
+    .container-layout {
+        padding: 0 32px;
+    }
+    
+    .main-layout {
+        gap: 40px;
+    }
+    
+    .article__content h1 {
+        font-size: 32px;
+        padding: 40px 40px 0;
+    }
+    
+    .article-info {
+        padding: 0 40px;
+    }
+    
+    .article__context,
+    .article__summary {
+        padding: 0 40px;
+        font-size: 18px;
+    }
+    
+    .article__tag {
+        padding: 0 40px 40px;
+    }
+    
+    .sidebar {
+        padding: 32px 24px;
+    }
+    
+    .news-card {
+        gap: 20px;
+    }
+    
+    .news-card img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .news-title a {
+        font-size: 17px;
+    }
+}
+
+/* High DPI displays */
+@media screen and (min-resolution: 1.5dppx) {
+    .article__content {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+    }
+    
+    .article__content,
+    .sidebar,
+    .breadcrumb {
+        background: #2d2d2d;
+        color: #e0e0e0;
+    }
+    
+    .article__content h1,
+    .news-title a {
+        color: #f0f0f0;
+    }
+    
+    .article__context,
+    .article__summary {
+        color: #d0d0d0;
+    }
+    
+    .breadcrumb-item a {
+        color: #66b3ff;
+    }
+    
+    .social-icons a {
+        background: #404040;
+    }
+    
+    .news-card {
+        border-bottom-color: #404040;
+    }
+    
+    .article__tag {
+        border-top-color: #404040;
+    }
+    
+    .article__tag a {
+        background: #404040;
+        color: #ff6b6b;
+    }
+    
+    .article__tag a:hover {
+        background: #ff6b6b;
+        color: #fff;
+    }
+}
+
+/* Print styles */
+@media print {
+    .sidebar,
+    .social-icons,
+    .breadcrumb {
+        display: none;
+    }
+    
+    .main-layout {
+        flex-direction: column;
+    }
+    
+    .article {
+        width: 100%;
+    }
+    
+    .article__content {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .article__content h1 {
+        font-size: 24px;
+    }
+    
+    .article__context,
+    .article__summary {
+        font-size: 14px;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus styles for keyboard navigation */
+a:focus,
+button:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="container-layout">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">TRANG CHỦ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">TIN TỨC</li>
+            </ol>
+        </nav>
+
+        <div class="main-layout">
+            <!-- Article Section -->
+            <section class="article">
+                <div class="article__content">
+                    <h1>Tiêu đề bài viết mẫu về công nghệ AI và machine learning</h1>
+                    <div class="article-info">
+                        <div class="article-meta">
+                            <span>
+                                08/07/2025 Tác giả: ROSA AI
+                            </span>
+                            <span class="social-icons">
+                                <a href="https://www.facebook.com/people/ROSA-AI-Computer/61559427752479/" target="_blank" title="Facebook">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/rosa-ai-computer-20980b352/" target="_blank" title="LinkedIn">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="javascript:void(0);" onclick="copyLink()" title="Sao chép liên kết">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <hr>
+                    </div>
+                    
+                    <div class="article__context">
+                        <p>Đây là nội dung chính của bài viết. Trí tuệ nhân tạo (AI) đang ngày càng phát triển mạnh mẽ và có tác động sâu rộng đến nhiều lĩnh vực trong cuộc sống. Từ y tế, giáo dục, kinh doanh đến giải trí, AI đã và đang thay đổi cách chúng ta làm việc và sinh hoạt hàng ngày.</p>
+                        
+                        <p>Machine Learning, một nhánh quan trọng của AI, cho phép máy tính học hỏi từ dữ liệu mà không cần được lập trình cụ thể cho từng tác vụ. Điều này mở ra những khả năng vô hạn trong việc giải quyết các bài toán phức tạp.</p>
+                    </div>
+                    
+                    <div class="article__summary">
+                        <h2>Tổng quan về công nghệ AI</h2>
+                        <p>Artificial Intelligence không chỉ là một thuật ngữ thời thượng mà còn là công nghệ đang định hình tương lai của nhân loại. Với khả năng xử lý dữ liệu lớn và đưa ra quyết định thông minh, AI đang góp phần tạo ra những đột phá trong nhiều lĩnh vực.</p>
+                        
+                        <h3>Ứng dụng trong thực tế</h3>
+                        <p>Các ứng dụng AI đã trở nên quen thuộc như trợ lý ảo, hệ thống gợi ý, xe tự lái, và nhiều ứng dụng khác. Những tiến bộ này không chỉ mang lại tiện ích mà còn tạo ra giá trị kinh tế lớn.</p>
+                        
+                        <h3>Tương lai của AI</h3>
+                        <p>Trong tương lai, AI sẽ tiếp tục phát triển với những khả năng vượt trội hơn, từ việc hiểu ngôn ngữ tự nhiên đến khả năng suy luận phức tạp như con người.</p>
+                    </div>
+
+                    <div class="article__tag">
+                        <strong>Thẻ:</strong>
+                        <a href="#" class="article_link">AI</a>
+                        <a href="#" class="article_link">Machine Learning</a>
+                        <a href="#" class="article_link">Công nghệ</a>
+                        <a href="#" class="article_link">Tương lai</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Tin tức nổi bật</h3>
+                <p>Bạn có thể khám phá thêm nhiều thông tin mới nhất về công nghệ và giải pháp từ tin tức ROSA</p>
+                
+                <div class="news-card">
+                    <a href="#">
+                        <img src="https://via.placeholder.com/120x120/007bff/ffffff?text=AI+News" alt="AI News">
+                    </a>
+                    <div class="news-content">
+                        <div class="news-title">
+                            <a href="#">Breakthrough in Natural Language Processing: New Model Achieves Human-Level Understanding</a>
+                        </div>
+                        <p class="news-date">Cập nhật ngày 07/07/2025</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <a href="#">
+                        <img src="https://via.placeholder.com/120x120/28a745/ffffff?text=Tech" alt="Tech News">
+                    </a>
+                    <div class="news-content">
+                        <div class="news-title">
+                            <a href="#">Quantum Computing Advances: New Chip Design Promises Faster Processing</a>
+                        </div>
+                        <p class="news-date">Cập nhật ngày 06/07/2025</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <a href="#">
+                        <img src="https://via.placeholder.com/120x120/dc3545/ffffff?text=Robot" alt="Robot News">
+                    </a>
+                    <div class="news-content">
+                        <div class="news-title">
+                            <a href="#">Robotics Revolution: Autonomous Systems in Healthcare Show Promising Results</a>
+                        </div>
+                        <p class="news-date">Cập nhật ngày 05/07/2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyLink() {
+            const link = window.location.href;
+            navigator.clipboard.writeText(link)
+                .then(() => {
+                    // Remove existing notification
+                    const existingNotification = document.querySelector('.copy-notification');
+                    if (existingNotification) {
+                        existingNotification.remove();
+                    }
+                    
+                    // Create notification
+                    const notification = document.createElement('div');
+                    notification.className = 'copy-notification';
+                    
+                    const text = document.createElement('span');
+                    text.className = 'notification-text';
+                    text.textContent = 'Link copied!';
+                    
+                    notification.appendChild(text);
+                    document.body.appendChild(notification);
+                    
+                    // Remove notification after 3 seconds
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                })
+                .catch(err => {
+                    console.error("Error copying link: ", err);
+                });
+        }
+    </script>
+</body>
+</html>

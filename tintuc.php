@@ -1,125 +1,289 @@
-
 <?php
 // Bật hiển thị lỗi
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+?>
+
+<?php
 // Bao gồm tệp kết nối
 include('../tintuc_test/admin/config/config.php');
 
 // Kiểm tra nếu `link` được truyền qua URL
 if (!isset($_GET['link']) || empty($_GET['link'])) {
-    die("Không tìm thấy link bài viết trong URL.");
+    die("Không tìm thấy link bài viết.");
 }
 
+// Lấy link bài viết từ URL và xử lý để tránh lỗi SQL Injection
 $article_link = mysqli_real_escape_string($mysqli, $_GET['link']); 
+
+// Truy vấn bài viết dựa trên `article_link`
 $sql_article = "SELECT * FROM article WHERE article_link = '$article_link' LIMIT 1";
 $query_article = mysqli_query($mysqli, $sql_article);
 
+// Kiểm tra nếu xảy ra lỗi truy vấn SQL
 if (!$query_article) {
     die("Lỗi truy vấn SQL: " . mysqli_error($mysqli));
 }
 
+// Kiểm tra nếu không tìm thấy bài viết
 if (mysqli_num_rows($query_article) === 0) {
     die("Bài viết không tồn tại hoặc đã bị xóa.");
 }
 
+// Lấy dữ liệu bài viết
 $article = mysqli_fetch_assoc($query_article);
 ?>
+ <!-- Breadcrumb -->
+<div class="container-layout">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">TRANG CHỦ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">TIN TỨC</li>
+    </ol>
+</nav>
 
-<section class="article">
-    <div class="container">
-        <div class="article__content">
-            <h1><?= htmlspecialchars($article['article_title']); ?></h1>
-            <div class="article-info">
-                <span><?= date("d/m/Y", strtotime($article['article_date'])); ?></span>
-                <span><?= htmlspecialchars($article['article_author']); ?></span>
-            </div>
-            <div class="article__context"><?= htmlspecialchars_decode($article['article_content']); ?></div> 
-            <div class="article__summary"><?= htmlspecialchars_decode($article['article_summary']); ?></div>
-            <div class="article__tag">
-                <strong>Thẻ: </strong> 
-                <?php
-                $tags = explode(',', $article['article_tag']);
-                foreach ($tags as $tag) {
-                    $tag = trim($tag);
-                    if (!empty($tag)) {
-                        echo '<a href="../tintuc/tag/' . urlencode($tag) . '" class="article_link">' . htmlspecialchars($tag) . '</a>';
+<!--<div class="container-layout">-->
+    <div class="main-layout">
+        <!-- Cột bên trái: Bài viết chính -->
+        <section class="article">
+             <div class="article__content">
+                <h1><?= htmlspecialchars($article['article_title']); ?></h1>
+                <div class="article-info">
+                    <div class="article-meta d-flex space-between align-center">
+                        <span style="font-size:17px">
+                            <?= date("d/m/Y", strtotime($article['article_date'])); ?> <?php echo " " . htmlspecialchars($article['article_author']); ?>
+                        </span>
+                        <span class="social-icons">
+                            <a href="https://www.facebook.com/people/ROSA-AI-Computer/61559427752479/" target="_blank">
+                                <i class="fab fa-facebook" style="color: #1877F2; font-size:25px"></i>
+                            </a>
+                            
+                            <a href="https://www.linkedin.com/in/rosa-ai-computer-20980b352/" target="_blank">
+                                <i class="fab fa-linkedin" style="color: #0A66C2; font-size:25px "></i>
+                            </a>
+                             <!-- Icon sao chép link -->
+                            <a href="javascript:void(0);" onclick="copyLink()" title="Sao chép liên kết">
+                                <i class="fas fa-link" style="color: #000000; font-size:20px;"></i>
+                            </a>
+                                
+                          <script>
+                            function copyLink() {
+                                const link = "http://localhost/DARS/tintuc_test/tintuc <?= htmlspecialchars($article['article_link']); ?>";
+                                navigator.clipboard.writeText(link)
+                                    .then(() => {
+                                        // Xóa thông báo cũ nếu tồn tại
+                                        const existingNotification = document.querySelector('.copy-notification');
+                                        if (existingNotification) {
+                                            existingNotification.remove();
+                                        }
+                            
+                                        // Tạo phần tử thông báo
+                                        const notification = document.createElement('div');
+                                        notification.className = 'copy-notification';
+                            
+                                        const text = document.createElement('span');
+                                        text.className = 'notification-text';
+                                        text.textContent = 'Link copied !';
+                            
+                                        notification.appendChild(text);
+                            
+                                        // Thêm thông báo vào vị trí ngay sau icon copy link
+                                        const copyLinkIcon = document.querySelector('.social-icons a[onclick="copyLink()"]');
+                                        copyLinkIcon.insertAdjacentElement('afterend', notification);
+                            
+                                        // Xóa thông báo sau 1 giây
+                                        setTimeout(() => {
+                                            notification.remove();
+                                        }, 1000);
+                                    })
+                                    .catch(err => {
+                                        console.error("Lỗi khi sao chép: ", err);
+                                    });
+                            }
+                            </script>
+                        </span>
+                    </div>
+                     <hr style="width=30px">
+                </div>
+                <div class="article__context"><?= htmlspecialchars_decode($article['article_content']); ?></div> 
+                <div class="article__summary"><?= htmlspecialchars_decode($article['article_summary']); ?></div>
+
+                <div class="article__tag">
+                    <strong>Thẻ: </strong> 
+                    <?php
+                    $tags = explode(',', $article['article_tag']);
+                    foreach ($tags as $tag) {
+                        $tag = trim($tag);
+                        if (!empty($tag)) {
+                            echo '<a href="localhost/DARS/tintuc_test/tintuc/tag/' . urlencode($tag) . '" class="article_link">' . htmlspecialchars($tag) . '</a>';
+                        }
                     }
-                }
-                ?>
+                    ?>
+                </div>
             </div>
+        </section>
+
+        <!-- Cột bên phải: Tin tức mới -->
+        <div class="sidebar">
+            <h3 style='font-weight: bold; color:#FF0000;'>Tin tức nổi bật</h3>
+            <p>Bạn có thể khám phá thêm nhiều thông tin mới nhất về công nghệ và giải pháp từ tin tức ROSA</p>
+            <?php
+                // Truy vấn 4 bài viết ngẫu nhiên
+                $newsQuery = "SELECT article_title, article_link, article_image, article_date FROM article ORDER BY article_date DESC LIMIT 3";
+                $newsResult = mysqli_query($mysqli, $newsQuery);
+                if ($newsResult && mysqli_num_rows($newsResult) > 0) {
+                    while ($news = mysqli_fetch_assoc($newsResult)): ?>
+                        <div class="news-card">
+                            <a href="http://localhost/DARS/tintuc_test/tintuc/<?= htmlspecialchars($news['article_link']); ?>">
+                                <img src="/tintuc_test/admin/modules/blog/uploads/<?= htmlspecialchars($news['article_image']); ?>" alt="News Image">
+                            </a>
+                            <div class="news-content">
+                                <div class="news-title">
+                                     <a href="<?= htmlspecialchars($news['article_link']); ?>">
+                                        <?=htmlspecialchars($news ['article_title']);?>
+                                    </a>
+                                </div>
+                                <p class="news-date">Cập nhật ngày <?= htmlspecialchars(date("d/m/Y", strtotime($news['article_date']))); ?></p>
+                            </div>
+                        </div>
+                    <?php endwhile;
+                } else {
+                    echo '<p>Không có tin tức nào.</p>';
+                }
+            ?>
         </div>
     </div>
-</section>
+</div>
 
-<?php require "../footer.php" ?>
+
 <style>
-/* CSS styles giữ nguyên */
-
-
+/* Reset and base styles */
 body, h2, p, ul, li, a, img {
     font-family: Arial, sans-serif;
     line-height: 1.8;
     margin: 0;
     padding: 0;
-    font-size:16px;
+    font-size: 16px;
     list-style: none;
     text-decoration: none;
     box-sizing: border-box;
-    /*background-color: #f9f9f9;*/
     color: #333;
-    
 }
 
- body {
-     
-    font-family: 'Arial', sans-serif;
-    line-height: 1.8;
-    color: #333;
-    background: #f9f9f9;
-    margin: 0;
-    }
-    
-h1{
-    font-size: 40px;
+/* General image styling */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
-
-.article-info {
-    display: flex;
-    text-indent: 5px;
-    align-items: center;
-}
-.article_date {
-    color: blue;
-}
-
-.article_author {
-    color: green;
-}
-.article {
-    /*padding: 20px 0;*/
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    /*max-width: 50%;*/
-    border-radius: 8px;
-    
-}
-.container {
-    width: 90%;
+/* Container layout */
+.container-layout {
+    width: 70%;
     margin: 0 auto;
+    padding: 0;
 }
+
+/* Breadcrumb */
+.breadcrumb {
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Main layout */
+.main-layout {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    gap: 20px;
+}
+
+/* Sidebar (left column) */
+.sidebar {
+    width: 27%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: calc(100vh - 40px);
+}
+
+.sidebar h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #222;
+    font-weight: bold;
+    color: #FF0000;
+}
+
+.sidebar p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.news-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.news-card:last-child {
+    border-bottom: none;
+}
+
+.news-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.news-content {
+    flex: 1;
+}
+
+.news-title a {
+    font-size: 1rem;
+    color: #222;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+.news-title a:hover {
+    color: rgb(252, 71, 71);
+}
+
+.news-date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Article (right column) */
+.article {
+    width: 75%;
+}
+
 .article__content {
-    padding: 60px 10%;
+    padding: 44px 5%;
     background: #fff;
     border-radius: 8px;
-    margin: 30px auto;
-    max-width: 1200px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+    font-weight: 400;
+}
 
 .article__content h1 {
     font-size: 2rem;
@@ -127,20 +291,64 @@ h1{
     margin-bottom: 10px;
     color: #222;
 }
+
 .article__content span {
-    display: block;
     font-size: 0.9rem;
-    color: #777;
-    margin-bottom: 20px;
+    color: #000;
 }
+
 .article__context {
     font-size: 1rem;
     line-height: 1.8;
     color: #444;
     margin-bottom: 20px;
     text-align: justify;
+    
+    
 }
-/*css tab*/
+
+.article__summary {
+    margin-bottom: 30px;
+}
+
+.article__summary h1,
+.article__summary h2,
+.article__summary h3,
+.article__summary p {
+    font-family: Arial, sans-serif;
+    margin-bottom: 16px;
+    font-weight: normal;
+    font-size: 19px;
+    line-height: 1.8;
+    color: #444;
+}
+
+.article__summary a {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    padding-left: 10px;
+    transition: color 0.3s;
+}
+
+.article__summary a:hover {
+    color: #0a66c2;
+}
+
+.article__summary a.h2 {
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.article__summary a.h3 {
+    margin-left: 40px;
+    font-size: 14px;
+}
+
+/* Article tags */
 .article__tag {
     margin-top: 10px;
 }
@@ -155,59 +363,226 @@ h1{
     display: inline-block;
     background: #f5f5f5;
     color: #FF0000;
-    padding: 4px 19px;
+    padding: 5px 10px;
     border-radius: 8px;
     font-size: 16px;
-    margin-right: 5px;
+    margin: 5px;
     text-decoration: none;
     transition: background 0.3s ease;
-    margin: 5px; /* Tạo khoảng cách giữa các thẻ */
-    padding: 5px 10px; /* Làm cho thẻ dễ nhìn hơn */
 }
 
 .article__tag a:hover {
-    background-color: rgb(223 6 45 / var(--tw-bg-opacity, 1));
-    color: #FFFFFF; /* Màu chữ trắng */
-}
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-.container {
-  overflow: hidden;
-  padding: 0;
-  margin: 0 auto;
-  box-sizing: border-box;
+    background-color: rgb(223, 6, 45);
+    color: #FFFFFF;
 }
 
+/* Article meta and social icons */
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icons a {
+    margin-right: 12px;
+    color: #000;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.copy-notification {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.notification-text {
+    background: linear-gradient(45deg, #FF3300, #FFFFFF);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Website links */
+.website-links {
+    margin: 20px 0;
+    font-size: 1rem;
+    color: #d32f2f;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow-x: auto; /* Allow horizontal scrolling on small screens if needed */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+}
+
+.website-links a {
+    color: #d32f2f;
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+    white-space: nowrap; /* Ensure each link stays on one line */
+}
+
+.website-links a:hover {
+    color: #b71c1c;
+}
+
+.website-links a:after {
+    content: " | ";
+    color: #d32f2f;
+}
+
+.website-links a:last-child:after {
+    content: "";
+}
+
+
+/* Responsive styles */
+@media screen and (max-width: 900px) {
+    .main-layout {
+        flex-direction: column-reverse;
+        gap: 15px;
+    }
+    .sidebar,
+    .article {
+        width: 100%;
+    }
+    .sidebar {
+        max-height: none;
+        position: static;
+        overflow-y: visible;
+        margin-bottom: 20px;
+    }
+    .news-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding-bottom: 12px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        overflow: hidden;
+        background: #fff;
+    }
+    .news-card img {
+        width: 90px;
+        height: 90px;
+        max-width: 90px;
+        max-height: 90px;
+        object-fit: cover;
+        border-radius: 6px;
+        flex-shrink: 0;
+        background: #f5f5f5;
+        display: block;
+    }
+    .news-content {
+        flex: 1 1 0%;
+        min-width: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .news-title a {
+        display: block;
+        white-space: normal;
+        word-break: break-word;
+    }
+}
 
 @media screen and (max-width: 600px) {
-    .article__content h1 {
-        font-size: 1.5rem;
+    .container-layout {
+        width: 98%;
+        padding: 0 1%;
     }
-    .article__content span {
+    .main-layout {
+        flex-direction: column-reverse;zzzzar {
+        width: 100%;
+        padding: 10px;
+        max-height: none;
+        position: static;
+        overflow-y: visible;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .sidebar h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+        color: #FF0000;
+        font-weight: bold;
+    }
+    .sidebar p {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+        color: #777;
+    }
+    .news-card {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #eee;
+        overflow: hidden;
+    }
+    .news-card:last-child {
+        border-bottom: none;
+    }
+    .news-card img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 4px;
+        flex-shrink: 0;
+        background: #f5f5f5;
+        display: block;
+    }
+    .news-content {
+        flex: 1 1 0%;
+        min-width: 0;
+        overflow: hidden;
+    }
+    .news-title a {
+        display: block;
+        white-space: normal;
+        word-break: break-word;
+    }
+    .news-date {
         font-size: 0.8rem;
+        color: #777;
+        margin-top: 5px;
+    }
+    /* Đảm bảo phần bài viết chính cũng hiển thị tốt trên mobile */
+    .article {
+        width: 100%;
+    }
+    .article__content {
+        padding: 12px 2%;
+        border-radius: 8px;
+    }
+    .article__content h1 {
+        font-size: 1.2rem;
     }
     .article__context,
     .article__summary {
         font-size: 0.9rem;
     }
-    .article__content img {
-      max-width: 100%; /* Đảm bảo không vượt quá vùng chứa */
-      height: auto; /* Duy trì tỷ lệ gốc của ảnh */
-      display: block; /* Loại bỏ khoảng cách không cần thiết xung quanh ảnh */
-      object-fit: contain; /* Đảm bảo toàn bộ ảnh hiển thị mà không bị cắt */
-      margin-left: 0 !important; /* Đảm bảo ảnh không bị lùi */
-      margin-right: 0 !important;
-      width: 100% !important; /* Buộc ảnh chiếm toàn bộ chiều rộng vùng chứa */
-      position: relative; /* Đặt lại vị trí tương đối nếu bị thụt vào */
+    .article__tag a {
+        font-size: 0.9rem;
+        padding: 4px 8px;
+        margin: 3px;
     }
-
 }
-    
-
-
 </style>
 
 
