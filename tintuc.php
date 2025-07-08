@@ -63,6 +63,8 @@ $article = mysqli_fetch_assoc($query_article);
                             <a href="https://www.linkedin.com/in/rosa-ai-computer-20980b352/" target="_blank">
                                 <i class="fab fa-linkedin" style="color: #0A66C2; font-size:25px "></i>
                             </a>
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
                              <!-- Icon sao chép link -->
                             <a href="javascript:void(0);" onclick="copyLink()" title="Sao chép liên kết">
                                 <i class="fas fa-link" style="color: #000000; font-size:20px;"></i>
@@ -122,40 +124,48 @@ $article = mysqli_fetch_assoc($query_article);
                     }
                     ?>
                 </div>
+
+                <div class="rosa-contact">
+                    <h4>ROSA COMPUTER</h4>
+                    <p>Địa chỉ: 150 Ter Bùi Thị Xuân, Phường Bến Thành, TP. Hồ Chí Minh.</p>
+                    <p>Phòng KD: (028) 39293770 - (028) 39293765</p>
+                    <p>Phòng kỹ thuật & Bảo hành: (028) 39260996</p>
+                    <p>Website: 
+                        <a href="https://www.rosacomputer.vn" target="_blank">www.rosacomputer.vn</a> | 
+                        <a href="https://www.rosacomputer.ai" target="_blank">www.rosacomputer.ai</a>
+                    </p>
+                </div>
             </div>
         </section>
 
         <!-- Cột bên phải: Tin tức mới -->
         <div class="sidebar">
-            <h3 style='font-weight: bold; color:#FF0000;'>Tin tức nổi bật</h3>
-            <p>Bạn có thể khám phá thêm nhiều thông tin mới nhất về công nghệ và giải pháp từ tin tức ROSA</p>
-            <?php
-                // Truy vấn 4 bài viết ngẫu nhiên
-                $newsQuery = "SELECT article_title, article_link, article_image, article_date FROM article ORDER BY article_date DESC LIMIT 3";
-                $newsResult = mysqli_query($mysqli, $newsQuery);
-                if ($newsResult && mysqli_num_rows($newsResult) > 0) {
-                    while ($news = mysqli_fetch_assoc($newsResult)): ?>
-                        <div class="news-card">
-                            <a href="http://localhost/DARS/tintuc_test/tintuc/<?= htmlspecialchars($news['article_link']); ?>">
-                                <img src="/tintuc_test/admin/modules/blog/uploads/<?= htmlspecialchars($news['article_image']); ?>" alt="News Image">
-                            </a>
-                            <div class="news-content">
-                                <div class="news-title">
-                                     <a href="<?= htmlspecialchars($news['article_link']); ?>">
-                                        <?=htmlspecialchars($news ['article_title']);?>
+            <div class="tab-news">
+                <h3 class="tab-title">TIN MỚI NHẤT</h3>
+                <?php
+                    $latestNewsQuery = "SELECT article_title, article_link, article_image, article_date FROM article ORDER BY article_date DESC LIMIT 3";
+                    $latestResult = mysqli_query($mysqli, $latestNewsQuery);
+                    if ($latestResult && mysqli_num_rows($latestResult) > 0):
+                        while ($news = mysqli_fetch_assoc($latestResult)): ?>
+                            <div class="news-card">
+                                <a href="/DARS/tintuc_test/tintuc/<?= htmlspecialchars($news['article_link']); ?>">
+                                    <img src="/tintuc_test/admin/modules/blog/uploads/<?= htmlspecialchars($news['article_image']); ?>" alt="News Image">
+                                </a>
+                                <div class="news-content">
+                                    <a class="news-title" href="/DARS/tintuc_test/tintuc/<?= htmlspecialchars($news['article_link']); ?>">
+                                        <?= htmlspecialchars($news['article_title']); ?>
                                     </a>
+                                    <p class="news-date"><?= date("d/m/Y", strtotime($news['article_date'])); ?></p>
                                 </div>
-                                <p class="news-date">Cập nhật ngày <?= htmlspecialchars(date("d/m/Y", strtotime($news['article_date']))); ?></p>
                             </div>
-                        </div>
-                    <?php endwhile;
-                } else {
-                    echo '<p>Không có tin tức nào.</p>';
-                }
-            ?>
+                <?php endwhile; endif; ?>
+            </div>
+
         </div>
+
     </div>
 </div>
+
 
 
 <style>
@@ -171,6 +181,21 @@ body, h2, p, ul, li, a, img {
     box-sizing: border-box;
     color: #333;
 }
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img, iframe, video {
+    max-width: 100%;
+    height: auto;
+}
+
+a, p, div, span {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 
 /* General image styling */
 img {
@@ -178,6 +203,77 @@ img {
     height: auto;
     display: block;
 }
+
+.tab-news {
+    margin-bottom: 30px;
+}
+
+.tab-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #d60000;
+    border-bottom: 2px solid #d60000;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.news-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.news-card img {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.news-content {
+    flex: 1;
+}
+
+.news-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+.news-title:hover {
+    color: #d60000;
+    text-decoration: underline;
+}
+
+.news-date {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.rosa-contact h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #c80000;
+    margin-bottom: 10px;
+}
+
+.rosa-contact a {
+    color: #0073e6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.rosa-contact a:hover {
+    text-decoration: underline;
+}
+
 
 /* Container layout */
 .container-layout {
@@ -445,6 +541,20 @@ img {
 .website-links a:last-child:after {
     content: "";
 }
+@media screen and (max-width: 768px) {
+    .main-layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar {
+        order: -1; /* Đưa sidebar lên trước */
+    }
+
+    .article {
+        order: 0; /* Bài viết phía dưới */
+    }
+}
 
 
 /* Responsive styles */
@@ -500,10 +610,13 @@ img {
 }
 
 @media screen and (max-width: 600px) {
-    .container-layout {
-        width: 98%;
-        padding: 0 1%;
+   .container-layout {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 10px;
     }
+
     .main-layout {
         flex-direction: column-reverse;zzzzar {
         width: 100%;
@@ -582,6 +695,7 @@ img {
         padding: 4px 8px;
         margin: 3px;
     }
+}
 }
 </style>
 
