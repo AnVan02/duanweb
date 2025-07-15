@@ -1,0 +1,37 @@
+.formula {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.code-container {
+    display: inline-block;
+    background: #0c0c0c;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: "Courier New", monospace;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.indent {
+    margin-left: 20px;
+}
+
+.double-indent {
+    margin-left: 40px;
+}
+
+.triple-indent {
+    margin-left: 60px;
+}
+
+.keyword {
+    color: #ffcc00;
+}
+
+.comment {
+    color: #999999;
+    font-style: italic;
+}
