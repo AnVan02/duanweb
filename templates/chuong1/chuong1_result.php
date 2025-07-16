@@ -18,8 +18,8 @@ if ($conn->connect_error) {
 }
 
 // Lấy id_test từ URL
-$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '5';
-$ma_khoa = '19';
+$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '1';
+$ma_khoa = '1';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "khoahoc.php";
 $link_tiep_tuc = "add_khoahoc.php";
@@ -30,8 +30,8 @@ if (!isset($_SESSION['test_completed'])) {
     $_SESSION['test_completed'] = false;
 }
 
-// Lấy thông tin khóa học và bài test
-$stmt = $conn->prepare("SELECT k.khoa_hoc, t.ten_test 
+// Lấy thông tin khóa học và bài test, đồng thời lấy thông tin test (lan_thu, so_cau_hien_thi, Pass)
+$stmt = $conn->prepare("SELECT k.khoa_hoc, t.ten_test, t.lan_thu, t.so_cau_hien_thi, t.Pass 
                        FROM khoa_hoc k 
                        JOIN test t ON k.id = t.id_khoa 
                        WHERE k.id = ? AND t.id_test = ?");
@@ -42,27 +42,20 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $ten_khoa = $row['khoa_hoc'];
     $ten_test = $row['ten_test'];
+    $max_attempts = isset($row['lan_thu']) ? intval($row['lan_thu']) : 1;
+    $so_cau_hien_thi = isset($row['so_cau_hien_thi']) ? intval($row['so_cau_hien_thi']) : 0;
+    $pass_score = isset($row['Pass']) ? $row['Pass'] : 0;
 } else {
     $ten_khoa = '';
     $ten_test = '';
+    $max_attempts = 1;
+    $so_cau_hien_thi = 0;
+    $pass_score = 0;
     echo "<p class='no-answers'>Lỗi: Không tìm thấy khóa học hoặc bài test!</p>";
     $conn->close();
     exit();
 }
 $stmt->close();
-
-// Lấy số lần thử tối đa
-function getTestInfo($conn, $id_test, $ma_khoa) {
-    $sql = "SELECT lan_thu FROM test WHERE id_test = ? AND id_khoa = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $id_test, $ma_khoa);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $lan_thu = $result->num_rows > 0 ? $result->fetch_assoc()['lan_thu'] : 1;
-    $stmt->close();
-    return $lan_thu;
-}
-$max_attempts = getTestInfo($conn, $id_test, $ma_khoa);
 
 // Lưu câu trả lời vào cơ sở dữ liệu
 function saveAnswerToDatabase($conn, $student_id, $ma_khoa, $id_test, $answers, $score) {
@@ -157,40 +150,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['reset'])) {
     }
 }
 
-// Lấy danh sách câu hỏi từ database
-$stmt = $conn->prepare("SELECT * FROM quiz WHERE id_khoa = ? AND id_baitest = ?");
-$stmt->bind_param("ss", $ma_khoa, $id_test);
-$stmt->execute();
-$result = $stmt->get_result();
-$questions = [];
-while ($row = $result->fetch_assoc()) {
-    $questions[] = [
-        'id' => $row['Id_cauhoi'],
-        'question' => $row['cauhoi'],
-        'choices' => [
-            'A' => $row['cau_a'],
-            'B' => $row['cau_b'],
-            'C' => $row['cau_c'],
-            'D' => $row['cau_d']
-        ],
-        'images' => [
-            'A' => $row['hinhanh_a'],
-            'B' => $row['hinhanh_b'],
-            'C' => $row['hinhanh_c'],
-            'D' => $row['hinhanh_d']
-        ],
-        'explanations' => [
-            'A' => $row['giaithich_a'],
-            'B' => $row['giaithich_b'],
-            'C' => $row['giaithich_c'],
-            'D' => $row['giaithich_d']
-        ],
-        'correct' => $row['dap_an'],
-        'image' => $row['hinhanh']
-    ];
-}
-$_SESSION['questions_' . $id_test] = $questions; // Lưu lại câu hỏi vào session
-$stmt->close();
+// Lấy danh sách câu hỏi đã làm từ session (đúng thứ tự và nội dung đã random ở quiz)
+$questions = $_SESSION['questions_' . $id_test] ?? [];
+
+// Không cắt lại số lượng câu hỏi ở đây nữa, vì $questions đã là đúng thứ tự và số lượng random từ trang quiz
+// XÓA đoạn này:
+// if ($so_cau_hien_thi > 0 && $so_cau_hien_thi < count($questions)) {
+//     $questions = array_slice($questions, 0, $so_cau_hien_thi);
+// }
+// $_SESSION['questions_' . $id_test] = $questions; // Lưu lại câu hỏi vào session
 
 $conn->close();
 ?>
@@ -294,6 +262,11 @@ $conn->close();
 </head>
 <body>
     <div class="container">
+        <!-- <div class="navigation-actions" style="margin-bottom: 16px;">
+            <b>Lần thử tối đa:</b> <?php echo htmlspecialchars($max_attempts); ?> |
+            <b>Số câu hiển thị:</b> <?php echo htmlspecialchars($so_cau_hien_thi > 0 ? $so_cau_hien_thi : count($_SESSION['questions_' . $id_test] ?? [])); ?> |
+            <b>Điểm đạt (Pass):</b> <?php echo htmlspecialchars($pass_score); ?>
+        </div> -->
         <h1>Kết quả bài kiểm tra</h1>
         <p><strong>Khóa học:</strong> <?php echo htmlspecialchars($ten_khoa); ?></p>
         <p><strong>Bài test:</strong> <?php echo htmlspecialchars($ten_test); ?></p>
@@ -317,9 +290,11 @@ $conn->close();
                                 <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['images'][$key]); ?>" alt="Hình ảnh đáp án <?php echo $key; ?>">
                             <?php endif; ?>
                             <?php
-                            $is_selected = isset($answers[$index]) && $key === $answers[$index]['selected'];
-                            $is_correct_answer = $key === $question['correct'];
-                            $is_correct = $is_selected && $answers[$index]['is_correct'];
+                            // Đảm bảo lấy đúng đáp án đã chọn từ session
+                            $selected_key = isset($answers[$index]['selected']) ? $answers[$index]['selected'] : null;
+                            $is_selected = ($key === $selected_key);
+                            $is_correct_answer = ($key === $question['correct']);
+                            $is_correct = $is_selected && !empty($answers[$index]['is_correct']);
 
                             $li_class = '';
                             $icon = '';
@@ -336,12 +311,16 @@ $conn->close();
                             ?>
                             <li class="<?php echo $li_class; ?>">
                                 <?php echo $icon; ?> <?php echo $key; ?>. <?php echo htmlspecialchars($value); ?>
+                                <?php if ($is_correct_answer && !$is_selected): ?>
+                                    <span style="color:#28a745;font-weight:bold;"></span>
+                                <?php endif; ?>
                             </li>
                         <?php endforeach; ?>
                     </ul>
                     <?php
                     // Giải thích nếu chọn sai
                     if (isset($answers[$index]['selected']) && !empty(trim($question['explanations'][$answers[$index]['selected']] ?? ''))) {
+                        $is_correct = !empty($answers[$index]['is_correct']);
                         echo "<div class='explanation-block' style='border-color: " . ($is_correct ? "#28a745" : "#dc3545") . ";'>";
                         echo "<p><strong>Giải thích: </strong>" . htmlspecialchars($question['explanations'][$answers[$index]['selected']] ?? '') . "</p>";
                         echo "</div>";
@@ -358,7 +337,7 @@ $conn->close();
                 </button>
             </form>
             <a href="<?php echo htmlspecialchars($link_tiep_tuc); ?>" class="nav-link" style="margin-left: 72%;">→ Tiếp tục</a>
-            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="nav-link">← Quay lại</a>
+            <!-- <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="nav-link">← Quay lại</a> -->
         </div>
     </div>
 </body>

@@ -101,23 +101,23 @@ if ($row = $result->fetch_assoc()) {
         ];
     }
 
-    // RANDOM 5 câu hỏi nếu số lượng > 5
-    if (count($questions) > 5) {
-        if (!isset($_SESSION['questions_' . $id_test]) || isset($_GET['start'])) {
-            shuffle($questions);
-            $questions = array_slice($questions, 0, 5);
-            $_SESSION['questions_' . $id_test] = $questions;
-        } else {
-            $questions = $_SESSION['questions_' . $id_test];
+    
+    if (count($questions) < 1) {
+        die("Lỗi: Không đủ câu hỏi cho khóa học '$ten_khoa' và bài test '$id_test'.");
+    }
+
+    // Chỉ random khi bắt đầu mới
+    if (isset($_GET['start']) && $_GET['start'] == 1) {
+        shuffle($questions);
+        if ($so_cau_hien_thi > 0 && $so_cau_hien_thi < count($questions)) {
+            $questions = array_slice($questions, 0, $so_cau_hien_thi);
         }
-    } else {
         $_SESSION['questions_' . $id_test] = $questions;
     }
-    $_SESSION['ten_khoa'] = $ten_khoa;
-    $_SESSION['id_baitest'] = $id_test;
 } else {
     die("Lỗi: Không tìm thấy khóa học với mã '$ma_khoa'");
 }
+
 $stmt->close();
 $stmt2->close();
 
@@ -153,10 +153,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && (isset($_POST['next']) || isset($_P
         $user_answer = $_POST['answer'];
         $current_question = $_SESSION['questions_' . $id_test][$current_index];
         $is_correct = ($user_answer === $current_question['correct']);
-        $answers[$current_index] = [
+        
+        // Sửa đổi cách lưu answer để bao gồm cả question_id
+        $answers[$current_question['id']] = [ // Sử dụng question_id làm key thay vì index
             'selected' => $user_answer,
-            'is_correct' => $is_correct
+            'is_correct' => $is_correct,
+            'question_index' => $current_index // Lưu thêm index để tiện truy xuất
         ];
+        
         $_SESSION['answers_' . $id_test] = $answers;
         if ($is_correct && !isset($_SESSION['score_saved_' . $id_test][$current_index])) {
             $score++;

@@ -84,70 +84,132 @@ $conn->close();
     <title>Tổng kết bài kiểm tra</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fa;
-            padding: 2rem;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f3f6fb;
+            padding: 0;
+            margin: 0;
         }
         .header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin: 40px 0 32px 0;
         }
-
         .header h1 {
-            color: var(--dark-color);
-            font-size: 2.2rem;
+            color: #222;
+            font-size: 2.3rem;
             margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-weight: 700;
         }
-
         .header p {
             color: #7f8c8d;
             font-size: 1.1rem;
         }
-
         table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+            width: 90%;
+            margin: 0 auto 40px auto;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            box-shadow: 0 4px 24px 0 rgba(44,62,80,0.08);
+            border-radius: 14px;
+            overflow: hidden;
         }
-
         th, td {
-            padding: 1rem;
-            border: 1px solid #ddd;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #eaeaea;
+            text-align: left;
         }
-
         th {
             background: #3498db;
-            color: white;
+            color: #fff;
             text-transform: uppercase;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-bottom: 3px solid #217dbb;
         }
-
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tbody tr:hover {
+            background: #f0f8ff;
+            transition: background 0.18s;
+        }
         .status-completed {
             background-color: #2ecc71;
-            color: white;
-            padding: 4px 12px;
+            color: #fff;
+            padding: 6px 18px;
             border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(46,204,113,0.08);
         }
-
         .status-incomplete {
             background-color: #e74c3c;
-            color: white;
-            padding: 4px 12px;
+            color: #fff;
+            padding: 6px 18px;
             border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(231,76,60,0.08);
         }
-
         .btn {
             background-color: #2980b9;
-            color: white;
-            padding: 8px 14px;
+            color: #fff;
+            padding: 10px 22px;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(52,152,219,0.08);
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            border: none;
+            outline: none;
+            display: inline-block;
         }
-
-        .btn:hover {
+        .btn:hover, .btn:focus {
             background-color: #1c6396;
+            box-shadow: 0 4px 16px rgba(52,152,219,0.15);
+            transform: translateY(-2px) scale(1.03);
+        }
+        @media (max-width: 900px) {
+            table {
+                width: 100%;
+            }
+            th, td {
+                padding: 0.7rem 0.5rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            th {
+                border-radius: 0;
+            }
+            tr {
+                margin-bottom: 1.2rem;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                min-height: 38px;
+            }
+            td:before {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 48%;
+                padding-left: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+                color: #888;
+                content: attr(data-label);
+            }
         }
     </style>
 </head>

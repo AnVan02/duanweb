@@ -11,8 +11,8 @@ if (!isset($_SESSION['student_id'])) {
     exit();
 }
 
-$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '5'; // Lấy id_test từ URL
-$ma_khoa = '19';
+$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '1'; // Lấy id_test từ URL
+$ma_khoa = '1';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "khoahoc.php";
 
@@ -23,6 +23,10 @@ if (isset($_GET['start']) && $_GET['start'] == 1) {
     $_SESSION['score_' . $id_test] = 0;
     $_SESSION['score_saved_' . $id_test] = [];
     $_SESSION['test_completed'] = false;
+    unset($_SESSION['questions_' . $id_test]);
+    // Thêm chuyển hướng để loại bỏ start=1 khỏi URL
+    header("Location: chuong1_quiz.php?id_test=$id_test");
+    exit();
 }
 
 // Kết nối cơ sở dữ liệu
@@ -49,8 +53,8 @@ if ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-// Kiểm tra ID bài test
-$stmt = $conn->prepare("SELECT ten_test FROM test WHERE id_test = ?");
+// Kiểm tra ID bài test và lấy thông tin test (lan_thu, so_cau_hien_thi, Pass)
+$stmt = $conn->prepare("SELECT ten_test, lan_thu, so_cau_hien_thi, Pass FROM test WHERE id_test = ?");
 $stmt->bind_param("i", $id_test);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -60,6 +64,9 @@ if ($result->num_rows == 0) {
 }
 $row = $result->fetch_assoc();
 $id_baitest = $row['ten_test'];
+$max_attempts = isset($row['lan_thu']) ? intval($row['lan_thu']) : 1;
+$so_cau_hien_thi = isset($row['so_cau_hien_thi']) ? intval($row['so_cau_hien_thi']) : 0;
+$pass_score = isset($row['Pass']) ? $row['Pass'] : '';
 $stmt->close();
 
 // Lấy tên khóa học và câu hỏi
@@ -100,11 +107,27 @@ if ($row = $result->fetch_assoc()) {
             'image' => $row2['hinhanh']
         ];
     }
-    
-    if (count($questions) < 1) {
+    // Nếu so_cau_hien_thi > 0 và nhỏ hơn tổng số câu hỏi, chọn ngẫu nhiên không trùng lặp số lượng câu hỏi cần hiển thị
+    if ($so_cau_hien_thi > 0 && $so_cau_hien_thi < count($questions)) {
+        if (!isset($_SESSION['questions_' . $id_test])) {
+            $rand_keys = array_rand($questions, $so_cau_hien_thi);
+            if (!is_array($rand_keys)) $rand_keys = [$rand_keys];
+            $selected_questions = [];
+            foreach ($rand_keys as $k) {
+                $selected_questions[] = $questions[$k];
+            }
+            $_SESSION['questions_' . $id_test] = $selected_questions;
+        }
+        $questions = $_SESSION['questions_' . $id_test];
+    } else {
+        if (!isset($_SESSION['questions_' . $id_test])) {
+            $_SESSION['questions_' . $id_test] = $questions;
+        }
+        $questions = $_SESSION['questions_' . $id_test];
+    }
+    if (count($_SESSION['questions_' . $id_test]) < 1) {
         die("Lỗi: Không đủ câu hỏi cho khóa học '$ten_khoa' và bài test '$id_test'.");
     }
-    $_SESSION['questions_' . $id_test] = $questions;
     $_SESSION['ten_khoa'] = $ten_khoa;
     $_SESSION['id_baitest'] = $id_test;
 } else {
@@ -112,19 +135,6 @@ if ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 $stmt2->close();
-
-// Lấy số lần thử tối đa
-function getTestInfo($conn, $ten_test, $id_khoa) {
-    $sql = "SELECT lan_thu FROM test WHERE ten_test = ? AND id_khoa = (SELECT id FROM khoa_hoc WHERE khoa_hoc = ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $ten_test, $id_khoa);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $lan_thu = $result->num_rows > 0 ? $result->fetch_assoc()['lan_thu'] : 1;
-    $stmt->close();
-    return $lan_thu;
-}
-$max_attempts = getTestInfo($conn, $id_baitest, $ten_khoa);
 
 // Khởi tạo biến
 $current_index = isset($_SESSION['current_index_' . $id_test]) ? intval($_SESSION['current_index_' . $id_test]) : 0;
@@ -278,6 +288,11 @@ $conn->close();
 </head>
 <body>
     <div class="container">
+        <!-- <div class="navigation-links">
+            <b>Lần thử tối đa:</b> <?php echo htmlspecialchars($max_attempts); ?> |
+            <b>Số câu hiển thị:</b> <?php echo htmlspecialchars($so_cau_hien_thi > 0 ? $so_cau_hien_thi : count($_SESSION['questions_' . $id_test])); ?> |
+            <b>Điểm đạt (Pass):</b> <?php echo htmlspecialchars($pass_score); ?>
+        </div> -->
         <?php if ($attempts >= $max_attempts): ?>
             <p class="no-answers">Bạn đã sử dụng hết số lần làm bài! <a class="nav-link" href="chuong1_result.php?id_test=<?php echo htmlspecialchars($id_test); ?>">Xem kết quả</a></p>
         <?php elseif ($current_index < count($_SESSION['questions_' . $id_test])): ?>
