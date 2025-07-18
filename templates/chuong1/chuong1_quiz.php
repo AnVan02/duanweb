@@ -11,7 +11,7 @@ if (!isset($_SESSION['student_id'])) {
     exit();
 }
 
-$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '1'; // Lấy id_test từ URL
+$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '2'; // Lấy id_test từ URL
 $ma_khoa = '1';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "khoahoc.php";

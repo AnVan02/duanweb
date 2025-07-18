@@ -712,10 +712,8 @@ if ($mode == 'edit' && $student_id) {
                     updateSelectedCourses();
                 })
                 .catch(error => {
-                    console.warn(error);
-                    if (error.response) {
-                        error.response.text().then(txt => console.warn(txt));
-                    }
+                    console.error('Error fetching courses:', error);
+                    alert('Lỗi khi tải danh sách khóa học: ' + error.message);
                 });
         }
 

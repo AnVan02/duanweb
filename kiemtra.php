@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Kết nối CSDL
-    $conn = new mysqli("localhost", "root", "", "student");
+$conn = new mysqli("localhost", "root", "", "student");
 $conn->set_charset("utf8mb4");
 
 if ($conn->connect_error) {
@@ -54,19 +54,50 @@ foreach ($course_ids as $khoa_id) {
     $total_test = $stmt->get_result()->fetch_assoc()['tong_test'] ?? 0;
     $stmt->close();
 
-    // Đếm số bài test đã làm
-    $stmt = $conn->prepare("SELECT COUNT(DISTINCT test_id) AS da_lam FROM ket_qua WHERE student_id = ? AND khoa_id = ?");
+    // Lấy thông tin chi tiết về các bài test và kết quả
+    $stmt = $conn->prepare("
+        SELECT 
+            t.id_test,
+            t.so_cau_hien_thi,
+            t.pass,
+            kq.kq_cao_nhat
+        FROM test t
+        LEFT JOIN ket_qua kq ON t.id_test = kq.test_id AND kq.student_id = ?
+        WHERE t.id_khoa = ?
+    ");
     $stmt->bind_param("si", $student_id, $khoa_id);
     $stmt->execute();
-    $done_test = $stmt->get_result()->fetch_assoc()['da_lam'] ?? 0;
+    $test_results = $stmt->get_result();
     $stmt->close();
 
-    $hoan_thanh = ($total_test > 0 && $done_test >= $total_test);
+    $bai_dat = 0;
+    $da_lam = 0;
+
+    while ($test_row = $test_results->fetch_assoc()) {
+        $kq_cao_nhat = $test_row['kq_cao_nhat'];
+        $so_cau_hien_thi = $test_row['so_cau_hien_thi'];
+        $pass_percent = floatval($test_row['pass']) ?? 100;
+        
+        if ($kq_cao_nhat !== null && $so_cau_hien_thi > 0) {
+            $da_lam++;
+            // Tính phần trăm: kết quả cao nhất / số câu hiển thị * 100
+            $phan_tram = ($kq_cao_nhat / $so_cau_hien_thi * 100);
+            
+            // Nếu >= pass% thì tính là đạt
+            if ($phan_tram >= $pass_percent) {
+                $bai_dat++;
+            }
+        }
+    }
+
+    // Xác định trạng thái hoàn thành
+    // Khóa học chỉ hoàn thành khi TẤT CẢ bài test đều đạt
+    $hoan_thanh = ($total_test > 0 && $bai_dat >= $total_test);
 
     $course_summary[] = [
         'ten_khoa' => $ten_khoa,
         'mo_ta' => $mo_ta,
-        'da_lam' => $done_test,
+        'bai_dat' => $bai_dat,
         'tong' => $total_test,
         'trang_thai' => $hoan_thanh ? 'Hoàn thành' : 'Chưa hoàn thành',
         'class' => $hoan_thanh ? 'status-completed' : 'status-incomplete',
@@ -233,7 +264,7 @@ $conn->close();
             <?php foreach ($course_summary as $course): ?>
                 <tr>
                     <td><?= htmlspecialchars($course['ten_khoa']) ?></td>
-                    <td><?= $course['da_lam'] . ' / ' . $course['tong'] ?></td>
+                    <td><?= $course['bai_dat'] . ' / ' . $course['tong'] ?></td>
                     <td><span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span></td>
                     <td><?= strip_tags($course['mo_ta'], '<h1><h2><ul><li><strong><p><br>') ?></td>
                     <td><a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a></td>

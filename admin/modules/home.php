@@ -297,11 +297,60 @@ if (isset($_GET['student_id']) && !empty(trim($_GET['student_id']))) {
                     </div>
                     <div class='test-info'>
                         <span>Đã làm: $attempted_tests / $total_tests bài test</span>
-                    </div>
-                    <div class='test-actions'>
-                        <a href='?student_id=$student_id&khoa_hoc_id={$row2['id']}'>Xem bài test</a>
-                    </div>
-                </li>";
+                    </div>";
+
+                // Lấy danh sách bài test của sinh viên cho khóa học này
+                $sql_tests = "
+                    SELECT t.id_test, t.ten_test, t.Pass as required_pass_percent, 
+                           t.lan_thu as max_attempts,
+                           kq.kq_cao_nhat, kq.so_lan_thu,
+                           (SELECT COUNT(*) FROM quiz q WHERE q.id_baitest = t.ten_test AND q.id_khoa = '{$row2['khoa_hoc']}') as total_questions
+                    FROM test t
+                    JOIN kiem_tra kt ON t.id_test = kt.Test_ID AND t.id_khoa = kt.Khoa_ID
+                    LEFT JOIN ket_qua kq ON kq.student_id = '$student_id' AND kq.khoa_id = {$row2['id']} AND kq.test_id = t.id_test
+                    WHERE t.id_khoa = {$row2['id']} AND kt.Student_ID = '$student_id'
+                ";
+                $result_tests = $conn->query($sql_tests);
+
+                if ($result_tests && $result_tests->num_rows > 0) {
+                    echo "<ul>";
+                    while ($test = $result_tests->fetch_assoc()) {
+                        $test_id = $test['id_test'];
+                        $diem_cao_nhat = $test['kq_cao_nhat'] ?? 'Chưa có';
+                        $total_questions = $test['total_questions'] ?? 0;
+                        $required_pass_percent = $test['required_pass_percent'] ?? 80;
+                        $max_attempts = $test['max_attempts'] ?? 1;
+                        $attempt_count = $test['so_lan_thu'] ?? 0;
+
+                        $required_score = ceil($total_questions * $required_pass_percent / 100);
+
+                        $is_passed = is_numeric($diem_cao_nhat) && $total_questions > 0 && ($diem_cao_nhat >= $required_score);
+                        $passed_status = $is_passed ? "<span class='passed'>Đạt</span>" : "<span class='not-completed'>Chưa đạt</span>";
+
+                        $percentage = is_numeric($diem_cao_nhat) && $total_questions > 0 ? 
+                                     round(($diem_cao_nhat / $total_questions) * 100, 1) : 0;
+
+                        echo "<li>
+                            <div class='test-header'>
+                                <span><strong>{$test['ten_test']}</strong></span>
+                                <span>$passed_status</span>
+                            </div>
+                            <div class='test-info'>
+                                <span>Điểm cao nhất: $diem_cao_nhat/$total_questions ($percentage%)</span>
+                                <span>Yêu cầu đậu: $required_pass_percent%</span>
+                                <span>Số lần thử: $attempt_count/$max_attempts</span>
+                            </div>
+                            <div class='test-actions'>
+                                <a href='?student_id=$student_id&khoa_hoc_id={$row2['id']}&xem_ket_qua={$test['id_test']}'>Xem chi tiết kết quả</a>
+                            </div>
+                        </li>";
+                    }
+                    echo "</ul>";
+                } else {
+                    echo "<div>Không có bài test nào.</div>";
+                }
+
+                echo "</li>";
             }
             echo "</ul>";
         }

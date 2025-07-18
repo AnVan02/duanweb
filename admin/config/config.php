@@ -1,9 +1,6 @@
 <?php
 // Database configuration
-define('DB_HOST', 'localhost');
-define('DB_USER', 'nvpbgqcv_rosa_courses');
-define('DB_PASS', 'Vietson@ROSA@150');
-define('DB_NAME', 'nvpbgqcv_rosa_courses');
+$mysqli = new mysqli("localhost", "root", "", "student");
 
 // Create database connection
 function getDBConnection() {
