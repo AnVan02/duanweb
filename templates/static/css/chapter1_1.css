@@ -1,0 +1,12 @@
+.image {
+    margin: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+img {
+    width: 500px;
+}

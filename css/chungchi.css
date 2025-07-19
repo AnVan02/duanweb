@@ -1,0 +1,119 @@
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 30px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    form {
+        background-color: #fff;
+        max-width: 500px;
+        margin: 0 auto 40px;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px;
+        color: #34495e;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        transition: border 0.3s ease;
+    }
+
+    input:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
+    button {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+        padding: 14px 20px;
+        text-align: center;
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    th {
+        background-color: #3498db;
+        color: white;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+
+    tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .actions a {
+        display: inline-block;
+        margin: 0 5px;
+        color: #3498db;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .actions a:hover {
+        color: #21618c;
+    }
+
+    @media (max-width: 600px) {
+
+        form,
+        table {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+
+        button {
+            font-size: 14px;
+        }
+    }
