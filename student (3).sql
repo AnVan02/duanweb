@@ -1,9 +1,9 @@
-git -- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 16, 2025 lúc 09:46 PM
+-- Thời gian đã tạo: Th7 20, 2025 lúc 07:49 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -47,6 +47,27 @@ INSERT INTO `account` (`account_id`, `account_name`, `account_password`, `accoun
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `chungchi`
+--
+
+CREATE TABLE `chungchi` (
+  `student_id` int(11) NOT NULL,
+  `ten_hs` varchar(255) NOT NULL,
+  `khoa_id` varchar(255) NOT NULL,
+  `thanhtich` text DEFAULT NULL,
+  `chungchi` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chungchi`
+--
+
+INSERT INTO `chungchi` (`student_id`, `ten_hs`, `khoa_id`, `thanhtich`, `chungchi`) VALUES
+(1, 'AN1', '1', '0', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `ket_qua`
 --
 
@@ -65,7 +86,7 @@ CREATE TABLE `ket_qua` (
 --
 
 INSERT INTO `ket_qua` (`student_id`, `khoa_id`, `test_id`, `so_lan_thu`, `kq_cao_nhat`, `test_cao_nhat`, `test_gan_nhat`) VALUES
-(1, 1, 1, 4, 3, '2:A;3:C;4:D;5:A;6:B', '1:A;2:C;5:C;6:D;9:A');
+(1, 1, 2, 1, 5, '11:B;12:B;13:B;14:B;15:B', '11:B;12:B;13:B;14:B;15:B');
 
 -- --------------------------------------------------------
 
@@ -86,7 +107,8 @@ CREATE TABLE `khoa_hoc` (
 INSERT INTO `khoa_hoc` (`id`, `khoa_hoc`, `mo_ta`) VALUES
 (1, 'PHP', 'qqqqqqqqqqqqaaaaaaaaaaaa'),
 (2, 'YOLO', '<h1 style=\"color: rgb(13,12,134);\">YOLO11 <span style=\"color: rgb(13,12,134);\"></span></h1>\n\n<h2>Chương trình học:</h2>\n<ul>\n  <li><strong>Chương 1:</strong> Giới thiệu về YOLO và Thị giác máy tính</li>\n  <li><strong>Chương 2:</strong> Hướng dẫn cơ bản YOLO và ứng dụng</li>\n  <li><strong>Chương 3:</strong> Chuẩn bị dữ liệu cho mô hình YOLO</li>\n  <li><strong>Chương 4:</strong> Huấn luyện mô hình YOLO với dữ liệu tùy chỉnh</li>\n  <li><strong>Chương 5:</strong> Đánh giá và cải thiện hiệu suất mô hình thông qua các thông số tiêu chuẩn</li>\n  <li><strong>Chương 6:</strong> Xây dựng ứng dụng thực tế với YOLO</li>\n</ul>\n\n<p><strong>Hãy thực hành thật kỹ các ví dụ và bài tập trong mỗi chương để nâng cao kỹ năng vận dụng YOLO của bạn!</strong></p>'),
-(19, 'Python cơ bản', '<h1 style=\"color: rgb(13,12,134);\">YOLO11 <span style=\"color: rgb(13,12,134);\"></span></h1>\n\n<h2>Chương trình học:</h2>\n<ul>\n  <li><strong>Chương 1:</strong> Giới thiệu về YOLO và Thị giác máy tính</li>\n  <li><strong>Chương 2:</strong> Hướng dẫn cơ bản YOLO và ứng dụng</li>\n  <li><strong>Chương 3:</strong> Chuẩn bị dữ liệu cho mô hình YOLO</li>\n  <li><strong>Chương 4:</strong> Huấn luyện mô hình YOLO với dữ liệu tùy chỉnh</li>\n  <li><strong>Chương 5:</strong> Đánh giá và cải thiện hiệu suất mô hình thông qua các thông số tiêu chuẩn</li>\n  <li><strong>Chương 6:</strong> Xây dựng ứng dụng thực tế với YOLO</li>\n</ul>\n\n<p><strong>Hãy thực hành thật kỹ các ví dụ và bài tập trong mỗi chương để nâng cao kỹ năng vận dụng YOLO của bạn!</strong></p>');
+(19, 'Python cơ bản', '<h1 style=\"color: rgb(13,12,134);\">YOLO11 <span style=\"color: rgb(13,12,134);\"></span></h1>\n\n<h2>Chương trình học:</h2>\n<ul>\n  <li><strong>Chương 1:</strong> Giới thiệu về YOLO và Thị giác máy tính</li>\n  <li><strong>Chương 2:</strong> Hướng dẫn cơ bản YOLO và ứng dụng</li>\n  <li><strong>Chương 3:</strong> Chuẩn bị dữ liệu cho mô hình YOLO</li>\n  <li><strong>Chương 4:</strong> Huấn luyện mô hình YOLO với dữ liệu tùy chỉnh</li>\n  <li><strong>Chương 5:</strong> Đánh giá và cải thiện hiệu suất mô hình thông qua các thông số tiêu chuẩn</li>\n  <li><strong>Chương 6:</strong> Xây dựng ứng dụng thực tế với YOLO</li>\n</ul>\n\n<p><strong>Hãy thực hành thật kỹ các ví dụ và bài tập trong mỗi chương để nâng cao kỹ năng vận dụng YOLO của bạn!</strong></p>'),
+(20, 'Tiếng anh22', '');
 
 -- --------------------------------------------------------
 
@@ -114,11 +136,11 @@ INSERT INTO `kiem_tra` (`Student_ID`, `Khoa_ID`, `Test_ID`, `Best_Score`, `Max_S
 (3, 6, '21', 0, 0, '80', 0, 3),
 (3, 5, '22', 0, 0, '100', 0, 2),
 (3, 3, '16', 0, 0, '80', 0, 2),
-(2, 10, '12', 0, 0, '80', 0, 2),
-(2, 4, '23', 0, 0, '80', 0, 3),
-(2, 3, '16', 0, 0, '80', 0, 2),
 (4, 1, '19', 0, 0, '80', 0, 3),
-(1, 1, '1', 0, 0, '1', 0, 1);
+(1, 1, '1', 0, 0, '80', 0, 100),
+(1, 19, '6', 0, 0, '100', 0, 3),
+(2, 1, '1', 0, 0, '80', 0, 100),
+(2, 19, '6', 0, 0, '100', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -175,15 +197,20 @@ CREATE TABLE `quiz` (
 
 INSERT INTO `quiz` (`Id_cauhoi`, `id_baitest`, `id_khoa`, `cauhoi`, `hinhanh`, `cau_a`, `hinhanh_a`, `giaithich_a`, `cau_b`, `hinhanh_b`, `giaithich_b`, `cau_c`, `hinhanh_c`, `giaithich_c`, `cau_d`, `hinhanh_d`, `giaithich_d`, `dap_an`) VALUES
 (1, '1', '1', '1111', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(2, '1', '1', '2222', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'B'),
+(2, '1', '1', '2222', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
 (3, '1', '1', '3333', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(4, '1', '1', '4444', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'D'),
+(4, '1', '1', '4444', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
 (5, '1', '1', '5555', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(6, '1', '1', '6666', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'B'),
-(7, '1', '1', '7777', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'C'),
-(8, '1', '1', '8888', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'D'),
+(6, '1', '1', '6666', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
+(7, '1', '1', '7777', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
+(8, '1', '1', '8888', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
 (9, '1', '1', '9999', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(10, '1', '1', '101010', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'B'),
+(10, '1', '1', '101010', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
+(11, '2', '1', 'PHP là viết tắt của cụm từ nào sau đây?', NULL, 'Personal Home Page', NULL, 'Cũ, không còn đúng', 'PHP: Hypertext Preprocessor', NULL, 'Đáp án đúng', 'Private Home Page', NULL, 'Sai định nghĩa', 'Professional Hypertext Processor', NULL, 'Sai từ viết tắt', 'B'),
+(12, '2', '1', 'Ký hiệu nào được sử dụng để khai báo biến trong PHP?', NULL, '%', NULL, 'Không dùng trong khai báo biến', '&', NULL, 'Dùng để tham chiếu, không khai báo', '$', NULL, 'Đáp án đúng', '@', NULL, 'Dùng cho email hoặc annotation, không phải biến', 'B'),
+(13, '2', '1', 'Câu lệnh nào dùng để xuất dữ liệu ra trình duyệt trong PHP?', NULL, 'print()', NULL, 'Gần đúng, nhưng ít dùng hơn', 'echo', NULL, 'Đáp án đúng, được dùng phổ biến', 'display()', NULL, 'Không có hàm này trong PHP', 'show()', NULL, 'Không phải hàm PHP', 'B'),
+(14, '2', '1', 'Hàm isset() trong PHP dùng để làm gì?', NULL, 'Kiểm tra biến có phải số không', NULL, 'Không phải chức năng chính', 'Kiểm tra biến có tồn tại và khác null không', NULL, 'Đáp án đúng', 'Khởi tạo biến mới', NULL, 'Không đúng', 'Gán giá trị cho biến', NULL, 'Không đúng chức năng', 'B'),
+(15, '2', '1', 'Lệnh include \'file.php\'; có tác dụng gì?', NULL, 'Nhúng file PHP khác vào, nếu lỗi vẫn tiếp tục thực thi', NULL, 'Đáp án đúng', 'Gọi đến server ngoài', NULL, 'Không đúng – include chỉ xử lý nội bộ', 'Khởi tạo class', NULL, 'Không phải mục đích của include', 'Xoá file', NULL, 'Không đúng', 'B'),
 (115, '5', '19', 'Đoạn mã nào dưới đây sẽ in ra màn hình dòng chữ Hello, Python ! ?', NULL, 'Print(Hello, Python!)', NULL, 'Hàm Print viết hoa sai cú pháp (Python phân biệt chữ hoa/thường)', 'print(\"Hello, Python!\")', NULL, 'print() là hàm tích hợp sẵn trong Python để in dữ liệu ra màn hình. Phải dùng dấu ngoặc kép hoặc đơn để bao quanh chuỗi.', 'echo \"Hello, Python!\"', NULL, 'echo là lệnh dùng trong shell, không phải Python', 'printf(\"Hello, Python!\")', NULL, 'printf là của C/C++, không có trong Python', 'B'),
 (116, '5', '19', 'Kết quả của đoạn mã sau là gì?\r\nx = 10\r\ny = \"10\"\r\nprint(x + y)', NULL, '20', NULL, 'Nếu cả hai đều là int thì ra 20, nhưng ở đây y là chuỗi', '\"1010\"', NULL, 'Nếu x cũng là chuỗi (x = \"10\"), mới được \"1010\"', 'Lỗi', NULL, 'Python không cho phép cộng số nguyên (int) với chuỗi (str) trực tiếp. Dòng x + y sẽ gây ra lỗi TypeError vì hai kiểu dữ liệu khác nhau', 'None', NULL, 'Không đúng, vì chương trình sẽ bị lỗi chứ không in ra None', 'C'),
 (117, '5', '19', 'Kết quả của đoạn code sau là gì?\r\na = 5\r\nb = 2\r\nprint(b ** a)', NULL, '2.5', NULL, '2.5 là phép chia (5 / 2)', '10', NULL, '10 là phép cộng hoặc nhân không đúng ở đây', '25', NULL, '5 ** 2 = 5 mũ 2 = 25', '32', NULL, '32 là 2 mũ 5, ngược lại với đề', '0'),
@@ -269,7 +296,9 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`IMEI`, `MB_ID`, `OS_ID`, `Student_ID`, `Password`, `Ten`, `Email`, `Khoahoc`) VALUES
-(1, 1, 1, '1', '1', 'AN', 'admin1@gmail.com', '1,19');
+(0, 0, 0, '1', '', 'AN1', '', '1'),
+(2, 2, 2, '2', '2', 'AN1', 'admin1@gmail.com', '1,19,2'),
+(0, 0, 0, '4', '', 'AN', '', '1');
 
 -- --------------------------------------------------------
 
@@ -291,8 +320,8 @@ CREATE TABLE `test` (
 --
 
 INSERT INTO `test` (`id_test`, `id_khoa`, `ten_test`, `lan_thu`, `pass`, `so_cau_hien_thi`) VALUES
-(1, 1, 'PHP', 100, '100', 5),
-(5, 19, 'Bài kiểm tra chương 1', 3, '100', 5),
+(1, 1, 'PHP', 100, '80', 5),
+(2, 1, 'Bài kiểm tra chương 2', 100, '100', 5),
 (6, 19, 'Bài kiểm tra chương 2', 3, '100', 5),
 (7, 19, 'Bài kiểm tra chương 3', 3, '100', 5),
 (8, 19, 'Bài kiểm tra chương 4', 3, '100', 5),
@@ -302,6 +331,12 @@ INSERT INTO `test` (`id_test`, `id_khoa`, `ten_test`, `lan_thu`, `pass`, `so_cau
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `chungchi`
+--
+ALTER TABLE `chungchi`
+  ADD PRIMARY KEY (`student_id`);
 
 --
 -- Chỉ mục cho bảng `ket_qua`
@@ -331,7 +366,7 @@ ALTER TABLE `quiz`
 -- Chỉ mục cho bảng `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`IMEI`);
+  ADD PRIMARY KEY (`Student_ID`);
 
 --
 -- Chỉ mục cho bảng `test`
@@ -344,10 +379,16 @@ ALTER TABLE `test`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `chungchi`
+--
+ALTER TABLE `chungchi`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT cho bảng `khoa_hoc`
 --
 ALTER TABLE `khoa_hoc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `quiz`

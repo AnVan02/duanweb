@@ -240,7 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["save_question"])) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            background: linear-gradient(135deg, #e0f7fa, #5297f8ff);
             margin: 0;
             padding: 20px;
         }

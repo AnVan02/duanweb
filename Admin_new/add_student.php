@@ -1,9 +1,16 @@
 <?php
+session_start();
 // Bật hiển thị lỗi để gỡ lỗi (xóa trong môi trường sản xuất)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', '/var/log/php_errors.log');
+
+// Kiểm tra đăng nhập admin
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header('Location: /admin/login.php');
+    exit;
+}
 
 // Hàm kết nối cơ sở dữ liệu
 function dbconnect() {
