@@ -17,8 +17,8 @@ if (!isset($_SESSION['student_id'])) {
     exit();
 }
 
-$id_test = '22';
-$ma_khoa = '2';
+$id_test = '71';
+$ma_khoa = '10';
 $student_id = $_SESSION['student_id'];
 // $link_quay_lai = "khoahoc.php";
 

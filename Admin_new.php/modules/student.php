@@ -425,7 +425,6 @@ if ($mode == 'edit' && $student_id) {
     <title>Quản Lý Sinh Viên</title>
 </head>
 <body>
-
     <?php if ($mode == 'edit' && !empty($student_data)): ?>
         <!-- Form chỉnh sửa sinh viên -->
         <h2>Sửa Thông Tin Sinh Viên</h2>
@@ -435,6 +434,13 @@ if ($mode == 'edit' && $student_id) {
                 <?php echo htmlspecialchars($message); ?>
             </p>
         <?php endif; ?>
+
+        <!-- Debug: In ra giá trị Khoahoc -->
+        <?php
+        echo "<pre>Debug Khoahoc: " . htmlspecialchars($student_data['Khoahoc'] ?? 'Không có dữ liệu') . "</pre>";
+        $selected_courses = !empty($student_data['Khoahoc']) ? array_map('trim', explode(',', $student_data['Khoahoc'])) : [];
+        echo "<pre>Debug selected_courses: " . print_r($selected_courses, true) . "</pre>";
+        ?>
 
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <input type="hidden" name="action" value="update">
@@ -500,7 +506,6 @@ if ($mode == 'edit' && $student_id) {
             </p>
         <?php endif; ?>
 
-
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <input type="hidden" name="action" value="add">
             <div class="form-container">
@@ -521,7 +526,6 @@ if ($mode == 'edit' && $student_id) {
                     <input type="text" name="ten" required>
                     <label>Email</label>
                     <input type="email" name="email" required>
-
                     <label>Khóa học</label>
                     <div class="dropdown-checkbox">
                         <button type="button" class="dropdown-btn" id="dropdownBtn_add" onclick="toggleDropdown('add')">Chọn khóa học ▼</button>
@@ -551,22 +555,6 @@ if ($mode == 'edit' && $student_id) {
         </form>
 
         <!-- Hiển thị danh sách sinh viên -->
-        <div class="dropdown-checkbox">
-            <button type="button" class="dropdown-btn" id="dropdownBtn_add" onclick="toggleDropdown('add')">Chọn trạng thái </button>
-                <div class="dropdown-content" id="dropdownContent_add">
-                <form id="courseForm" onsubmit="saveCourses(event)">
-                    <input type="hidden" name="action" value="save_courses">
-                    <input type="hidden" name="student_id" id="modalStudentId">
-                    <div class="course-list">
-                     
-                    </div>
-                    <div id="selected-courses">
-                        <p><strong>Trạng thái :</strong> <span id="selectedCoursesText">Chưa chọn trạng thái nào.</span></p>
-                    </div>
-                    <input type="submit" value="Lưu" style="background-color: #28a745; margin-top: 10px;">
-                </form>
-            </div>
-        </div>
         <?php
         $stmt = $conn->prepare("SELECT * FROM students");
         if (!$stmt) {
@@ -587,10 +575,9 @@ if ($mode == 'edit' && $student_id) {
                     <th>Tên sinh viên</th>
                     <th>Email</th>
                     <th>Khóa học</th>
-                    <th>Hạnh động</th>
-                    <th>Chứng chỉ </th>
-                    
+                    <th>Hành Động</th>
                 </tr>";
+                
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr data-student-id='" . htmlspecialchars($row['Student_ID']) . "'>";
                     echo "<td>" . htmlspecialchars($row['IMEI'] ?? '') . "</td>";
@@ -650,14 +637,8 @@ if ($mode == 'edit' && $student_id) {
             } else {
                 echo "<p style='text-align:center;'>Chưa có dữ liệu sinh viên.</p>";
             }
-
-                
-            echo "<td>" . htmlspecialchars($row['chungchi'] ?? '') . "</td>";
-            echo "<td>" . htmlspecialchars($row['st'] ?? 'Chưa có lịch') . "</td>";
-            
             $stmt->close();
         }
-        
         ?>
     <?php endif; ?>
 
@@ -699,18 +680,12 @@ if ($mode == 'edit' && $student_id) {
             </form>
         </div>
     </div>
- 
 
     <?php
     $conn->close();
     ?>
 
     <script>
-        // hiển thị lịch 
-        $(document).ready(function() {
-            $('#start_date. $end_dat')
-        })
-
         function openModal(studentId) {
             console.log('Opening modal for student:', studentId);
             document.getElementById('modalTitle').innerText = `Khóa Học Của Sinh Viên: ${studentId}`;
@@ -737,8 +712,10 @@ if ($mode == 'edit' && $student_id) {
                     updateSelectedCourses();
                 })
                 .catch(error => {
-                    console.error('Error fetching courses:', error);
-                    alert('Lỗi khi tải danh sách khóa học: ' + error.message);
+                    console.warn(error);
+                    if (error.response) {
+                        error.response.text().then(txt => console.warn(txt));
+                    }
                 });
         }
 
@@ -857,12 +834,6 @@ if ($mode == 'edit' && $student_id) {
     </script>
 
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f3f6fb;
-            padding: 0;
-            margin: 0;
-        }
         h2 {
             text-align: center;
             color: #2c3e50;
@@ -1079,8 +1050,8 @@ if ($mode == 'edit' && $student_id) {
         }
         .dropdown-btn {
             width: 100%;
-            /* background: #7b868e; */
-            /* color: #fff; */
+            background: #7b868e;
+            color: #fff;
             padding: 10px 16px;
             border: none;
             border-radius: 8px;
@@ -1090,7 +1061,9 @@ if ($mode == 'edit' && $student_id) {
             outline: none;
             transition: background 0.2s;
         }
-       
+        .dropdown-btn:hover {
+            background: #5a6268;
+        }
         .dropdown-content {
             display: none;
             position: absolute;

@@ -12,31 +12,11 @@ function dbconnect() {
     return $conn;
 }
 
-// Hàm lấy danh sách khóa học
-function getCourses($conn) {
-    $query = "SELECT id, khoa_hoc FROM khoa_hoc ORDER BY khoa_hoc";
-    $result = $conn->query($query);
-    return $result->fetch_all(MYSQLI_ASSOC);
-}
-
-// Hàm lấy danh sách tên khóa học theo IDs
-function getCourseNames($conn, $khoa_ids) {
-    if (empty($khoa_ids)) return [];
-    $khoa_ids = explode(',', $khoa_ids);
-    $placeholders = str_repeat('?,', count($khoa_ids) - 1) . '?';
-    $stmt = $conn->prepare("SELECT khoa_hoc FROM khoa_hoc WHERE id IN ($placeholders)");
-    $stmt->bind_param(str_repeat('i', count($khoa_ids)), ...$khoa_ids);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $courses = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-    return array_column($courses, 'khoa_hoc');
-}
-
-// Hàm đếm số bài đạt cho một khóa học
-function DemSoBaiDatTheoKhoa($conn, $student_id, $khoa_id) {
+// Hàm đếm số bài đạt
+function DemSoBaiDat($conn, $student_id, $khoa_id) {
     $sobaidat = 0;
 
+    // 1. Lấy tất cả bài test thuộc khóa
     $test_query = $conn->prepare("SELECT id_test, so_cau_hien_thi, Pass FROM test WHERE id_khoa = ?");
     $test_query->bind_param("i", $khoa_id);
     $test_query->execute();
@@ -47,6 +27,7 @@ function DemSoBaiDatTheoKhoa($conn, $student_id, $khoa_id) {
         $so_cau = $test['so_cau_hien_thi'];
         $pass = $test['Pass'];
 
+        // 2. Lấy điểm cao nhất của sinh viên ở bài test này
         $kq_query = $conn->prepare("SELECT kq_cao_nhat FROM ket_qua WHERE student_id = ? AND test_id = ?");
         $kq_query->bind_param("ii", $student_id, $test_id);
         $kq_query->execute();
@@ -68,8 +49,7 @@ function DemSoBaiDatTheoKhoa($conn, $student_id, $khoa_id) {
     return $sobaidat;
 }
 
-// Hàm đếm tổng số bài test cho một khóa học
-function TongSoBaiTestTheoKhoa($conn, $khoa_id) {
+function TongSoBaiTest($conn, $khoa_id) {
     $stmt = $conn->prepare("SELECT COUNT(*) AS tong FROM test WHERE id_khoa = ?");
     $stmt->bind_param("i", $khoa_id);
     $stmt->execute();
@@ -78,40 +58,43 @@ function TongSoBaiTestTheoKhoa($conn, $khoa_id) {
     return $row['tong'] ?? 0;
 }
 
-// Hàm cập nhật thành tích cho một học sinh
-function updateThanhtich($conn, $student_id) {
-    $stmt = $conn->prepare("SELECT Khoahoc FROM students WHERE Student_ID = ?");
-    $stmt->bind_param("s", $student_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $student = $result->fetch_assoc();
-    
-    $all_passed = true;
-    $khoa_ids = explode(',', $student['Khoahoc']);
-    
-    foreach ($khoa_ids as $khoa_id) {
-        $khoa_id = trim($khoa_id);
-        if (empty($khoa_id)) continue;
-        
-        $sobaidat = DemSoBaiDatTheoKhoa($conn, $student_id, $khoa_id);
-        $tongsobai = TongSoBaiTestTheoKhoa($conn, $khoa_id);
-        
-        if ($tongsobai == 0 || $sobaidat < $tongsobai) {
-            $all_passed = false;
-            break;
-        }
-    }
-    
-    $thanhtich = $all_passed ? 1 : 0;
-    
-    $stmt = $conn->prepare("UPDATE chungchi SET thanhtich = ? WHERE student_id = ?");
-    $stmt->bind_param("is", $thanhtich, $student_id);
-    $stmt->execute();
-    $stmt->close();
-}
-
 $conn = dbconnect();
 
+// Xử lý thêm học sinh mới
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'add_student') {
+    $student_id = $_POST['student_id'];
+    $ten = $_POST['ten'];
+    $khoa_id = $_POST['khoa_id'];
+
+    // Kiểm tra trùng Student_ID
+    $check = $conn->prepare("SELECT Student_ID FROM students WHERE Student_ID = ?");
+    $check->bind_param("s", $student_id);
+    $check->execute();
+    
+    if ($check->get_result()->num_rows > 0) {
+        header("Location: chungchi.php?error=Student_ID đã tồn tại");
+        exit;
+    }
+
+    // Thêm vào students
+    $stmt = $conn->prepare("INSERT INTO students (Student_ID, Ten, Khoahoc) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $student_id, $ten, $khoa_id);
+    
+    if ($stmt->execute()) {
+        // Thêm vào chungchi
+        $stmt2 = $conn->prepare("INSERT INTO chungchi (student_id, ten_hs, khoa_id, thanhtich, chungchi) VALUES (?, ?, ?, 0, NULL)");
+        $stmt2->bind_param("sss", $student_id, $ten, $khoa_id);
+        $stmt2->execute();
+        $stmt2->close();
+        
+        header("Location: chungchi.php?message=Thêm học sinh thành công");
+    } else {
+        header("Location: chungchi.php?error=Lỗi khi thêm học sinh");
+    }
+    
+    $stmt->close();
+    exit;
+}
 
 // Xử lý cập nhật chứng chỉ
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'update_chungchi') {
@@ -119,15 +102,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $thanhtich = $_POST['thanhtich'];
     $chung_chi = $_POST['chung_chi'];
     
-    
     $stmt = $conn->prepare("UPDATE chungchi SET thanhtich = ?, chungchi = ? WHERE student_id = ?");
     $stmt->bind_param("iss", $thanhtich, $chung_chi, $student_id);
-
+    
     if ($stmt->execute()) {
         header("Location: chungchi.php?message=Cập nhật chứng chỉ thành công");
     } else {
         header("Location: chungchi.php?error=Lỗi khi cập nhật");
     }
+    
     $stmt->close();
     exit;
 }
@@ -136,11 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['student_id'])) {
     $student_id = $_GET['student_id'];
     
+    // Xóa từ bảng chungchi trước
     $stmt = $conn->prepare("DELETE FROM chungchi WHERE student_id = ?");
     $stmt->bind_param("s", $student_id);
     $stmt->execute();
     $stmt->close();
     
+    // Xóa từ bảng students
     $stmt = $conn->prepare("DELETE FROM students WHERE Student_ID = ?");
     $stmt->bind_param("s", $student_id);
     
@@ -162,50 +147,37 @@ $items_per_page = 10;
 $current_page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $offset = ($current_page - 1) * $items_per_page;
 
-// Lấy danh sách học sinh
-$query = "SELECT s.Student_ID, s.Ten, s.Khoahoc, c.thanhtich, c.chungchi, c.ten_hs
+// Lấy danh sách học sinh và chứng chỉ
+$query = "SELECT s.Student_ID, s.Ten, s.Khoahoc, 
+          c.thanhtich, c.chungchi, c.ten_hs 
           FROM students s 
           LEFT JOIN chungchi c ON s.Student_ID = c.student_id 
           ORDER BY s.Student_ID DESC";
 $result = $conn->query($query);
 $all_students = $result->fetch_all(MYSQLI_ASSOC);
 
-// Lọc và tính toán thông tin học sinh
+// Lọc danh sách học sinh dựa trên trạng thái đạt/chưa đạt
 $filtered_students = [];
 foreach ($all_students as $student) {
-    $khoa_ids = explode(',', $student['Khoahoc']);
-    $all_passed = true;
-    $total_tests = 0;
-    $passed_tests = 0;
+    $khoa_id = $student['Khoahoc'];
+    $student_id = $student['Student_ID'];
     
-    // Lấy danh sách tên khóa học
-    $course_names = getCourseNames($conn, $student['Khoahoc']);
+    // Đếm số bài đạt và tổng số bài
+    $sobaidat = DemSoBaiDat($conn, $student_id, $khoa_id);
+    $tongsobai = TongSoBaiTest($conn, $khoa_id);
     
-    foreach ($khoa_ids as $khoa_id) {
-        $khoa_id = trim($khoa_id);
-        if (empty($khoa_id)) continue;
-        
-        $sobaidat = DemSoBaiDatTheoKhoa($conn, $student['Student_ID'], $khoa_id);
-        $tongsobai = TongSoBaiTestTheoKhoa($conn, $khoa_id);
-        
-        $total_tests += $tongsobai;
-        $passed_tests += $sobaidat;
-        
-        if ($tongsobai > 0 && $sobaidat < $tongsobai) {
-            $all_passed = false;
-        }
-    }
+    // Xác định trạng thái đạt/chưa đạt
+    $is_passed = ($tongsobai > 0 && $sobaidat == $tongsobai);
     
     // Thêm thông tin vào mảng student
-    $student['sobaidat'] = $passed_tests;
-    $student['tongsobai'] = $total_tests;
-    $student['is_passed'] = $all_passed;
-    $student['danh_sach_khoa_hoc'] = $course_names;
+    $student['sobaidat'] = $sobaidat;
+    $student['tongsobai'] = $tongsobai;
+    $student['is_passed'] = $is_passed;
     
     // Áp dụng filter
     if ($filter_status == 'all' || 
-        ($filter_status == 'passed' && $all_passed) || 
-        ($filter_status == 'not_passed' && !$all_passed)) {
+        ($filter_status == 'passed' && $is_passed) || 
+        ($filter_status == 'not_passed' && !$is_passed)) {
         $filtered_students[] = $student;
     }
 }
@@ -231,37 +203,8 @@ if (isset($_GET['edit'])) {
     $stmt->close();
 }
 
-// Lấy danh sách khóa học
-$courses = getCourses($conn);
-
-// Tính toán thống kê
-$total_students = count($all_students);
-$passed_count = 0;
-$not_passed_count = 0;
-
-foreach ($all_students as $student) {
-    $khoa_ids = explode(',', $student['Khoahoc']);
-    $all_passed = true;
-    
-    foreach ($khoa_ids as $khoa_id) {
-        $khoa_id = trim($khoa_id);
-        if (empty($khoa_id)) continue;
-        
-        $sobaidat = DemSoBaiDatTheoKhoa($conn, $student['Student_ID'], $khoa_id);
-        $tongsobai = TongSoBaiTestTheoKhoa($conn, $khoa_id);
-        
-        if ($tongsobai > 0 && $sobaidat < $tongsobai) {
-            $all_passed = false;
-            break;
-        }
-    }
-    
-    if ($all_passed) {
-        $passed_count++;
-    } else {
-        $not_passed_count++;
-    }
-}
+// Đóng connection sau khi đã tính toán xong tất cả
+// $conn->close(); // Sẽ đóng ở cuối file
 ?>
 
 <!DOCTYPE html>
@@ -269,11 +212,10 @@ foreach ($all_students as $student) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Học Sinh và Chứng chỉ</title>
+    <title>Quản lý Học sinh và Chứng chỉ</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
@@ -342,18 +284,21 @@ foreach ($all_students as $student) {
             margin: 20px 0;
         }
         table, th, td {
-            border: 1px solid #f2f2f2;
+            border: 1px solid #ddd;
         }
         th, td {
             padding: 12px;
             text-align: left;
         }
         th {
-            background-color: #245efcff;
+            background-color: #4CAF50;
             color: white;
         }
         tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
         }
         .status-passed {
             color: #28a745;
@@ -424,6 +369,8 @@ foreach ($all_students as $student) {
             color: #666;
             margin-top: 5px;
         }
+        
+        /* Pagination Styles */
         .pagination {
             display: flex;
             justify-content: center;
@@ -431,6 +378,7 @@ foreach ($all_students as $student) {
             margin: 20px 0;
             gap: 5px;
         }
+        
         .pagination a, .pagination span {
             padding: 8px 12px;
             text-decoration: none;
@@ -439,35 +387,36 @@ foreach ($all_students as $student) {
             color: #007bff;
             background: white;
         }
+        
         .pagination a:hover {
             background-color: #e9ecef;
             text-decoration: none;
         }
+        
         .pagination .current {
             background-color: #007bff;
             color: white;
             font-weight: bold;
         }
+        
         .pagination .disabled {
             color: #6c757d;
             background-color: #fff;
             border-color: #dee2e6;
             cursor: not-allowed;
         }
+        
         .page-info {
             text-align: center;
             margin: 10px 0;
             color: #666;
             font-size: 0.9em;
         }
-        .course-lines div {
-            margin-bottom: 5px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Quản lý chứng chỉ sinh viên</h1>
+        <h1>Quản lý Học sinh và Chứng chỉ</h1>
         
         <?php if (isset($_GET['message'])): ?>
             <div class="message success"><?= htmlspecialchars($_GET['message']) ?></div>
@@ -477,36 +426,100 @@ foreach ($all_students as $student) {
             <div class="message error"><?= htmlspecialchars($_GET['error']) ?></div>
         <?php endif; ?>
 
-     
+        <h2><?= $edit_student ? 'Cập nhật' : 'Thêm mới' ?> Học sinh</h2>
+        <form method="POST" action="chungchi.php">
+            <input type="hidden" name="action" value="<?= $edit_student ? 'update_student' : 'add_student' ?>">
+            
+            <div class="form-group">
+                <label for="student_id">Mã học sinh:</label>
+                <input type="text" id="student_id" name="student_id" required 
+                       value="<?= htmlspecialchars($edit_student['Student_ID'] ?? '') ?>"
+                       <?= $edit_student ? 'readonly' : '' ?>>
+            </div>
+            
+            <div class="form-group">
+                <label for="ten">Họ và tên:</label>
+                <input type="text" id="ten" name="ten" required 
+                       value="<?= htmlspecialchars($edit_student['Ten'] ?? '') ?>">
+            </div>
+            
+            <div class="form-group">
+                <label for="khoa_id">Khóa học:</label>
+                <input type="text" id="khoa_id" name="khoa_id" required 
+                       value="<?= htmlspecialchars($edit_student['Khoahoc'] ?? '') ?>">
+            </div>
+            
+            <button type="submit"><?= $edit_student ? 'Cập nhật' : 'Thêm mới' ?></button>
+            
+            <?php if ($edit_student): ?>
+                <a href="chungchi.php" style="margin-left: 10px;">Hủy bỏ</a>
+            <?php endif; ?>
+        </form>
 
-        <!-- Form chỉnh sửa chứng chỉ -->
+        <h2>Cập nhật Chứng chỉ</h2>
         <?php if (isset($_GET['edit'])): ?>
-            <h2>Chỉnh sửa chứng chỉ</h2>
-            <form method="POST" action="chungchi.php">
-                <input type="hidden" name="action" value="update_chungchi">
-                <input type="hidden" name="student_id" value="<?= htmlspecialchars($edit_student['Student_ID'] ?? '') ?>">
-                
-                <div class="form-group">
-                    <label for="thanhtich">Thành tích:</label>
-                    <select id="thanhtich" name="thanhtich" required>
-                        <option value="1" <?= ($edit_student['thanhtich'] ?? 0) == 1 ? 'selected' : '' ?>>Đạt</option>
-                        <option value="0" <?= ($edit_student['thanhtich'] ?? 0) == 0 ? 'selected' : '' ?>>Không đạt</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="chung_chi">Ngày cấp chứng chỉ:</label>
-                    <input type="date" id="chung_chi" name="chung_chi" 
-                           value="<?= htmlspecialchars($edit_student['chungchi'] ?? '') ?>">
-                </div>
-                
-                <button type="submit">Cập nhật Chứng chỉ</button>
-                <a href="chungchi.php" class="cancel-btn">Hủy bỏ</a>
-            </form>
+        <form method="POST" action="chungchi.php">
+            <input type="hidden" name="action" value="update_chungchi">
+            <input type="hidden" name="student_id" value="<?= htmlspecialchars($edit_student['Student_ID'] ?? '') ?>">
+            
+            <div class="form-group">
+                <label for="thanhtich">Thành tích:</label>
+                <select id="thanhtich" name="thanhtich" required>
+                    <option value="1" <?= ($edit_student['thanhtich'] ?? 0) == 1 ? 'selected' : '' ?>>Đạt</option>
+                    <option value="0" <?= ($edit_student['thanhtich'] ?? 0) == 0 ? 'selected' : '' ?>>Không đạt</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="chung_chi">Ngày cấp chứng chỉ:</label>
+                <input type="date" id="chung_chi" name="chung_chi" 
+                       value="<?= htmlspecialchars($edit_student['chungchi'] ?? '') ?>">
+            </div>
+            
+            <button type="submit">Cập nhật Chứng chỉ</button>
+        </form>
+        <?php else: ?>
+            <p>Vui lòng chọn học sinh cần cập nhật từ danh sách bên dưới</p>
         <?php endif; ?>
+
+        <!-- Thống kê -->
+        <?php
+        $total_students = count($all_students);
+        $passed_count = 0;
+        $not_passed_count = 0;
+        
+        foreach ($all_students as $student) {
+            $khoa_id = $student['Khoahoc'];
+            $student_id = $student['Student_ID'];
+            $sobaidat = DemSoBaiDat($conn, $student_id, $khoa_id);
+            $tongsobai = TongSoBaiTest($conn, $khoa_id);
+            
+            if ($tongsobai > 0 && $sobaidat == $tongsobai) {
+                $passed_count++;
+            } else {
+                $not_passed_count++;
+            }
+        }
+        ?>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number"><?= $total_students ?></div>
+                <div class="stat-label">Tổng học sinh</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" style="color: #28a745;"><?= $passed_count ?></div>
+                <div class="stat-label">Đã hoàn thành</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" style="color: #dc3545;"><?= $not_passed_count ?></div>
+                <div class="stat-label">Chưa hoàn thành</div>
+            </div>
+        </div>
 
         <!-- Filter Section -->
         <div class="filter-section">
+            <h3>Lọc theo trạng thái hoàn thành bài test</h3>
             <div class="filter-buttons">
                 <?php 
                 $base_url = "?";
@@ -516,14 +529,14 @@ foreach ($all_students as $student) {
                     Tất cả (<?= $total_students ?>)
                 </a>
                 <a href="<?= $base_url ?>filter=passed" class="filter-btn <?= $filter_status == 'passed' ? 'active' : '' ?>">
-                    Đạt(<?= $passed_count ?>)
+                    Đã hoàn thành (<?= $passed_count ?>)
                 </a>
                 <a href="<?= $base_url ?>filter=not_passed" class="filter-btn <?= $filter_status == 'not_passed' ? 'active' : '' ?>">
-                    Chưa đạt (<?= $not_passed_count ?>)
+                    Chưa hoàn thành (<?= $not_passed_count ?>)
                 </a>
             </div>
         </div>
-       
+
         <h2>Danh sách Học sinh 
             <?php if ($filter_status != 'all'): ?>
                 - <?= $filter_status == 'passed' ? 'Đã hoàn thành' : 'Chưa hoàn thành' ?>
@@ -554,59 +567,42 @@ foreach ($all_students as $student) {
                     <th>Thao tác</th>
                 </tr>
             </thead>
-         <tbody>
-            <?php foreach ($students as $student): 
-                $courses = $student['danh_sach_khoa_hoc'];
-                $khoa_ids = array_keys(array_flip(explode(',', $student['Khoahoc']))); // Lấy danh sách khoa_id duy nhất
-                foreach ($courses as $index => $course): 
-                    $khoa_id = $khoa_ids[$index];
-                    $sobaidat = DemSoBaiDatTheoKhoa($conn, $student['Student_ID'], $khoa_id);
-                    $tongsobai = TongSoBaiTestTheoKhoa($conn, $khoa_id);
-                    $is_passed = ($tongsobai > 0 && $sobaidat >= $tongsobai);
-                ?>
+            <tbody>
+                <?php foreach ($students as $student): ?>
                 <tr>
                     <td><?= htmlspecialchars($student['Student_ID']) ?></td>
                     <td><?= htmlspecialchars($student['Ten']) ?></td>
-                    <td><?= htmlspecialchars($course) ?></td>
+                    <td><?= htmlspecialchars($student['Khoahoc']) ?></td>
                     <td>
-                        <strong><?= $sobaidat ?>/<?= $tongsobai ?></strong> bài
+                        <strong><?= $student['sobaidat'] ?>/<?= $student['tongsobai'] ?></strong> bài
                         <div class="progress-info">
-                            <?php if ($tongsobai > 0): ?>
-                                (<?= round(($sobaidat / $tongsobai) * 100, 1) ?>%)
+                            <?php if ($student['tongsobai'] > 0): ?>
+                                (<?= round(($student['sobaidat'] / $student['tongsobai']) * 100, 1) ?>%)
                             <?php else: ?>
                                 (Chưa có bài test)
                             <?php endif; ?>
                         </div>
                     </td>
                     <td>
-                        <?php if ($is_passed): ?>
+                        <?php if ($student['is_passed']): ?>
                             <span class="status-passed">✓ Hoàn thành</span>
                         <?php else: ?>
                             <span class="status-not-passed">✗ Chưa hoàn thành</span>
                         <?php endif; ?>
                     </td>
-                    <td>
-                        <?php 
-                        // Đồng bộ cột Thành tích với trạng thái is_passed
-                        if ($student['is_passed']): ?>
-                            Đạt
-                        <?php else: ?>
-                            Chưa đạt
-                        <?php endif; ?>
-                    </td>
+                    <td><?= ($student['thanhtich'] ?? 0) == 1 ? 'Đạt' : 'Không đạt' ?></td>
                     <td><?= htmlspecialchars($student['chungchi'] ?? 'Chưa có') ?></td>
-
                     <td class="actions">
-                        <!-- <a href="?edit_student=<?= htmlspecialchars($student['Student_ID']) ?>">Sửa</a> -->
-                        <a href="?edit=<?= htmlspecialchars($student['Student_ID']) ?>">Chứng chỉ</a>
-                        <!-- <a href="?action=delete&student_id=<?= htmlspecialchars($student['Student_ID']) ?>" 
-                        onclick="return confirm('Bạn có chắc chắn muốn xóa học sinh này?')">Xóa</a> -->
+                        <a href="chungchi.php?edit=<?= htmlspecialchars($student['Student_ID']) ?>">Sửa</a>
+                        <a href="chungchi.php?action=delete&student_id=<?= htmlspecialchars($student['Student_ID']) ?>" 
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa học sinh này?')">Xóa</a>
                     </td>
                 </tr>
-            <?php endforeach; endforeach; ?>
-        </tbody>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
         
-        <!-- Phân trang -->
+        <!-- Pagination -->
         <?php if ($total_pages > 1): ?>
         <div class="pagination">
             <?php 
@@ -615,14 +611,14 @@ foreach ($all_students as $student) {
             $base_query = !empty($query_params) ? '&' . http_build_query($query_params) : '';
             ?>
             
-            <!-- Previous Button -->
+            <!-- Nút trước-->
             <?php if ($current_page > 1): ?>
                 <a href="?page=<?= $current_page - 1 ?><?= $base_query ?>">‹ Trước</a>
             <?php else: ?>
                 <span class="disabled">‹ Trước</span>
             <?php endif; ?>
             
-            <!-- Page Numbers -->
+            <!-- stt trang -->
             <?php 
             $start_page = max(1, $current_page - 2);
             $end_page = min($total_pages, $current_page + 2);
@@ -649,7 +645,7 @@ foreach ($all_students as $student) {
                 <a href="?page=<?= $total_pages ?><?= $base_query ?>"><?= $total_pages ?></a>
             <?php endif; ?>
             
-            <!-- Next Button -->
+            <!-- Next button -->
             <?php if ($current_page < $total_pages): ?>
                 <a href="?page=<?= $current_page + 1 ?><?= $base_query ?>">Tiếp ›</a>
             <?php else: ?>
@@ -666,6 +662,7 @@ foreach ($all_students as $student) {
     </div>
 
     <?php 
+    // Đóng connection ở cuối file sau khi đã sử dụng xong
     $conn->close(); 
     ?>
 </body>

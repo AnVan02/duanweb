@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Kết nối CSDL
-$conn = new mysqli("localhost", "nvpbgqcv_rosa_courses", "Vietson@ROSA@150", "nvpbgqcv_rosa_courses");
+$conn = new mysqli("localhost", "root", "", "student");
 $conn->set_charset("utf8mb4");
 
 if ($conn->connect_error) {

@@ -18,8 +18,8 @@ if ($conn->connect_error) {
 }
 
 // Lấy id_test từ URL
-$id_test = '22';
-$ma_khoa = '2';
+$id_test = '71';
+$ma_khoa = '10';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "../chapter1.php";
 $link_tiep_tuc = "dashboard.php";
