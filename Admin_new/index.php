@@ -1,12 +1,4 @@
-<?php
-session_start();
 
-// Kiểm tra đăng nhập admin
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header('Location: /admin/login.php');
-    exit;
-}
-?>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -364,7 +356,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="add_student.php" class="nav-link" data-section="users">
+                    <a href="#" class="nav-link" data-section="users">
                         <i class="fas fa-users"></i>
                         <span>Người dùng</span>
                     </a>
@@ -393,6 +385,12 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                         <span>Cài đặt</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="students">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Sinh viên</span>
+                    </a>
+                </li>
             </ul>
         </aside>
 
@@ -410,46 +408,47 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
             <!-- Dashboard Section -->
             <section id="dashboard" class="content-section active">
+                <div class="section-title">Dashboard</div>
                 <div class="dashboard-grid">
                     <div class="dashboard-card">
-                        <div class="card-icon users">
-                            <i class="fas fa-users"></i>
+                        <div class="card-header">
+                            <div class="card-icon users">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="card-title">Tổng người dùng</h3>
                         </div>
-                        <div class="card-title">Tổng người dùng</div>
-                        <div class="card-value">2,847</div>
-                        <div class="card-trend">
-                            <i class="fas fa-arrow-up"></i> +12.5% so với tháng trước
-                        </div>
+                        <p class="card-value">123</p>
+                        <p class="card-trend">Tăng 10% so với tháng trước</p>
                     </div>
                     <div class="dashboard-card">
-                        <div class="card-icon orders">
-                            <i class="fas fa-shopping-cart"></i>
+                        <div class="card-header">
+                            <div class="card-icon orders">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h3 class="card-title">Tổng đơn hàng</h3>
                         </div>
-                        <div class="card-title">Đơn hàng hôm nay</div>
-                        <div class="card-value">154</div>
-                        <div class="card-trend">
-                            <i class="fas fa-arrow-up"></i> +8.2% so với hôm qua
-                        </div>
+                        <p class="card-value">50</p>
+                        <p class="card-trend">Tăng 5% so với tháng trước</p>
                     </div>
                     <div class="dashboard-card">
-                        <div class="card-icon revenue">
-                            <i class="fas fa-dollar-sign"></i>
+                        <div class="card-header">
+                            <div class="card-icon revenue">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <h3 class="card-title">Doanh thu</h3>
                         </div>
-                        <div class="card-title">Doanh thu tháng</div>
-                        <div class="card-value">₫52.4M</div>
-                        <div class="card-trend">
-                            <i class="fas fa-arrow-up"></i> +15.8% so với tháng trước
-                        </div>
+                        <p class="card-value">$12,345</p>
+                        <p class="card-trend">Tăng 20% so với tháng trước</p>
                     </div>
                     <div class="dashboard-card">
-                        <div class="card-icon products">
-                            <i class="fas fa-box"></i>
+                        <div class="card-header">
+                            <div class="card-icon products">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <h3 class="card-title">Tổng sản phẩm</h3>
                         </div>
-                        <div class="card-title">Sản phẩm</div>
-                        <div class="card-value">1,234</div>
-                        <div class="card-trend negative">
-                            <i class="fas fa-arrow-down"></i> -2.1% cần bổ sung
-                        </div>
+                        <p class="card-value">150</p>
+                        <p class="card-trend">Tăng 15% so với tháng trước</p>
                     </div>
                 </div>
             </section>
@@ -457,54 +456,8 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
             <!-- Users Section -->
             <section id="users" class="content-section">
                 <div class="section-title">Quản lý người dùng</div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên</th>
-                                <th>Email</th>
-                                <th>Trạng thái</th>
-                                <th>Ngày đăng ký</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#001</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>nguyenvana@email.com</td>
-                                <td><span class="status-badge status-active">Hoạt động</span></td>
-                                <td>15/07/2025</td>
-                                <td>
-                                    <button class="action-btn btn-primary">Sửa</button>
-                                    <button class="action-btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Trần Thị B</td>
-                                <td>tranthib@email.com</td>
-                                <td><span class="status-badge status-pending">Chờ xác nhận</span></td>
-                                <td>14/07/2025</td>
-                                <td>
-                                    <button class="action-btn btn-primary">Sửa</button>
-                                    <button class="action-btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#003</td>
-                                <td>Lê Văn C</td>
-                                <td>levanc@email.com</td>
-                                <td><span class="status-badge status-inactive">Tạm khóa</span></td>
-                                <td>13/07/2025</td>
-                                <td>
-                                    <button class="action-btn btn-primary">Sửa</button>
-                                    <button class="action-btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div id="users-content">
+                    <?php include 'add_student.php'; ?>
                 </div>
             </section>
 
@@ -515,35 +468,42 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                     <table>
                         <thead>
                             <tr>
-                                <th>Mã đơn</th>
-                                <th>Khách hàng</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Ngày đặt</th>
                                 <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
-                                <th>Ngày đặt</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>#ORD001</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>₫1,250,000</td>
-                                <td><span class="status-badge status-active">Đã giao</span></td>
-                                <td>20/07/2025</td>
+                                <td>ORD001</td>
+                                <td>2023-10-27</td>
+                                <td>$120</td>
+                                <td><span class="status-badge status-pending">Đang chờ</span></td>
                                 <td>
-                                    <button class="action-btn btn-primary">Xem</button>
-                                    <button class="action-btn">In hóa đơn</button>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
+                                    <button class="action-btn btn-danger">Hủy đơn</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>#ORD002</td>
-                                <td>Trần Thị B</td>
-                                <td>₫850,000</td>
-                                <td><span class="status-badge status-pending">Đang xử lý</span></td>
-                                <td>20/07/2025</td>
+                                <td>ORD002</td>
+                                <td>2023-10-26</td>
+                                <td>$250</td>
+                                <td><span class="status-badge status-active">Đã giao</span></td>
                                 <td>
-                                    <button class="action-btn btn-primary">Xem</button>
-                                    <button class="action-btn">Cập nhật</button>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
+                                    <button class="action-btn btn-danger">Hủy đơn</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ORD003</td>
+                                <td>2023-10-25</td>
+                                <td>$80</td>
+                                <td><span class="status-badge status-inactive">Đã hủy</span></td>
+                                <td>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
+                                    <button class="action-btn btn-danger">Hủy đơn</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -554,46 +514,49 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
             <!-- Products Section -->
             <section id="products" class="content-section">
                 <div class="section-title">Quản lý sản phẩm</div>
-                <div style="margin-bottom: 1rem;">
-                    <button class="action-btn btn-primary">
-                        <i class="fas fa-plus"></i> Thêm sản phẩm mới
-                    </button>
-                </div>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Mã sản phẩm</th>
                                 <th>Tên sản phẩm</th>
-                                <th>Danh mục</th>
                                 <th>Giá</th>
-                                <th>Tồn kho</th>
+                                <th>Số lượng</th>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>#SP001</td>
-                                <td>iPhone 15 Pro</td>
-                                <td>Điện thoại</td>
-                                <td>₫28,990,000</td>
-                                <td>45</td>
-                                <td><span class="status-badge status-active">Có sẵn</span></td>
+                                <td>PROD001</td>
+                                <td>Sản phẩm A</td>
+                                <td>$50</td>
+                                <td>100</td>
+                                <td><span class="status-badge status-active">Còn hàng</span></td>
                                 <td>
-                                    <button class="action-btn btn-primary">Sửa</button>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
                                     <button class="action-btn btn-danger">Xóa</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>#SP002</td>
-                                <td>MacBook Pro M3</td>
-                                <td>Laptop</td>
-                                <td>₫52,990,000</td>
-                                <td>12</td>
-                                <td><span class="status-badge status-pending">Sắp hết</span></td>
+                                <td>PROD002</td>
+                                <td>Sản phẩm B</td>
+                                <td>$100</td>
+                                <td>50</td>
+                                <td><span class="status-badge status-pending">Hết hàng</span></td>
                                 <td>
-                                    <button class="action-btn btn-primary">Sửa</button>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
+                                    <button class="action-btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PROD003</td>
+                                <td>Sản phẩm C</td>
+                                <td>$20</td>
+                                <td>200</td>
+                                <td><span class="status-badge status-inactive">Đã xóa</span></td>
+                                <td>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
                                     <button class="action-btn btn-danger">Xóa</button>
                                 </td>
                             </tr>
@@ -604,175 +567,134 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
             <!-- Analytics Section -->
             <section id="analytics" class="content-section">
-                <div class="section-title">Thống kê & Báo cáo</div>
+                <div class="section-title">Thống kê</div>
                 <div class="dashboard-grid">
                     <div class="dashboard-card">
-                        <h3 style="color: white; margin-bottom: 1rem;">Thống kê truy cập</h3>
-                        <p style="color: rgba(255,255,255,0.8);">Lượt truy cập hôm nay: <strong>3,247</strong></p>
-                        <p style="color: rgba(255,255,255,0.8);">Thời gian trung bình: <strong>4m 32s</strong></p>
-                        <p style="color: rgba(255,255,255,0.8);">Tỷ lệ thoát: <strong>34.5%</strong></p>
+                        <div class="card-header">
+                            <div class="card-icon revenue">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="card-title">Doanh thu theo tháng</h3>
+                        </div>
+                        <div class="chart-container">
+                            <!-- Placeholder for chart -->
+                            <p>Biểu đồ doanh thu sẽ được hiển thị ở đây.</p>
+                        </div>
                     </div>
                     <div class="dashboard-card">
-                        <h3 style="color: white; margin-bottom: 1rem;">Top sản phẩm</h3>
-                        <p style="color: rgba(255,255,255,0.8);">1. iPhone 15 Pro - <strong>89 lượt xem</strong></p>
-                        <p style="color: rgba(255,255,255,0.8);">2. MacBook Pro M3 - <strong>67 lượt xem</strong></p>
-                        <p style="color: rgba(255,255,255,0.8);">3. AirPods Pro - <strong>45 lượt xem</strong></p>
+                        <div class="card-header">
+                            <div class="card-icon users">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3 class="card-title">Số lượng người dùng theo tháng</h3>
+                        </div>
+                        <div class="chart-container">
+                            <!-- Placeholder for chart -->
+                            <p>Biểu đồ số lượng người dùng sẽ được hiển thị ở đây.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Settings Section -->
             <section id="settings" class="content-section">
-                <div class="section-title">Cài đặt hệ thống</div>
-                <div style="max-width: 600px;">
-                    <div class="form-group">
-                        <label class="form-label">Tên website</label>
-                        <input type="text" class="form-input" value="Admin Panel" placeholder="Nhập tên website">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Email liên hệ</label>
-                        <input type="email" class="form-input" placeholder="admin@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Múi giờ</label>
-                        <select class="form-input">
-                            <option>GMT+7 (Việt Nam)</option>
-                            <option>GMT+0 (UTC)</option>
-                            <option>GMT+8 (Trung Quốc)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <button class="action-btn btn-primary" style="padding: 0.8rem 2rem;">
-                            <i class="fas fa-save"></i> Lưu cài đặt
-                        </button>
-                    </div>
+                <div class="section-title">Cài đặt</div>
+                <div class="form-group">
+                    <label for="site-name" class="form-label">Tên trang web</label>
+                    <input type="text" id="site-name" class="form-input" placeholder="Nhập tên trang web">
+                </div>
+                <div class="form-group">
+                    <label for="site-description" class="form-label">Mô tả trang web</label>
+                    <textarea id="site-description" class="form-input" rows="4" placeholder="Nhập mô tả trang web"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="site-logo" class="form-label">Logo trang web</label>
+                    <input type="file" id="site-logo" class="form-input">
+                </div>
+                <button class="action-btn btn-primary">Lưu cài đặt</button>
+            </section>
+
+            <!-- Students Section -->
+            <section id="students" class="content-section">
+                <div class="section-title">Quản lý sinh viên</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã sinh viên</th>
+                                <th>Họ và tên</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SV001</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>a@example.com</td>
+                                <td>0123456789</td>
+                                <td><span class="status-badge status-active">Đang học</span></td>
+                                <td>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
+                                    <button class="action-btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SV002</td>
+                                <td>Trần Thị B</td>
+                                <td>b@example.com</td>
+                                <td>0987654321</td>
+                                <td><span class="status-badge status-pending">Nghỉ học</span></td>
+                                <td>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
+                                    <button class="action-btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SV003</td>
+                                <td>Lê Văn C</td>
+                                <td>c@example.com</td>
+                                <td>0112233445</td>
+                                <td><span class="status-badge status-inactive">Đã tốt nghiệp</span></td>
+                                <td>
+                                    <button class="action-btn btn-primary">Xem chi tiết</button>
+                                    <button class="action-btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
         </main>
     </div>
 
     <script>
-        // Navigation functionality
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('.content-section');
-        const pageTitle = document.getElementById('page-title');
-
         const sectionTitles = {
             dashboard: 'Dashboard',
             users: 'Quản lý người dùng',
             orders: 'Quản lý đơn hàng',
             products: 'Quản lý sản phẩm',
             analytics: 'Thống kê',
-            settings: 'Cài đặt'
+            settings: 'Cài đặt',
+            students: 'Quản lý sinh viên',
         };
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                
                 const targetSection = link.getAttribute('data-section');
-                
-                // Special handling for users section - open in new page
-                if (targetSection === 'users') {
-                    openUsersPage();
-                    return;
-                }
-                
-                // Remove active class from all links
                 navLinks.forEach(l => l.classList.remove('active'));
-                
-                // Add active class to clicked link
                 link.classList.add('active');
-                
-                // Hide all sections
                 sections.forEach(s => s.classList.remove('active'));
-                
-                // Show target section
                 document.getElementById(targetSection).classList.add('active');
-                
-                // Update page title
-                pageTitle.textContent = sectionTitles[targetSection];
-            });
-        });
-
-        // Function to open users page in new window
-        function openUsersPage() {
-            const usersWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
-            
-            usersWindow.document.write(``);
-            
-            usersWindow.document.close();
-        }
-
-        // Add some interactive effects
-        const dashboardCards = document.querySelectorAll('.dashboard-card');
-        dashboardCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Action button handlers
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('action-btn')) {
-                const action = e.target.textContent.trim();
-                
-                if (action.includes('Xóa')) {
-                    if (confirm('Bạn có chắc chắn muốn xóa mục này?')) {
-                        e.target.closest('tr').style.opacity = '0.5';
-                        setTimeout(() => {
-                            e.target.closest('tr').remove();
-                        }, 300);
-                    }
-                } else if (action.includes('Sửa') || action.includes('Xem')) {
-                    alert(`Chức năng ${action} đang được phát triển!`);
-                }
-            }
-        });
-
-        // Simulate real-time updates
-        function updateDashboard() {
-            const values = document.querySelectorAll('.card-value');
-            values.forEach(value => {
-                if (Math.random() > 0.8) {
-                    const currentValue = parseInt(value.textContent.replace(/[^\d]/g, ''));
-                    const change = Math.floor(Math.random() * 10) - 5;
-                    const newValue = Math.max(0, currentValue + change);
-                    
-                    value.style.transition = 'all 0.3s ease';
-                    value.style.transform = 'scale(1.1)';
-                    
-                    setTimeout(() => {
-                        value.textContent = value.textContent.replace(/\d+/, newValue);
-                        value.style.transform = 'scale(1)';
-                    }, 150);
-                }
-            });
-        }
-
-        // Update dashboard every 30 seconds
-        setInterval(updateDashboard, 30000);
-
-        // Add loading animation for form submissions
-        const forms = document.querySelectorAll('form, .action-btn');
-        forms.forEach(form => {
-            form.addEventListener('click', function(e) {
-                if (this.classList.contains('btn-primary')) {
-                    const originalText = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
-                    this.disabled = true;
-                    
-                    setTimeout(() => {
-                        this.innerHTML = originalText;
-                        this.disabled = false;
-                    }, 2000);
-                }
+                document.getElementById('page-title').textContent = sectionTitles[targetSection];
             });
         });
     </script>
 </body>
 </html>
+

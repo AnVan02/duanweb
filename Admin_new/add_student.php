@@ -1,16 +1,16 @@
 <?php
-session_start();
+// session_start();
 // Bật hiển thị lỗi để gỡ lỗi (xóa trong môi trường sản xuất)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', '/var/log/php_errors.log');
 
-// Kiểm tra đăng nhập admin
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header('Location: /admin/login.php');
-    exit;
-}
+// // Kiểm tra đăng nhập admin
+// if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+//     header('Location: /admin/login.php');
+//     exit;
+// }
 
 // Hàm kết nối cơ sở dữ liệu
 function dbconnect() {
@@ -424,691 +424,343 @@ if ($mode == 'edit' && $student_id) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Sinh Viên</title>
-</head>
-<body>
-    <?php if ($mode == 'edit' && !empty($student_data)): ?>
-        <!-- Form chỉnh sửa sinh viên -->
-        <h2>Sửa Thông Tin Sinh Viên</h2>
+<!-- KHÔNG có <html>, <head>, <body>, <main>, <section>, <style> -->
 
-        <?php if (!empty($message)): ?>
-            <p class="<?php echo strpos($message, 'Lỗi') === false ? 'message' : 'error'; ?>">
-                <?php echo htmlspecialchars($message); ?>
-            </p>
-        <?php endif; ?>
-
-        <!-- Debug: In ra giá trị Khoahoc -->
-        <?php
-        echo "<pre>Debug Khoahoc: " . htmlspecialchars($student_data['Khoahoc'] ?? 'Không có dữ liệu') . "</pre>";
-        $selected_courses = !empty($student_data['Khoahoc']) ? array_map('trim', explode(',', $student_data['Khoahoc'])) : [];
-        echo "<pre>Debug selected_courses: " . print_r($selected_courses, true) . "</pre>";
-        ?>
-
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <input type="hidden" name="action" value="update">
-            <input type="hidden" name="student_id" value="<?php echo htmlspecialchars($student_id); ?>">
-            <div class="form-container">
-                <div class="form-left">
-                    <label>IMEI</label>
-                    <input type="number" name="imei" value="<?php echo htmlspecialchars($student_data['IMEI'] ?? ''); ?>" required>
-                    <label>MB_ID</label>
-                    <input type="number" name="mb_id" value="<?php echo htmlspecialchars($student_data['MB_ID'] ?? ''); ?>">
-                    <label>OS_ID</label>
-                    <input type="number" name="os_id" value="<?php echo htmlspecialchars($student_data['OS_ID'] ?? ''); ?>">
-                    <label>Student_ID</label>
-                    <input type="text" name="student_id" value="<?php echo htmlspecialchars($student_data['Student_ID'] ?? ''); ?>" readonly>
-                </div>
-                <div class="form-right">
-                    <label>Mật khẩu</label>
-                    <input type="password" name="password" value="<?php echo htmlspecialchars($student_data['Password'] ?? ''); ?>" required>
-                    <label>Tên</label>
-                    <input type="text" name="ten" value="<?php echo htmlspecialchars($student_data['Ten'] ?? ''); ?>" required>
-                    <label>Email</label>
-                    <input type="email" name="email" value="<?php echo htmlspecialchars($student_data['Email'] ?? ''); ?>" required>
-                    <label>Khóa học</label>
-                    <div class="dropdown-checkbox">
-                        <button type="button" class="dropdown-btn" id="dropdownBtn_<?php echo $student_id; ?>" onclick="toggleDropdown('<?php echo $student_id; ?>')">Chọn khóa học ▼</button>
-                        <div class="dropdown-content" id="dropdownContent_<?php echo $student_id; ?>">
-                            <?php
-                            $stmt_khoa = $conn->prepare("SELECT id, khoa_hoc FROM khoa_hoc ORDER BY khoa_hoc");
-                            if ($stmt_khoa) {
-                                $stmt_khoa->execute();
-                                $khoa_result = $stmt_khoa->get_result();
-                                while ($khoa_row = $khoa_result->fetch_assoc()) {
-                                    $checked = '';
-                                    // Chỉ dùng $selected_courses nếu là form sửa
-                                    if (isset($selected_courses) && in_array((string)$khoa_row['id'], $selected_courses, true)) {
-                                        $checked = 'checked';
-                                    }
-                                    echo "<label>";
-                                    echo "<input type='checkbox' name='khoa_hoc[]' value='" . htmlspecialchars($khoa_row['id']) . "' $checked onchange=\"updateDropdownBtn('" . $student_id . "')\"> ";
-                                    echo htmlspecialchars($khoa_row['khoa_hoc']);
-                                    echo "</label>";
-                                }
-                                $stmt_khoa->close();
-                            } else {
-                                error_log("Prepare failed for select khoa_hoc: " . $conn->error);
-                                echo "<span>Lỗi tải danh sách khóa học</span>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <input type="submit" value="Cập Nhật">
-        </form>
-
-    <?php else: ?>
-        <!-- Form thêm sinh viên -->
-        <h2>Nhập Dữ Liệu Sinh Viên</h2>
-
-        <?php if (!empty($message)): ?>
-            <p class="<?php echo strpos($message, 'Lỗi') === false ? 'message' : 'error'; ?>">
-                <?php echo htmlspecialchars($message); ?>
-            </p>
-        <?php endif; ?>
-
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <input type="hidden" name="action" value="add">
-            <div class="form-container">
-                <div class="form-left">
-                    <label>IMEI</label>
-                    <input type="number" name="imei" required>
-                    <label>MB_ID</label>
-                    <input type="number" name="mb_id">
-                    <label>OS_ID</label>
-                    <input type="number" name="os_id">
-                    <label>Student_ID</label>
-                    <input type="text" name="student_id" required>
-                </div>
-                <div class="form-right">
-                    <label>Mật khẩu</label>
-                    <input type="password" name="password" required>
-                    <label>Tên sinh viên</label>
-                    <input type="text" name="ten" required>
-                    <label>Email</label>
-                    <input type="email" name="email" required>
-                    <label>Khóa học</label>
-                    <div class="dropdown-checkbox">
-                        <button type="button" class="dropdown-btn" id="dropdownBtn_add" onclick="toggleDropdown('add')">Chọn khóa học ▼</button>
-                        <div class="dropdown-content" id="dropdownContent_add">
-                            <?php
-                            $stmt_khoa = $conn->prepare("SELECT id, khoa_hoc FROM khoa_hoc ORDER BY khoa_hoc");
-                            if ($stmt_khoa) {
-                                $stmt_khoa->execute();
-                                $khoa_result = $stmt_khoa->get_result();
-                                while ($khoa_row = $khoa_result->fetch_assoc()) {
-                                    echo "<label>";
-                                    echo "<input type='checkbox' name='khoa_hoc[]' value='" . htmlspecialchars($khoa_row['id']) . "' onchange=\"updateDropdownBtn('add')\"> ";
-                                    echo htmlspecialchars($khoa_row['khoa_hoc']);
-                                    echo "</label>";
-                                }
-                                $stmt_khoa->close();
-                            } else {
-                                error_log("Prepare failed for select khoa_hoc: " . $conn->error);
-                                echo "<span>Lỗi tải danh sách khóa học</span>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <input type="submit" value="Thêm Sinh Viên">
-        </form>
-
-        <!-- Hiển thị danh sách sinh viên -->
-        <?php
-        $stmt = $conn->prepare("SELECT * FROM students");
-        if (!$stmt) {
-            error_log("Prepare failed for select students: " . $conn->error);
-            echo "<p class='error'>Lỗi truy vấn cơ sở dữ liệu</p>";
-        } else {
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                echo "<h2>Danh Sách Sinh Viên</h2>";
-                echo "<table id='studentTable'>";
-                echo "<tr>
-                    <th>IMEI</th>
-                    <th>MB_ID</th>
-                    <th>OS_ID</th>
-                    <th>Student_ID</th>
-                    <th>Password</th>
-                    <th>Tên sinh viên</th>
-                    <th>Email</th>
-                    <th>Khóa học</th>
-                    <th>Hành Động</th>
-                </tr>";
-                
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr data-student-id='" . htmlspecialchars($row['Student_ID']) . "'>";
-                    echo "<td>" . htmlspecialchars($row['IMEI'] ?? '') . "</td>";
-                    echo "<td>" . htmlspecialchars($row['MB_ID'] ?? '') . "</td>";
-                    echo "<td>" . htmlspecialchars($row['OS_ID'] ?? '') . "</td>";
-                    echo "<td>" . htmlspecialchars($row['Student_ID'] ?? '') . "</td>";
-                    echo "<td>" . htmlspecialchars($row['Password'] ?? '') . "</td>";
-                    echo "<td>" . htmlspecialchars($row['Ten'] ?? '') . "</td>";
-                    echo "<td>" . htmlspecialchars($row['Email'] ?? '') . "</td>";
-
-                    $khoa_hoc_ids = !empty($row['Khoahoc']) && $row['Khoahoc'] !== NULL ? explode(',', $row['Khoahoc']) : [];
-                    $khoa_hoc_names = [];
-                    if (!empty($khoa_hoc_ids)) {
-                        $placeholders = implode(',', array_fill(0, count($khoa_hoc_ids), '?'));
-                        $stmt_khoa_hoc = $conn->prepare("SELECT khoa_hoc FROM khoa_hoc WHERE id IN ($placeholders)");
-                        if ($stmt_khoa_hoc) {
-                            $stmt_khoa_hoc->bind_param(str_repeat('s', count($khoa_hoc_ids)), ...$khoa_hoc_ids);
-                            $stmt_khoa_hoc->execute();
-                            $khoa_hoc_result = $stmt_khoa_hoc->get_result();
-                            while ($khoa_hoc_row = $khoa_hoc_result->fetch_assoc()) {
-                                $khoa_hoc_names[] = htmlspecialchars($khoa_hoc_row['khoa_hoc']);
-                            }
-                            $stmt_khoa_hoc->close();
-                        } else {
-                            error_log("Prepare failed for select khoa_hoc: " . $conn->error);
-                        }
-                    }
-
-                    echo "<td class='course-cell'>";
-                    if (!empty($khoa_hoc_names)) {
-                        echo "<ul>";
-                        foreach ($khoa_hoc_names as $name) {
-                            echo "<li>" . htmlspecialchars($name) . "</li>";
-                        }
-                        echo "</ul>";
-                    } else {
-                        echo 'Chưa có khóa học';
-                    }
-                    echo "</td>";
-
-                    echo "<td class='actions'>";
-                    echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
-                    echo "<input type='hidden' name='action' value='delete'>";
-                    echo "<input type='hidden' name='student_id' value='" . htmlspecialchars($row['Student_ID']) . "'>";
-                    echo "<input type='submit' value='Xóa' onclick='return confirm(\"Bạn có chắc muốn xóa?\");'>";
-                    echo "</form>";
-                    echo "<form method='GET' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
-                    echo "<input type='hidden' name='mode' value='edit'>";
-                    echo "<input type='hidden' name='student_id' value='" . htmlspecialchars($row['Student_ID']) . "'>";
-                    echo "<input type='submit' value='Sửa'>";
-                    echo "</form>";
-                    echo "<button onclick=\"openModal('" . htmlspecialchars($row['Student_ID']) . "')\">Xem Khóa Học</button>";
-                    echo "</td>";
-                    echo "</tr>";
-                }
-                echo "</table>";
-            } else {
-                echo "<p style='text-align:center;'>Chưa có dữ liệu sinh viên.</p>";
-            }
-            $stmt->close();
-        }
-        ?>
+<!-- Form thêm/sửa sinh viên -->
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <input type="hidden" name="action" value="<?php echo $mode == 'edit' ? 'update' : 'add'; ?>">
+    <?php if ($mode == 'edit'): ?>
+        <input type="hidden" name="student_id" value="<?php echo htmlspecialchars($student_id); ?>">
     <?php endif; ?>
-
-    <!-- Modal hiển thị và lưu khóa học -->
-    <div id="courseModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">×</span>
-            <h2 id="modalTitle">Khóa Học Của Sinh Viên</h2>
-            <form id="courseForm" onsubmit="saveCourses(event)">
-                <input type="hidden" name="action" value="save_courses">
-                <input type="hidden" name="student_id" id="modalStudentId">
-                <div class="course-list">
+    <div class="form-container">
+        <div class="form-left">
+            <label>IMEI</label>
+            <input type="number" name="imei" value="<?php echo htmlspecialchars($student_data['IMEI'] ?? ''); ?>" required>
+            <label>MB_ID</label>
+            <input type="number" name="mb_id" value="<?php echo htmlspecialchars($student_data['MB_ID'] ?? ''); ?>">
+            <label>OS_ID</label>
+            <input type="number" name="os_id" value="<?php echo htmlspecialchars($student_data['OS_ID'] ?? ''); ?>">
+            <label>Student_ID</label>
+            <input type="text" name="student_id" value="<?php echo htmlspecialchars($student_data['Student_ID'] ?? ''); ?>" readonly>
+        </div>
+        <div class="form-right">
+            <label>Mật khẩu</label>
+            <input type="password" name="password" value="<?php echo htmlspecialchars($student_data['Password'] ?? ''); ?>" required>
+            <label>Tên</label>
+            <input type="text" name="ten" value="<?php echo htmlspecialchars($student_data['Ten'] ?? ''); ?>" required>
+            <label>Email</label>
+            <input type="email" name="email" value="<?php echo htmlspecialchars($student_data['Email'] ?? ''); ?>" required>
+            <label>Khóa học</label>
+            <div class="dropdown-checkbox">
+                <button type="button" class="dropdown-btn" id="dropdownBtn_<?php echo $student_id; ?>" onclick="toggleDropdown('<?php echo $student_id; ?>')">Chọn khóa học ▼</button>
+                <div class="dropdown-content" id="dropdownContent_<?php echo $student_id; ?>">
                     <?php
-                    $stmt = $conn->prepare("SELECT * FROM khoa_hoc ORDER BY khoa_hoc");
-                    if (!$stmt) {
-                        error_log("Prepare failed for select khoa_hoc: " . $conn->error);
-                        echo "<p class='error'>Lỗi tải danh sách khóa học</p>";
-                    } else {
-                        $stmt->execute();
-                        $khoaHocResult = $stmt->get_result();
-                        if ($khoaHocResult->num_rows > 0) {
-                            while ($khoaHocRow = $khoaHocResult->fetch_assoc()) {
-                                echo "<label class='course-item'>";
-                                echo "<input type='checkbox' name='khoa_hoc[]' value='" . htmlspecialchars($khoaHocRow['id']) . "' onchange='updateSelectedCourses()'>";
-                                echo "<span class='course-name'>" . htmlspecialchars($khoaHocRow['khoa_hoc']) . "</span>";
-                                echo "</label>";
+                    $stmt_khoa = $conn->prepare("SELECT id, khoa_hoc FROM khoa_hoc ORDER BY khoa_hoc");
+                    if ($stmt_khoa) {
+                        $stmt_khoa->execute();
+                        $khoa_result = $stmt_khoa->get_result();
+                        while ($khoa_row = $khoa_result->fetch_assoc()) {
+                            $checked = '';
+                            // Chỉ dùng $selected_courses nếu là form sửa
+                            if (isset($selected_courses) && in_array((string)$khoa_row['id'], $selected_courses, true)) {
+                                $checked = 'checked';
                             }
-                        } else {
-                            echo "<p>Không có khóa học nào.</p>";
+                            echo "<label>";
+                            echo "<input type='checkbox' name='khoa_hoc[]' value='" . htmlspecialchars($khoa_row['id']) . "' $checked onchange=\"updateDropdownBtn('" . $student_id . "')\"> ";
+                            echo htmlspecialchars($khoa_row['khoa_hoc']);
+                            echo "</label>";
                         }
-                        $stmt->close();
+                        $stmt_khoa->close();
+                    } else {
+                        error_log("Prepare failed for select khoa_hoc: " . $conn->error);
+                        echo "<span>Lỗi tải danh sách khóa học</span>";
                     }
                     ?>
                 </div>
-                <div id="selected-courses">
-                    <p><strong>Khóa học đã chọn:</strong> <span id="selectedCoursesText">Chưa chọn khóa học nào.</span></p>
-                </div>
-                <input type="submit" value="Lưu" style="background-color: #28a745; margin-top: 10px;">
-            </form>
+            </div>
         </div>
     </div>
+    <input type="submit" value="<?php echo $mode == 'edit' ? 'Cập Nhật' : 'Thêm Sinh Viên'; ?>">
+</form>
 
-    <?php
-    $conn->close();
-    ?>
+<!-- Bảng danh sách sinh viên -->
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>IMEI</th>
+                <th>MB_ID</th>
+                <th>OS_ID</th>
+                <th>Student_ID</th>
+                <th>Password</th>
+                <th>Tên sinh viên</th>
+                <th>Email</th>
+                <th>Khóa học</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <?php
+            $stmt = $conn->prepare("SELECT * FROM students");
+            if (!$stmt) {
+                error_log("Prepare failed for select students: " . $conn->error);
+                echo "<tr><td colspan='9' class='error'>Lỗi truy vấn cơ sở dữ liệu</td></tr>";
+            } else {
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr data-student-id='" . htmlspecialchars($row['Student_ID']) . "'>";
+                        echo "<td>" . htmlspecialchars($row['IMEI'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['MB_ID'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['OS_ID'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['Student_ID'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['Password'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['Ten'] ?? '') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['Email'] ?? '') . "</td>";
 
-    <script>
-        function openModal(studentId) {
-            console.log('Opening modal for student:', studentId);
-            document.getElementById('modalTitle').innerText = `Khóa Học Của Sinh Viên: ${studentId}`;
-            document.getElementById('modalStudentId').value = studentId;
-            document.getElementById('courseModal').style.display = 'block';
-
-            fetch(`<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?action=get_courses&student_id=${studentId}`, {
-                method: 'GET',
-                headers: { 'Accept': 'application/json' }
-            })
-                .then(response => {
-                    console.log('Fetch response status:', response.status);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Fetched courses:', data);
-                    const checkboxes = document.querySelectorAll('input[name="khoa_hoc[]"]');
-                    checkboxes.forEach(checkbox => {
-                        checkbox.checked = data.includes(checkbox.value);
-                    });
-                    updateSelectedCourses();
-                })
-                .catch(error => {
-                    console.error('Error fetching courses:', error);
-                    alert('Lỗi khi tải danh sách khóa học: ' + error.message);
-                });
-        }
-
-        function closeModal() {
-            document.getElementById('courseModal').style.display = 'none';
-            const checkboxes = document.querySelectorAll('input[name="khoa_hoc[]"]');
-            checkboxes.forEach(checkbox => checkbox.checked = false);
-            updateSelectedCourses();
-        }
-
-        function updateSelectedCourses() {
-            const selectedCourses = [];
-            const checkboxes = document.querySelectorAll('input[name="khoa_hoc[]"]:checked');
-            checkboxes.forEach(checkbox => {
-                const label = checkbox.parentElement.querySelector('.course-name').textContent.trim();
-                selectedCourses.push(label);
-            });
-            const selectedCoursesText = selectedCourses.length > 0 ? selectedCourses.join(', ') : 'Chưa chọn khóa học nào.';
-            document.getElementById('selectedCoursesText').innerText = selectedCoursesText;
-        }
-
-        function saveCourses(event) {
-            event.preventDefault();
-            const form = document.getElementById('courseForm');
-            const formData = new FormData(form);
-            const studentId = document.getElementById('modalStudentId').value;
-
-            console.log('Saving courses for student:', studentId);
-            fetch('<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Response data:', data);
-                    if (data.status === 'success') {
-                        const row = document.querySelector(`#studentTable tr[data-student-id="${data.student_id}"]`);
-                        if (row) {
-                            const courseCell = row.querySelector('.course-cell');
-                            if (data.khoa_hoc_names && data.khoa_hoc_names.length > 0) {
-                                courseCell.innerHTML = '<ul>' + data.khoa_hoc_names.map(name => `<li>${htmlspecialchars(name)}</li>`).join('') + '</ul>';
+                        $khoa_hoc_ids = !empty($row['Khoahoc']) && $row['Khoahoc'] !== NULL ? explode(',', $row['Khoahoc']) : [];
+                        $khoa_hoc_names = [];
+                        if (!empty($khoa_hoc_ids)) {
+                            $placeholders = implode(',', array_fill(0, count($khoa_hoc_ids), '?'));
+                            $stmt_khoa_hoc = $conn->prepare("SELECT khoa_hoc FROM khoa_hoc WHERE id IN ($placeholders)");
+                            if ($stmt_khoa_hoc) {
+                                $stmt_khoa_hoc->bind_param(str_repeat('s', count($khoa_hoc_ids)), ...$khoa_hoc_ids);
+                                $stmt_khoa_hoc->execute();
+                                $khoa_hoc_result = $stmt_khoa_hoc->get_result();
+                                while ($khoa_hoc_row = $khoa_hoc_result->fetch_assoc()) {
+                                    $khoa_hoc_names[] = htmlspecialchars($khoa_hoc_row['khoa_hoc']);
+                                }
+                                $stmt_khoa_hoc->close();
                             } else {
-                                courseCell.innerHTML = 'Chưa có khóa học';
+                                error_log("Prepare failed for select khoa_hoc: " . $conn->error);
                             }
-                        } else {
-                            console.error('Row not found for student:', data.student_id);
                         }
-                        alert(data.message);
-                        closeModal();
+
+                        echo "<td class='course-cell'>";
+                        if (!empty($khoa_hoc_names)) {
+                            echo "<ul>";
+                            foreach ($khoa_hoc_names as $name) {
+                                echo "<li>" . htmlspecialchars($name) . "</li>";
+                            }
+                            echo "</ul>";
+                        } else {
+                            echo 'Chưa có khóa học';
+                        }
+                        echo "</td>";
+
+                        echo "<td class='actions'>";
+                        echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
+                        echo "<input type='hidden' name='action' value='delete'>";
+                        echo "<input type='hidden' name='student_id' value='" . htmlspecialchars($row['Student_ID']) . "'>";
+                        echo "<button type='submit' class='action-btn btn-danger' onclick='return confirm(\"Bạn có chắc muốn xóa?\");'>Xóa</button>";
+                        echo "</form>";
+                        echo "<form method='GET' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
+                        echo "<input type='hidden' name='mode' value='edit'>";
+                        echo "<input type='hidden' name='student_id' value='" . htmlspecialchars($row['Student_ID']) . "'>";
+                        echo "<button type='submit' class='action-btn btn-primary'>Sửa</button>";
+                        echo "</form>";
+                        echo "<button onclick=\"openModal('" . htmlspecialchars($row['Student_ID']) . "')\">Xem Khóa Học</button>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='9' style='text-align:center;'>Chưa có dữ liệu sinh viên.</td></tr>";
+                }
+                $stmt->close();
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal hiển thị và lưu khóa học -->
+<div id="courseModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">×</span>
+        <h2 id="modalTitle">Khóa Học Của Sinh Viên</h2>
+        <form id="courseForm" onsubmit="saveCourses(event)">
+            <input type="hidden" name="action" value="save_courses">
+            <input type="hidden" name="student_id" id="modalStudentId">
+            <div class="course-list">
+                <?php
+                $stmt = $conn->prepare("SELECT * FROM khoa_hoc ORDER BY khoa_hoc");
+                if (!$stmt) {
+                    error_log("Prepare failed for select khoa_hoc: " . $conn->error);
+                    echo "<p class='error'>Lỗi tải danh sách khóa học</p>";
+                } else {
+                    $stmt->execute();
+                    $khoaHocResult = $stmt->get_result();
+                    if ($khoaHocResult->num_rows > 0) {
+                        while ($khoaHocRow = $khoaHocResult->fetch_assoc()) {
+                            echo "<label class='course-item'>";
+                            echo "<input type='checkbox' name='khoa_hoc[]' value='" . htmlspecialchars($khoaHocRow['id']) . "' onchange='updateSelectedCourses()'>";
+                            echo "<span class='course-name'>" . htmlspecialchars($khoaHocRow['khoa_hoc']) . "</span>";
+                            echo "</label>";
+                        }
                     } else {
-                        console.error('Save failed:', data.message);
-                        alert(data.message);
+                        echo "<p>Không có khóa học nào.</p>";
                     }
-                })
-                .catch(error => {
-                    console.error('Error saving courses:', error);
-                    alert('Đã xảy ra lỗi khi lưu khóa học: ' + error.message);
+                    $stmt->close();
+                }
+                ?>
+            </div>
+            <div id="selected-courses">
+                <p><strong>Khóa học đã chọn:</strong> <span id="selectedCoursesText">Chưa chọn khóa học nào.</span></p>
+            </div>
+            <input type="submit" value="Lưu" style="background-color: #28a745; margin-top: 10px;">
+        </form>
+    </div>
+</div>
+
+<?php
+$conn->close();
+?>
+
+<script>
+    function openModal(studentId) {
+        console.log('Opening modal for student:', studentId);
+        document.getElementById('modalTitle').innerText = `Khóa Học Của Sinh Viên: ${studentId}`;
+        document.getElementById('modalStudentId').value = studentId;
+        document.getElementById('courseModal').style.display = 'block';
+
+        fetch(`<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?action=get_courses&student_id=${studentId}`, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        })
+            .then(response => {
+                console.log('Fetch response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Fetched courses:', data);
+                const checkboxes = document.querySelectorAll('input[name="khoa_hoc[]"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = data.includes(checkbox.value);
                 });
-        }
+                updateSelectedCourses();
+            })
+            .catch(error => {
+                console.error('Error fetching courses:', error);
+                alert('Lỗi khi tải danh sách khóa học: ' + error.message);
+            });
+    }
 
-        function htmlspecialchars(str) {
-            const div = document.createElement('div');
-            div.innerText = str;
-            return div.innerHTML;
-        }
+    function closeModal() {
+        document.getElementById('courseModal').style.display = 'none';
+        const checkboxes = document.querySelectorAll('input[name="khoa_hoc[]"]');
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateSelectedCourses();
+    }
 
-        function toggleDropdown(id) {
-            var content = document.getElementById("dropdownContent_" + id);
-            content.style.display = (content.style.display === "block") ? "none" : "block";
-        }
+    function updateSelectedCourses() {
+        const selectedCourses = [];
+        const checkboxes = document.querySelectorAll('input[name="khoa_hoc[]"]:checked');
+        checkboxes.forEach(checkbox => {
+            const label = checkbox.parentElement.querySelector('.course-name').textContent.trim();
+            selectedCourses.push(label);
+        });
+        const selectedCoursesText = selectedCourses.length > 0 ? selectedCourses.join(', ') : 'Chưa chọn khóa học nào.';
+        document.getElementById('selectedCoursesText').innerText = selectedCoursesText;
+    }
 
-        // Đóng dropdown nếu click ra ngoài
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropdown-btn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.style.display === "block") {
-                        openDropdown.style.display = "none";
+    function saveCourses(event) {
+        event.preventDefault();
+        const form = document.getElementById('courseForm');
+        const formData = new FormData(form);
+        const studentId = document.getElementById('modalStudentId').value;
+
+        console.log('Saving courses for student:', studentId);
+        fetch('<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.status === 'success') {
+                    const row = document.querySelector(`#studentTable tr[data-student-id="${data.student_id}"]`);
+                    if (row) {
+                        const courseCell = row.querySelector('.course-cell');
+                        if (data.khoa_hoc_names && data.khoa_hoc_names.length > 0) {
+                            courseCell.innerHTML = '<ul>' + data.khoa_hoc_names.map(name => `<li>${htmlspecialchars(name)}</li>`).join('') + '</ul>';
+                        } else {
+                            courseCell.innerHTML = 'Chưa có khóa học';
+                        }
+                    } else {
+                        console.error('Row not found for student:', data.student_id);
                     }
+                    alert(data.message);
+                    closeModal();
+                } else {
+                    console.error('Save failed:', data.message);
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error saving courses:', error);
+                alert('Đã xảy ra lỗi khi lưu khóa học: ' + error.message);
+            });
+    }
+
+    function htmlspecialchars(str) {
+        const div = document.createElement('div');
+        div.innerText = str;
+        return div.innerHTML;
+    }
+
+    function toggleDropdown(id) {
+        var content = document.getElementById("dropdownContent_" + id);
+        content.style.display = (content.style.display === "block") ? "none" : "block";
+    }
+
+    // Đóng dropdown nếu click ra ngoài
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropdown-btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === "block") {
+                    openDropdown.style.display = "none";
                 }
             }
         }
+    }
 
-        // Cập nhật tên các khóa học đã chọn lên nút
-        function updateDropdownBtn(id) {
-            var dropdown = document.getElementById('dropdownContent_' + id);
-            var checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
-            var btn = document.getElementById('dropdownBtn_' + id);
-            var selected = [];
-            checkboxes.forEach(function(cb) {
-                selected.push(cb.parentElement.textContent.trim());
-            });
-            if (selected.length > 0) {
-                btn.innerHTML = selected.join(', ') + ' ▼';
-            } else {
-                btn.innerHTML = 'Chọn khóa học ▼';
-            }
+    // Cập nhật tên các khóa học đã chọn lên nút
+    function updateDropdownBtn(id) {
+        var dropdown = document.getElementById('dropdownContent_' + id);
+        var checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+        var btn = document.getElementById('dropdownBtn_' + id);
+        var selected = [];
+        checkboxes.forEach(function(cb) {
+            selected.push(cb.parentElement.textContent.trim());
+        });
+        if (selected.length > 0) {
+            btn.innerHTML = selected.join(', ') + ' ▼';
+        } else {
+            btn.innerHTML = 'Chọn khóa học ▼';
         }
+    }
 
-        // Tự động cập nhật khi load lại trang (đặc biệt khi sửa sinh viên)
-        window.onload = function() {
-            // Nếu có nhiều form, cập nhật tất cả dropdown
-            var allDropdowns = document.querySelectorAll('.dropdown-btn');
-            allDropdowns.forEach(function(btn) {
-                var id = btn.id.replace('dropdownBtn_', '');
-                updateDropdownBtn(id);
-            });
-        };
-    </script>
+    // Tự động cập nhật khi load lại trang (đặc biệt khi sửa sinh viên)
+    window.onload = function() {
+        // Nếu có nhiều form, cập nhật tất cả dropdown
+        var allDropdowns = document.querySelectorAll('.dropdown-btn');
+        allDropdowns.forEach(function(btn) {
+            var id = btn.id.replace('dropdownBtn_', '');
+            updateDropdownBtn(id);
+        });
+    };
+</script>
 
-    <style>
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-        .form-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin: 0 auto 20px;
-            max-width: 1000px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .form-left, .form-right {
-            flex: 1;
-            min-width: 280px;
-        }
-        .form-left label, .form-right label {
-            display: block;
-            margin: 10px 0 6px;
-            font-weight: 600;
-            color: #34495e;
-        }
-        input[type="number"], input[type="text"], input[type="password"], input[type="email"], select[multiple] {
-            width: 100%;
-            padding: 10px 12px;
-            margin-bottom: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
-        }
-        input[type="number"]:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, select[multiple]:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-        input[type="submit"] {
-            background-color: #3498db;
-            color: white;
-            padding: 14px 22px;
-            margin: 20px auto;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            display: block;
-            transition: background-color 0.3s;
-        }
-        input[type="submit"]:hover {
-            background-color: #2980b9;
-        }
-        .message {
-            color: green;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 15px;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 15px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 1500px;
-            margin: 10px auto;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        th, td {
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 1px solid #e6e6e6;
-            text-align: center;
-        }
-        th {
-            background-color: #3498db;
-            color: #fff;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            border-left: 1px solid #e6e6e6;
-            text-align: center;
-        }
-        td + td {
-            border-left: 1px solid #e6e6e6;
-        }
-        tr:hover {
-            background-color: #f4f6f8;
-        }
-        .actions form {
-            display: inline-block;
-            margin-right: 5px;
-        }
-        .actions input[type="submit"], .actions button {
-            padding: 8px 12px;
-            font-size: 14px;
-            margin: 0;
-            cursor: pointer;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-            max-width: 700px;
-            border-radius: 10px;
-            position: relative;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .course-item {
-            display: block;
-            padding: 8px;
-            margin: 5px 0;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .course-item:hover {
-            background-color: #e9ecef;
-        }
-        .course-name {
-            margin-left: 8px;
-        }
-        .course-list {
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 10px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            margin-bottom: 15px;
-        }
-        .course-list label {
-            display: block;
-            margin: 10px 0;
-        }
-        #selected-courses {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        td ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        td ul li {
-            margin-bottom: 5px;
-        }
-        /* CSS cho danh sách checkbox khóa học */
-        .course-checkbox-list {
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            max-height: 200px;
-            overflow-y: auto;
-            background: #f9f9f9;
-        }
-        .course-checkbox-list label {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            padding: 4px 0;
-            transition: background 0.2s;
-        }
-        .course-checkbox-list label:hover {
-            background: #eaf6ff;
-        }
-        .course-checkbox-list input[type="checkbox"] {
-            margin-right: 10px;
-            accent-color: #3498db; /* Màu xanh cho checkbox (hỗ trợ Chrome, Edge, Safari) */
-            width: 18px;
-            height: 18px;
-        }
-        .dropdown-checkbox {
-            position: relative;
-            width: 100%;
-            max-width: 350px;
-        }
-        .dropdown-btn {
-            width: 100%;
-            background: #7b868e;
-            color: #fff;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            text-align: left;
-            cursor: pointer;
-            outline: none;
-            transition: background 0.2s;
-        }
-        .dropdown-btn:hover {
-            background: #5a6268;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: #fff;
-            min-width: 100%;
-            max-height: 220px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-            z-index: 100;
-            margin-top: 4px;
-            padding: 10px;
-        }
-        .dropdown-content label {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            padding: 4px 0;
-            transition: background 0.2s;
-        }
-        .dropdown-content label:hover {
-            background: #eaf6ff;
-        }
-        .dropdown-content input[type="checkbox"] {
-            margin-right: 10px;
-            accent-color: #3498db;
-            width: 18px;
-            height: 18px;
-        }
-        @media (max-width: 768px) {
-            .form-container {
-                flex-direction: column;
-            }
-            .modal-content {
-                width: 90%;
-            }
-        }
-    </style>
-</body>
-</html>
