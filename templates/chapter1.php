@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
+    <link rel="shortcut icon" href="../RS_icon.jpg" />
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -16,7 +18,12 @@
             <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
         </div>
         <h3>GIỚI THIỆU CHUNG VỀ PYTHON</h3>
+        
+        <button onclick="logout()" class="logout-btn">
+            <i class="fa fa-sign-out-alt">Kiem tra</i>
+        </button>
     </nav>
+    
     <div class="container">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
@@ -112,6 +119,12 @@
         </div>
     </div>
     <script src="static/javascript/main.js"></script>
+    <script>
+        function logout() {
+            window.location.href = "../kiemtra.php";
+        }
+
+    </script>
 </body>
 
 </html>

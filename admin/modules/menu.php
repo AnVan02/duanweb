@@ -34,6 +34,13 @@
             </a>
         </li>
 
+        <li class="nav-item <?php if ($action === 'chungchi') { echo "active"; } ?>">
+            <a class="nav-link" href="index.php?action=chungchi">
+                <span class="menu-title"><i></i>Chứng chỉ</span>
+            </a>
+        </li>
+
+
         <li class="nav-item <?php if ($action === 'question') { echo "active"; } ?>">
             <a class="nav-link" href="index.php?action=add_question">
                 <span class="menu-title"><i>❓</i> Thêm câu hỏi</span>

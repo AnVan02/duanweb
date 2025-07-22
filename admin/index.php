@@ -37,10 +37,6 @@ if (!isset($_SESSION['login'])) {
 
   <script src="js/toast_message.js"></script>
   <script src="https://kit.fontawesome.com/a2e1cc550d.js" crossorigin="anonymous"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <script src="ckeditor/ckeditor.js"></script> Đường dẫn local -->
-      <!-- CSS của Summernote -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <!-- Bootstrap CSS (nếu chưa có) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome hoặc icon khác nếu cần -->

@@ -142,6 +142,11 @@
     </div>
     <script src="static/javascript/main.js"></script>
     <script src="static/javascript/code.js"></script>
+    <script>
+        function goToTest() {
+            window.location.replace("../kiemtra.php");
+        }
+    </script>
 </body>
 
 </html>

@@ -9,9 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
+    <link rel="shortcut icon" href="../RS_icon.jpg" />
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/chapter1_1.css">
     <link rel="stylesheet" href="static/css/code.css">
+    <link hred="" href="">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -22,6 +24,11 @@
             <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
         </div>
         <h3>TỔNG QUAN VỀ NGÔN NGỮ LẬP TRÌNH TRONG PYTHON</h3>
+        
+        <button onclick="goToTest()" class="logout-btn">
+            <i class="fa fa-sign-out-alt">Kiểm tra</i>
+        </button>
+
     </nav>
     <div class="container">
         <div class="chapter" id="chapter">
@@ -275,12 +282,9 @@
                 </div>
             </div>
         </div>
-        <div class="space">
-
-        </div>
     </div>
     <script src="static/javascript/main.js"></script>
     <script src="static/javascript/code.js"></script>
+   
 </body>
-
 </html>

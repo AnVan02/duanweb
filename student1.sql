@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 20, 2025 lúc 07:49 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Jul 22, 2025 at 05:28 PM
+-- Server version: 10.6.22-MariaDB-cll-lve-log
+-- PHP Version: 8.3.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,19 +18,19 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `student`
+-- Database: `nvpbgqcv_rosa_courses`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `account`
+-- Table structure for table `account`
 --
 
 CREATE TABLE `account` (
   `account_id` int(11) NOT NULL,
-  `account_name` varchar(255) NOT NULL,
-  `account_password` varchar(100) NOT NULL,
+  `account_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `account_email` varchar(255) NOT NULL,
   `account_phone` varchar(20) NOT NULL,
   `account_type` int(11) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Đang đổ dữ liệu cho bảng `account`
+-- Dumping data for table `account`
 --
 
 INSERT INTO `account` (`account_id`, `account_name`, `account_password`, `account_email`, `account_phone`, `account_type`, `account_status`) VALUES
@@ -47,28 +47,21 @@ INSERT INTO `account` (`account_id`, `account_name`, `account_password`, `accoun
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chungchi`
+-- Table structure for table `chungchi`
 --
 
 CREATE TABLE `chungchi` (
   `student_id` int(11) NOT NULL,
   `ten_hs` varchar(255) NOT NULL,
-  `khoa_id` varchar(255) NOT NULL,
+  `khoa_id` varchar(10000) NOT NULL,
   `thanhtich` text DEFAULT NULL,
   `chungchi` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Đang đổ dữ liệu cho bảng `chungchi`
---
-
-INSERT INTO `chungchi` (`student_id`, `ten_hs`, `khoa_id`, `thanhtich`, `chungchi`) VALUES
-(1, 'AN1', '1', '0', NULL);
-
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ket_qua`
+-- Table structure for table `ket_qua`
 --
 
 CREATE TABLE `ket_qua` (
@@ -77,75 +70,78 @@ CREATE TABLE `ket_qua` (
   `test_id` int(11) NOT NULL,
   `so_lan_thu` int(11) DEFAULT 1,
   `kq_cao_nhat` int(11) DEFAULT 0,
-  `test_cao_nhat` text DEFAULT NULL COMMENT 'Lưu dạng JSON hoặc format thống nhất',
-  `test_gan_nhat` text DEFAULT NULL COMMENT 'Lưu dạng JSON hoặc format thống nhất'
+  `test_cao_nhat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Lưu dạng JSON hoặc format thống nhất',
+  `test_gan_nhat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Lưu dạng JSON hoặc format thống nhất'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `ket_qua`
+-- Dumping data for table `ket_qua`
 --
 
 INSERT INTO `ket_qua` (`student_id`, `khoa_id`, `test_id`, `so_lan_thu`, `kq_cao_nhat`, `test_cao_nhat`, `test_gan_nhat`) VALUES
-(1, 1, 2, 1, 5, '11:B;12:B;13:B;14:B;15:B', '11:B;12:B;13:B;14:B;15:B');
+(1, 19, 5, 12, 5, '115:B;116:C;117:D;118:C;119:B', '115:D;116:C;117:B;118:C;119:B'),
+(1, 19, 6, 9, 2, '122:B;123:D;125:D;126:A;127:C', '123:A;124:A;126:C;127:B;128:B'),
+(1, 19, 7, 4, 3, '130:D;132:B;133:C;135:D;137:B', '130:D;132:B;133:C;135:D;137:B'),
+(1, 19, 8, 3, 3, '139:C;140:C;141:A;142:C;143:D', '139:C;140:C;141:A;142:C;143:D'),
+(1, 19, 9, 2, 2, '145:A;149:C;150:D;153:D;154:C', '145:A;149:C;150:D;153:D;154:C'),
+(1, 19, 10, 6, 2, '155:B;157:C;158:A;159:D;164:B', '155:B;157:C;158:A;159:D;164:B'),
+(5, 19, 5, 1, 0, '115:D;116:D;117:B;118:A;119:D', '115:D;116:D;117:B;118:A;119:D');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `khoa_hoc`
+-- Table structure for table `khoa_hoc`
 --
 
 CREATE TABLE `khoa_hoc` (
   `id` int(11) NOT NULL,
-  `khoa_hoc` varchar(255) NOT NULL,
-  `mo_ta` text NOT NULL
+  `khoa_hoc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mo_ta` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `khoa_hoc`
+-- Dumping data for table `khoa_hoc`
 --
 
 INSERT INTO `khoa_hoc` (`id`, `khoa_hoc`, `mo_ta`) VALUES
-(1, 'PHP', 'qqqqqqqqqqqqaaaaaaaaaaaa'),
 (2, 'YOLO', '<h1 style=\"color: rgb(13,12,134);\">YOLO11 <span style=\"color: rgb(13,12,134);\"></span></h1>\n\n<h2>Chương trình học:</h2>\n<ul>\n  <li><strong>Chương 1:</strong> Giới thiệu về YOLO và Thị giác máy tính</li>\n  <li><strong>Chương 2:</strong> Hướng dẫn cơ bản YOLO và ứng dụng</li>\n  <li><strong>Chương 3:</strong> Chuẩn bị dữ liệu cho mô hình YOLO</li>\n  <li><strong>Chương 4:</strong> Huấn luyện mô hình YOLO với dữ liệu tùy chỉnh</li>\n  <li><strong>Chương 5:</strong> Đánh giá và cải thiện hiệu suất mô hình thông qua các thông số tiêu chuẩn</li>\n  <li><strong>Chương 6:</strong> Xây dựng ứng dụng thực tế với YOLO</li>\n</ul>\n\n<p><strong>Hãy thực hành thật kỹ các ví dụ và bài tập trong mỗi chương để nâng cao kỹ năng vận dụng YOLO của bạn!</strong></p>'),
-(19, 'Python cơ bản', '<h1 style=\"color: rgb(13,12,134);\">YOLO11 <span style=\"color: rgb(13,12,134);\"></span></h1>\n\n<h2>Chương trình học:</h2>\n<ul>\n  <li><strong>Chương 1:</strong> Giới thiệu về YOLO và Thị giác máy tính</li>\n  <li><strong>Chương 2:</strong> Hướng dẫn cơ bản YOLO và ứng dụng</li>\n  <li><strong>Chương 3:</strong> Chuẩn bị dữ liệu cho mô hình YOLO</li>\n  <li><strong>Chương 4:</strong> Huấn luyện mô hình YOLO với dữ liệu tùy chỉnh</li>\n  <li><strong>Chương 5:</strong> Đánh giá và cải thiện hiệu suất mô hình thông qua các thông số tiêu chuẩn</li>\n  <li><strong>Chương 6:</strong> Xây dựng ứng dụng thực tế với YOLO</li>\n</ul>\n\n<p><strong>Hãy thực hành thật kỹ các ví dụ và bài tập trong mỗi chương để nâng cao kỹ năng vận dụng YOLO của bạn!</strong></p>'),
-(20, 'Tiếng anh22', '');
+(19, 'Python cơ bản', '<h1 style=\"color: rgb(13,12,134);\">PYTHON <span style=\"color: rgb(13,12,134);\"></span></h1>\n\n<h2>Chương trình học:</h2>\n<ul>\n  <li><strong>Chương 1:</strong> Giới thiệu chung về PYTHON </li>\n  <li><strong>Chương 2:</strong> Cấu trúc điều kiện, vòng lặp và hàm trong PYTHON</li>\n  <li><strong>Chương 3:</strong> Cấu trúc dữ liệu trong PYTHON </li>\n  <li><strong>Chương 4:</strong> MODULE VÀ PACKAGE</li>\n  <li><strong>Chương 5:</strong> PANDAS</li>\n  <li><strong>Chương 6:</strong> MATPLOTLIB</li>\n</ul>\n\n<p><strong>Hãy thực hành thật kỹ các ví dụ và bài tập trong mỗi chương để nâng cao kỹ năng vận dụng PYTHON của bạn!</strong></p>');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `kiem_tra`
+-- Table structure for table `kiem_tra`
 --
 
 CREATE TABLE `kiem_tra` (
   `Student_ID` int(11) NOT NULL,
   `Khoa_ID` int(11) NOT NULL,
-  `Test_ID` varchar(255) NOT NULL,
+  `Test_ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `Best_Score` int(11) DEFAULT 0,
   `Max_Score` int(11) DEFAULT 0,
-  `Pass` varchar(10) DEFAULT '',
+  `Pass` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Trial` int(11) DEFAULT 0,
   `Max_trial` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `kiem_tra`
+-- Dumping data for table `kiem_tra`
 --
 
 INSERT INTO `kiem_tra` (`Student_ID`, `Khoa_ID`, `Test_ID`, `Best_Score`, `Max_Score`, `Pass`, `Trial`, `Max_trial`) VALUES
-(3, 1, '19', 0, 0, '80', 0, 3),
-(3, 6, '21', 0, 0, '80', 0, 3),
-(3, 5, '22', 0, 0, '100', 0, 2),
-(3, 3, '16', 0, 0, '80', 0, 2),
-(4, 1, '19', 0, 0, '80', 0, 3),
-(1, 1, '1', 0, 0, '80', 0, 100),
-(1, 19, '6', 0, 0, '100', 0, 3),
-(2, 1, '1', 0, 0, '80', 0, 100),
-(2, 19, '6', 0, 0, '100', 0, 3);
+(0, 19, '5', 0, 0, '100', 0, 100),
+(2, 3, '16', 0, 0, '80', 0, 20),
+(2, 4, '23', 0, 0, '80', 0, 30),
+(2, 10, '12', 0, 0, '80', 0, 20),
+(3, 3, '16', 0, 0, '80', 0, 20),
+(3, 5, '22', 0, 0, '100', 0, 20),
+(3, 6, '21', 0, 0, '80', 0, 30),
+(5, 19, '5', 0, 0, '100', 0, 100);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `login`
+-- Table structure for table `login`
 --
 
 CREATE TABLE `login` (
@@ -155,7 +151,7 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `login`
+-- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`Id`, `Student_ID`, `Password`) VALUES
@@ -167,7 +163,7 @@ INSERT INTO `login` (`Id`, `Student_ID`, `Password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `quiz`
+-- Table structure for table `quiz`
 --
 
 CREATE TABLE `quiz` (
@@ -192,28 +188,13 @@ CREATE TABLE `quiz` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `quiz`
+-- Dumping data for table `quiz`
 --
 
 INSERT INTO `quiz` (`Id_cauhoi`, `id_baitest`, `id_khoa`, `cauhoi`, `hinhanh`, `cau_a`, `hinhanh_a`, `giaithich_a`, `cau_b`, `hinhanh_b`, `giaithich_b`, `cau_c`, `hinhanh_c`, `giaithich_c`, `cau_d`, `hinhanh_d`, `giaithich_d`, `dap_an`) VALUES
-(1, '1', '1', '1111', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(2, '1', '1', '2222', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(3, '1', '1', '3333', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(4, '1', '1', '4444', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(5, '1', '1', '5555', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(6, '1', '1', '6666', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(7, '1', '1', '7777', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(8, '1', '1', '8888', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(9, '1', '1', '9999', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(10, '1', '1', '101010', NULL, '1', NULL, 'Giải thích A', '2', NULL, 'Giải thích B', '3', NULL, 'Giải thích C', '4', NULL, 'Giải thích D', 'A'),
-(11, '2', '1', 'PHP là viết tắt của cụm từ nào sau đây?', NULL, 'Personal Home Page', NULL, 'Cũ, không còn đúng', 'PHP: Hypertext Preprocessor', NULL, 'Đáp án đúng', 'Private Home Page', NULL, 'Sai định nghĩa', 'Professional Hypertext Processor', NULL, 'Sai từ viết tắt', 'B'),
-(12, '2', '1', 'Ký hiệu nào được sử dụng để khai báo biến trong PHP?', NULL, '%', NULL, 'Không dùng trong khai báo biến', '&', NULL, 'Dùng để tham chiếu, không khai báo', '$', NULL, 'Đáp án đúng', '@', NULL, 'Dùng cho email hoặc annotation, không phải biến', 'B'),
-(13, '2', '1', 'Câu lệnh nào dùng để xuất dữ liệu ra trình duyệt trong PHP?', NULL, 'print()', NULL, 'Gần đúng, nhưng ít dùng hơn', 'echo', NULL, 'Đáp án đúng, được dùng phổ biến', 'display()', NULL, 'Không có hàm này trong PHP', 'show()', NULL, 'Không phải hàm PHP', 'B'),
-(14, '2', '1', 'Hàm isset() trong PHP dùng để làm gì?', NULL, 'Kiểm tra biến có phải số không', NULL, 'Không phải chức năng chính', 'Kiểm tra biến có tồn tại và khác null không', NULL, 'Đáp án đúng', 'Khởi tạo biến mới', NULL, 'Không đúng', 'Gán giá trị cho biến', NULL, 'Không đúng chức năng', 'B'),
-(15, '2', '1', 'Lệnh include \'file.php\'; có tác dụng gì?', NULL, 'Nhúng file PHP khác vào, nếu lỗi vẫn tiếp tục thực thi', NULL, 'Đáp án đúng', 'Gọi đến server ngoài', NULL, 'Không đúng – include chỉ xử lý nội bộ', 'Khởi tạo class', NULL, 'Không phải mục đích của include', 'Xoá file', NULL, 'Không đúng', 'B'),
-(115, '5', '19', 'Đoạn mã nào dưới đây sẽ in ra màn hình dòng chữ Hello, Python ! ?', NULL, 'Print(Hello, Python!)', NULL, 'Hàm Print viết hoa sai cú pháp (Python phân biệt chữ hoa/thường)', 'print(\"Hello, Python!\")', NULL, 'print() là hàm tích hợp sẵn trong Python để in dữ liệu ra màn hình. Phải dùng dấu ngoặc kép hoặc đơn để bao quanh chuỗi.', 'echo \"Hello, Python!\"', NULL, 'echo là lệnh dùng trong shell, không phải Python', 'printf(\"Hello, Python!\")', NULL, 'printf là của C/C++, không có trong Python', 'B'),
+(115, '5', '19', 'Đoạn mã nào dưới đây sẽ in ra màn hình dòng chữ \"Hello, Python!\"', NULL, 'Print(Hello, Python!)', NULL, 'Hàm Print viết hoa sai cú pháp (Python phân biệt chữ hoa/thường)', 'print(\"Hello, Python!\")', NULL, 'print() là hàm tích hợp sẵn trong Python để in dữ liệu ra màn hình. Phải dùng dấu ngoặc kép hoặc đơn để bao quanh chuỗi.', 'echo \"Hello, Python!\"', NULL, 'echo là lệnh dùng trong shell, không phải Python', 'printf(\"Hello, Python!\")', NULL, 'printf là của C/C++, không có trong Python', 'B'),
 (116, '5', '19', 'Kết quả của đoạn mã sau là gì?\r\nx = 10\r\ny = \"10\"\r\nprint(x + y)', NULL, '20', NULL, 'Nếu cả hai đều là int thì ra 20, nhưng ở đây y là chuỗi', '\"1010\"', NULL, 'Nếu x cũng là chuỗi (x = \"10\"), mới được \"1010\"', 'Lỗi', NULL, 'Python không cho phép cộng số nguyên (int) với chuỗi (str) trực tiếp. Dòng x + y sẽ gây ra lỗi TypeError vì hai kiểu dữ liệu khác nhau', 'None', NULL, 'Không đúng, vì chương trình sẽ bị lỗi chứ không in ra None', 'C'),
-(117, '5', '19', 'Kết quả của đoạn code sau là gì?\r\na = 5\r\nb = 2\r\nprint(b ** a)', NULL, '2.5', NULL, '2.5 là phép chia (5 / 2)', '10', NULL, '10 là phép cộng hoặc nhân không đúng ở đây', '25', NULL, '5 ** 2 = 5 mũ 2 = 25', '32', NULL, '32 là 2 mũ 5, ngược lại với đề', '0'),
+(117, '5', '19', 'Kết quả của đoạn code sau là gì?\r\na = 5\r\nb = 2\r\nprint(b ** a)', NULL, '2.5', NULL, '2.5 là phép chia (5 / 2)', '10', NULL, '10 là phép cộng hoặc nhân không đúng ở đây', '25', NULL, '5 ** 2 = 5 mũ 2 = 25', '32', NULL, '32 là 2 mũ 5, ngược lại với đề', 'D'),
 (118, '5', '19', 'Biến nào sau đây là tên biến hợp lệ trong Python ?', NULL, '1variable', NULL, '1variable bắt đầu bằng số', '@data', NULL, '@data chứa ký tự không hợp lệ', 'my_var', NULL, 'my_var là tên biến hợp lệ. Trong Python, tên biến phải bắt đầu bằng chữ cái hoặc dấu gạch dưới (_), và không được trùng với từ khóa.', 'class', NULL, 'class là từ khóa của Python, không thể dùng làm tên biến', 'C'),
 (119, '5', '19', 'Kết quả của đoạn code sau là gì?\r\nx = 7\r\ny = 3\r\nprint(x // y)', NULL, '2.333', NULL, 'kết quả của phép chia thông thường (/), không phải //.', '2', NULL, '// là toán tử chia lấy phần nguyên trong Python.\r\n7 // 3 = 2 vì 3 * 2 = 6, còn dư 1 → kết quả là số nguyên 2.', '2.0', NULL, 'số thực, // trả về số nguyên nếu hai toán hạng đều là số nguyên', '3', NULL, 'sai vì 7 chia 3 được 2, dư 1', 'B'),
 (120, '6', '19', 'Câu lệnh điều kiện nào sau đây là đúng cú pháp trong Python ?', NULL, 'f x > 0 then print(\"Positive\")', NULL, 'Không dùng then trong Python', 'if x > 0: print(\"Positive\")', NULL, 'Trong Python, cú pháp điều kiện đúng là if điều_kiện: theo sau là dấu hai chấm :, và khối lệnh phải thụt dòng.', 'if (x > 0) { print(\"Positive\") }', NULL, '{} là cú pháp của C/Java, không dùng trong Python', 'if x > 0 print(\"Positive\")', NULL, 'Thiếu dấu : sau điều kiện', 'B'),
@@ -241,7 +222,7 @@ INSERT INTO `quiz` (`Id_cauhoi`, `id_baitest`, `id_khoa`, `cauhoi`, `hinhanh`, `
 (143, '8', '19', 'Câu lệnh nào là đúng để import và sử dụng lớp Dog từ module animals.py ?', NULL, 'import animals.Dog', NULL, 'animals.Dog không phải module', 'from animals import Dog', NULL, 'Để import lớp Dog trong module animals, dùng from animals import Dog', 'from animals.Dog import *', NULL, 'Sai vì không có module Dog', 'import Dog from animals', NULL, 'Sai cú pháp', 'B'),
 (144, '8', '19', 'Sau khi import module, câu nào đúng để xem các thành phần có trong module đó?', NULL, 'show(module)', NULL, 'Không phải cú pháp chuẩn hoặc không tồn tại', 'inspect(module)', NULL, 'Không phải cú pháp chuẩn hoặc không tồn tại', 'dir(module)', NULL, 'Hàm tích hợp dir() hiển thị danh sách các thuộc tính, hàm, lớp... của một module', 'view module', NULL, 'Không phải cú pháp chuẩn hoặc không tồn tại', 'C'),
 (145, '9', '19', 'Để sử dụng thư viện pandas, câu lệnh đúng là', NULL, 'include pandas', NULL, 'Không phải cú pháp hợp lệ của Python', 'load pandas', NULL, 'Không phải cú pháp hợp lệ của Python', 'import pandas as pd', NULL, 'Câu lệnh chuẩn để sử dụng Pandas là import pandas as pd – đặt bí danh pd là thông lệ phổ biến.', 'require pandas', NULL, 'Không phải cú pháp hợp lệ của Python', 'C'),
-(146, '9', '19', 'Đoạn mã nào sau đây tạo một Series đúng?', NULL, 'pd.Series([1, 2, 3])', NULL, 'pd.Series([1, 2, 3]) tạo một Series với giá trị từ list.', 'pd.DataFrame([1, 2, 3])', NULL, 'Tạo DataFrame, không phải Series', 'Series([1, 2, 3])', NULL, 'Thiếu pd. → lỗi NameError', 'pd.series([1, 2, 3])', NULL, 'Sai cú pháp vì Series phải viết hoa', '0'),
+(146, '9', '19', 'Đoạn mã nào sau đây tạo một Series đúng?', NULL, 'pd.Series([1, 2, 3])', NULL, 'pd.Series([1, 2, 3]) tạo một Series với giá trị từ list.', 'pd.DataFrame([1, 2, 3])', NULL, 'Tạo DataFrame, không phải Series', 'Series([1, 2, 3])', NULL, 'Thiếu pd. → lỗi NameError', 'pd.series([1, 2, 3])', NULL, 'Sai cú pháp vì Series phải viết hoa', 'A'),
 (147, '9', '19', 'Đoạn mã nào sau đây tạo một Series đúng ?', NULL, 'pd.DataFrame([\"a\", \"b\"])', NULL, 'Tạo DataFrame từ list, không rõ cột', 'pd.DataFrame({\"name\": [\"Alice\", \"Bob\"], \"age\": [25, 30]})', NULL, 'Cú pháp chính xác để tạo DataFrame từ dictionary là pd.DataFrame({\"cột1\": list1, \"cột2\": list2}).', 'DataFrame({\"name\", \"age\"})', NULL, 'Sai cú pháp – dictionary cần có key: value', 'pd.Dataframe([1, 2, 3])', NULL, 'Dataframe viết sai chữ F → Python phân biệt chữ hoa thường', 'B'),
 (148, '9', '19', 'Series khác DataFrame ở điểm nào ?', NULL, 'Series là bảng 2 chiều, DataFrame là 1 chiều', NULL, 'Ngược lại mới đúng', 'Series chứa dữ liệu dạng số, DataFrame thì không', NULL, 'Cả hai đều có thể chứa bất kỳ kiểu dữ liệu', 'Series là 1 chiều, DataFrame là 2 chiều', NULL, 'Series là 1 chiều (giống 1 cột dữ liệu), còn DataFrame là 2 chiều (gồm nhiều cột và dòng).', 'Series có thể chứa nhiều cột', NULL, 'Series chỉ có 1 cột', 'C'),
 (149, '9', '19', 'Câu lệnh df.head(3) có tác dụng gì ?', NULL, 'In 3 dòng cuối của DataFrame', NULL, 'Đó là df.tail(3)', 'In 3 cột đầu của DataFrame', NULL, 'Pandas không có hàm in cột đầu tiên theo cách này', 'In 3 dòng đầu tiên của DataFrame', NULL, 'df.head(n) in ra n dòng đầu tiên của DataFrame, thường dùng để xem trước dữ liệu.', 'In tên các cột', NULL, 'Tên cột là df.columns', 'C'),
@@ -249,7 +230,7 @@ INSERT INTO `quiz` (`Id_cauhoi`, `id_baitest`, `id_khoa`, `cauhoi`, `hinhanh`, `
 (151, '9', '19', 'Câu nào sau đây dùng để đọc file CSV ?', NULL, 'pd.read_excel(\"data.csv\")', NULL, 'read_excel dùng cho file .xlsx, không phải .csv', 'pd.read(\"data.csv\")', NULL, 'Không có hàm như vậy trong Pandas', 'pd.read_csv(\"data.csv\")', NULL, 'pd.read_csv() là hàm để đọc file .csv và trả về một DataFrame.', 'read.csv(\"data.csv\")', NULL, 'Không có hàm như vậy trong Pandas', 'C'),
 (152, '9', '19', 'Lệnh df[\"age\"] > 25 trả về gì?', NULL, 'Một cột mới tên là age > 25', NULL, 'Không tạo cột mới', 'Một Series các giá trị True/False', NULL, 'df[\"age\"] > 25 trả về một Series boolean – dùng để lọc dòng theo điều kiện.', 'Một DataFrame đã lọc', NULL, 'Muốn lọc DataFrame cần viết df[df[\"age\"] > 25]', 'Một danh sách các dòng', NULL, 'Kết quả không phải list', 'B'),
 (153, '9', '19', 'Câu lệnh nào sau đây thêm một cột mới vào DataFrame df ?', NULL, 'df.append(\"new_col\")', NULL, 'append() dùng để thêm dòng, không phải cột', 'df.insert(\"new_col\", [1, 2, 3])', NULL, 'insert() yêu cầu vị trí chỉ số và có cú pháp khác', 'df[\"new_col\"] = [1, 2, 3]', NULL, 'Gán trực tiếp qua df[\"tên_cột\"] = danh_sách là cách đơn giản nhất để thêm cột mới', 'df.add_column(\"new_col\", [1, 2, 3])', NULL, 'add_column() không phải hàm có sẵn trong Pandas', 'C'),
-(154, '9', '19', 'Lệnh nào in ra thông tin tổng quan về DataFrame ?', NULL, 'df.describe()', NULL, 'aaa', 'df.info()', NULL, 'aa', 'df.summary()', NULL, 'summary() không phải là hàm có sẵn trong Pandas', 'Cả A và B', NULL, '•	df.info() hiển thị thông tin tổng quan về số dòng, cột, kiểu dữ liệu, non-null, v.v.\r\n•	df.describe() hiển thị thống kê mô tả (mean, std, min, max...) cho các cột số.', '0'),
+(154, '9', '19', 'Lệnh nào in ra thông tin tổng quan về DataFrame ?', NULL, 'df.describe()', NULL, '', 'df.info()', NULL, '', 'df.summary()', NULL, 'summary() không phải là hàm có sẵn trong Pandas', 'Cả A và B', NULL, '•	df.info() hiển thị thông tin tổng quan về số dòng, cột, kiểu dữ liệu, non-null, v.v.\r\n•	df.describe() hiển thị thống kê mô tả (mean, std, min, max...) cho các cột số.', 'D'),
 (155, '10', '19', 'Câu lệnh nào dùng để import thư viện Matplotlib (pyplot) đúng chuẩn ?', NULL, 'import matplotlib.pyplot as plot', NULL, 'Không sai cú pháp, nhưng không theo chuẩn phổ biến', 'import matplotlib as plt', NULL, 'Không import được pyplot', 'from matplotlib import pyplot as plt', NULL, 'Không import được pyplot', 'import matplotlib.pyplot as plt', NULL, 'Cách thông dụng và đúng nhất là import matplotlib.pyplot as plt.', 'D'),
 (156, '10', '19', 'Đoạn mã nào tạo ra một biểu đồ đường (line chart) đơn giản ?', NULL, 'plt.draw([1, 2, 3])', NULL, 'Không có các hàm draw, graph, line trong Pyplot', 'plt.plot([1, 2, 3])', NULL, 'Không có các hàm draw, graph, line trong Pyplot', 'plt.graph([1, 2, 3])', NULL, 'plt.plot() là hàm dùng để vẽ biểu đồ đường trong Pyplot', 'plt.line([1, 2, 3])', NULL, 'Không có các hàm draw, graph, line trong Pyplot', 'B'),
 (157, '10', '19', 'Lệnh nào dùng để hiển thị biểu đồ đã tạo ?', NULL, 'plt.render()', NULL, 'Không có trong Pyplot', 'plt.output()', NULL, 'Không có trong Pyplot', 'plt.display()', NULL, 'Không có trong Pyplot', 'plt.show()', NULL, 'Không có trong Pyplot', 'D'),
@@ -264,7 +245,7 @@ INSERT INTO `quiz` (`Id_cauhoi`, `id_baitest`, `id_khoa`, `cauhoi`, `hinhanh`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sinhvien`
+-- Table structure for table `sinhvien`
 --
 
 CREATE TABLE `sinhvien` (
@@ -277,130 +258,255 @@ CREATE TABLE `sinhvien` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `students`
+-- Table structure for table `students`
 --
 
 CREATE TABLE `students` (
   `IMEI` bigint(20) NOT NULL,
-  `MB_ID` int(11) NOT NULL,
-  `OS_ID` int(11) NOT NULL,
-  `Student_ID` varchar(255) NOT NULL,
-  `Password` varchar(255) NOT NULL,
-  `Ten` varchar(255) NOT NULL,
-  `Email` varchar(255) NOT NULL,
-  `Khoahoc` varchar(1000) DEFAULT NULL
+  `MB_ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `OS_ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Student_ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Ten` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Khoahoc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `students`
+-- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`IMEI`, `MB_ID`, `OS_ID`, `Student_ID`, `Password`, `Ten`, `Email`, `Khoahoc`) VALUES
-(0, 0, 0, '1', '', 'AN1', '', '1'),
-(2, 2, 2, '2', '2', 'AN1', 'admin1@gmail.com', '1,19,2'),
-(0, 0, 0, '4', '', 'AN', '', '1');
+(1, '1', '1', '1', '1', 'AN', 'admin1@gmail.com', '19'),
+(2, '230926374300040', '812cd865-1353-4e95-95a9-8b30baf52278', '2', '2', 'Ninh', 'a@gmail.com', '2'),
+(3, '/BS97PY3/CNCMC0037S0550/', '034fa681-8a46-438c-9b89-694cf55eaabf', '3', '3', '', '', '19,2'),
+(4, '4', '4', 'hoasen_admin', 'hoasen@1234', 'Hoa Sen', 'hoasen_admin@gmail.com', '19'),
+(5, '5', '5', '5', '5', '5', 'sdahk@gmail.com', '19');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `test`
+-- Table structure for table `test`
 --
 
 CREATE TABLE `test` (
   `id_test` int(11) NOT NULL,
   `id_khoa` int(11) NOT NULL,
-  `ten_test` varchar(255) DEFAULT NULL,
+  `ten_test` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lan_thu` int(11) DEFAULT NULL,
-  `pass` varchar(10) DEFAULT NULL,
+  `pass` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `so_cau_hien_thi` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `test`
+-- Dumping data for table `test`
 --
 
 INSERT INTO `test` (`id_test`, `id_khoa`, `ten_test`, `lan_thu`, `pass`, `so_cau_hien_thi`) VALUES
-(1, 1, 'PHP', 100, '80', 5),
-(2, 1, 'Bài kiểm tra chương 2', 100, '100', 5),
-(6, 19, 'Bài kiểm tra chương 2', 3, '100', 5),
-(7, 19, 'Bài kiểm tra chương 3', 3, '100', 5),
-(8, 19, 'Bài kiểm tra chương 4', 3, '100', 5),
-(9, 19, 'Bài kiểm tra chương 5', 3, '100', 5),
-(10, 19, 'Bài kiểm tra chương 6', 3, '100', 5);
+(5, 19, 'Bài kiểm tra chương 1', 100, '100', 5),
+(6, 19, 'Bài kiểm tra chương 2', 100, '100', 5),
+(7, 19, 'Bài kiểm tra chương 3', 100, '100', 5),
+(8, 19, 'Bài kiểm tra chương 4', 100, '100', 5),
+(9, 19, 'Bài kiểm tra chương 5', 100, '100', 5),
+(10, 19, 'Bài kiểm tra chương 6', 100, '100', 5);
+
+-- --------------------------------------------------------
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `osid` varchar(100) NOT NULL,
+  `mbid` varchar(100) NOT NULL,
+  `student_id` varchar(100) NOT NULL,
+  `full_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `pending_email` varchar(255) DEFAULT NULL,
+  `email_verified` tinyint(1) DEFAULT 0,
+  `email_code` varchar(10) DEFAULT NULL,
+  `code_sent_at` datetime DEFAULT NULL,
+  `password_hash` varchar(255) DEFAULT NULL,
+  `recovery_code` varchar(255) DEFAULT NULL,
+  `status` enum('active','changed password','changed email') DEFAULT 'active',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `verify_fail_count` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `osid`, `mbid`, `student_id`, `full_name`, `email`, `pending_email`, `email_verified`, `email_code`, `code_sent_at`, `password_hash`, `recovery_code`, `status`, `created_at`, `verify_fail_count`) VALUES
+(1, 'OSID1234', 'MBID5678', '1', 'Ninh', 'tranninh903@gmail.com', 'tninh3908@gmail.com', 1, '534147', '2025-07-22 17:27:22', '1', NULL, '', '2025-07-19 09:50:07', 0),
+(2, 'AN1234', 'AN5678', '2', 'an', 'tvdell789@gmail.com', NULL, 1, '534946', '2025-07-22 17:10:52', '2', NULL, 'active', '2025-07-22 14:34:13', 10),
+(3, 'OSID2345', 'MBID6789', '3', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 'active', '2025-07-22 16:18:49', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_devices`
+--
+
+CREATE TABLE `user_devices` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `fingerprint` varchar(64) NOT NULL,
+  `user_agent` text DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_devices`
+--
+
+INSERT INTO `user_devices` (`id`, `user_id`, `fingerprint`, `user_agent`, `ip_address`, `created_at`) VALUES
+(1, 123, '3bb6b5c3d7c56ceb694a01459f28172b', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', '42.117.43.73', '2025-07-16 22:39:11'),
+(2, 123, 'ca1c632e2c95bb279f50aed9e55232ec', 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_8_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6.7 Mobile/15E148 Safari/604.1', '42.117.43.73', '2025-07-16 22:40:36'),
+(3, 123, '5d688fa831e8598cdab078931f562893', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', '113.22.149.130', '2025-07-17 12:04:00'),
+(4, 123, '0375f6fcbca4017828b6650848932b4b', 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_8_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Zalo iOS/666 ZaloTheme/light ZaloLanguage/vn', '113.22.149.130', '2025-07-17 13:31:59'),
+(5, 123, 'fff3191e9b182a8268f31378c2ee381a', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', '42.119.214.191', '2025-07-22 09:13:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_devices1`
+--
+
+CREATE TABLE `user_devices1` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `fingerprint` varchar(255) NOT NULL,
+  `user_agent` text DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `login_count` int(11) DEFAULT 1,
+  `last_login` datetime DEFAULT current_timestamp(),
+  `active` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `chungchi`
+-- Indexes for table `account`
 --
-ALTER TABLE `chungchi`
-  ADD PRIMARY KEY (`student_id`);
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`account_id`);
 
 --
--- Chỉ mục cho bảng `ket_qua`
+-- Indexes for table `ket_qua`
 --
 ALTER TABLE `ket_qua`
   ADD PRIMARY KEY (`student_id`,`khoa_id`,`test_id`);
 
 --
--- Chỉ mục cho bảng `khoa_hoc`
+-- Indexes for table `khoa_hoc`
 --
 ALTER TABLE `khoa_hoc`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `login`
+-- Indexes for table `kiem_tra`
+--
+ALTER TABLE `kiem_tra`
+  ADD PRIMARY KEY (`Student_ID`,`Khoa_ID`,`Test_ID`);
+
+--
+-- Indexes for table `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Chỉ mục cho bảng `quiz`
+-- Indexes for table `quiz`
 --
 ALTER TABLE `quiz`
   ADD PRIMARY KEY (`Id_cauhoi`);
 
 --
--- Chỉ mục cho bảng `students`
+-- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`Student_ID`);
+  ADD PRIMARY KEY (`IMEI`);
 
 --
--- Chỉ mục cho bảng `test`
+-- Indexes for table `test`
 --
 ALTER TABLE `test`
   ADD PRIMARY KEY (`id_test`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `user_devices`
+--
+ALTER TABLE `user_devices`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_devices1`
+--
+ALTER TABLE `user_devices1`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`fingerprint`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `chungchi`
---
-ALTER TABLE `chungchi`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT cho bảng `khoa_hoc`
+-- AUTO_INCREMENT for table `khoa_hoc`
 --
 ALTER TABLE `khoa_hoc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT cho bảng `quiz`
+-- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
   MODIFY `Id_cauhoi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 
 --
--- AUTO_INCREMENT cho bảng `test`
+-- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
   MODIFY `id_test` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `user_devices`
+--
+ALTER TABLE `user_devices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `user_devices1`
+--
+ALTER TABLE `user_devices1`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `user_devices1`
+--
+ALTER TABLE `user_devices1`
+  ADD CONSTRAINT `user_devices1_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

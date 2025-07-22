@@ -18,6 +18,9 @@
             <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
         </div>
         <h3>TOÁN TỬ TRONG PYTHON</h3>
+        <button onclick="logout()" class="logout-btn">
+            <i class="fa fa-sign-out-alt">Thoát</i>
+        </button>
     </nav>
     <div class="container">
         <div class="chapter" id="chapter">
@@ -52,7 +55,6 @@
             <a href="chapter6_2.php">Lưu biểu đồ.</a>
             <a href="exercise6.php">Bài tập chương 6</a>
         </div>
-
         <div class="content">
             <div class="main">
                 <h3>Các toán tử trong python hiểu và ứng dụng</h3>
@@ -336,6 +338,8 @@
     </div>
     <script src="static/javascript/main.js"></script>
     <script src="static/javascript/code.js"></script>
+  
 </body>
-
 </html>
+
+   

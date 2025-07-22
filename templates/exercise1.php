@@ -120,6 +120,7 @@ $student_id = $_SESSION['student_id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
+    <link rel="shortcut icon" href="../RS_icon.jpg" />
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/code.css">
     <link rel="stylesheet" href="static/css/table.css">

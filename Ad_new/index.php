@@ -650,15 +650,6 @@
         const sections = document.querySelectorAll('.content-section');
         const pageTitle = document.getElementById('page-title');
 
-        const sectionTitles = {
-            dashboard: 'Dashboard',
-            users: 'Quản lý người dùng',
-            orders: 'Quản lý đơn hàng',
-            products: 'Quản lý sản phẩm',
-            analytics: 'Thống kê',
-            settings: 'Cài đặt'
-        };
-
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();

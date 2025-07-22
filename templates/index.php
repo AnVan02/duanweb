@@ -16,6 +16,9 @@
             <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
         </div>
         <h3>GIỚI THIỆU CHUNG VỀ PYTHON</h3>
+        <div onclick="logout()" class="logout-btn">
+            <a class="fa fa-sign-out-alt" style="color: #4f96e7"></a> Quay lại
+        </div>
     </nav>
     <div class="container">
         <div class="chapter" id="chapter">
@@ -155,6 +158,11 @@
         </div>
     </div>
     <script src="static/javascript/main.js"></script>
+    <script>
+         function logout() {
+            window.location.href = "../overview.php";
+        }
+    </script>
 </body>
 
 </html>

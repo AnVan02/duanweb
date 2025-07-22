@@ -18,6 +18,9 @@
             <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
         </div>
         <h3>VÒNG LẬP TRONG PYTHON</h3>
+        <button onclick="goToTest()" class="logout-btn">
+            <i class="fa fa-sign-out-alt">Kiểm tra</i>
+        </button>
     </nav>
     <div class="container">
         <div class="chapter" id="chapter">

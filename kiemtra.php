@@ -3,6 +3,7 @@ require 'list.php';
 
 session_start();
 
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -234,3 +235,10 @@ $conn->close();
 
 </body>
 </html>
+
+<script>
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1); // chặn quay lại
+    };
+</script>

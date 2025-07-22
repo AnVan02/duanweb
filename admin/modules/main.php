@@ -25,6 +25,10 @@
             include ("./modules/cauhoi/them.php");
         }
 
+        elseif ($action == 'chungchi') {
+            include ("./modules/cauhoi/chungchi.php");
+        }
+
         elseif ($action == 'add_question') {
             include ("./modules/cauhoi/add_question.php");
         }

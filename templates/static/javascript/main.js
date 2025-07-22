@@ -11,3 +11,8 @@ document.querySelector(".button-toggle").addEventListener("click", function () {
     document.querySelector(".container").classList.toggle("hide-chapter");
     document.querySelector(".chapter").classList.toggle("hidden");
 });
+
+function logout() {
+    window.location.href = "../overview.php";
+}
+
