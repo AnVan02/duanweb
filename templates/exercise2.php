@@ -16,8 +16,8 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-$ma_khoa = '1';
-$id_test = '2';
+$id_test = '6';
+$ma_khoa = '19';
 $student_id = $_SESSION['student_id'];
 
 

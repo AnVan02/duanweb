@@ -50,6 +50,21 @@ foreach ($course_ids as $khoa_id) {
     $result_data = DemSoBaiDat($conn, $student_id, $khoa_id);
     $chi_tiet_chuong = $result_data['chi_tiet_bai_test'];
     
+    // Debug: Kiểm tra dữ liệu (BẬT DEBUG)
+    echo "<pre>Debug khóa $khoa_id (Student: $student_id):\n";
+    echo "Số test tìm được: " . count($chi_tiet_chuong) . "\n";
+    print_r($chi_tiet_chuong);
+    echo "</pre>";
+    
+    // Debug query trực tiếp
+    $debug_query = "SELECT id_test, ten_test FROM test WHERE id_khoa = $khoa_id";
+    $debug_result = $conn->query($debug_query);
+    echo "<pre>Tests trong database cho khóa $khoa_id:\n";
+    while ($row = $debug_result->fetch_assoc()) {
+        echo "ID: {$row['id_test']}, Tên: {$row['ten_test']}\n";
+    }
+    echo "</pre>";
+    
     // Đếm số bài đạt và tổng số bài từ kết quả function DemSoBaiDat
     $bai_dat = $result_data['tong_so_bai_dat'];
     $total_test = TongSoBaiTest($conn, $khoa_id);
@@ -378,7 +393,6 @@ $conn->close();
     <table>
         <thead>
         <tr>
-            <th></th>
             <th>Tên khoá học</th>
             <th>Chương</th>
             <th>Trạng thái</th>
@@ -388,15 +402,15 @@ $conn->close();
         <tbody>
         <?php foreach ($course_summary as $course): ?>
             <tr>
-                 <td style="text-align: center;">
-                    <?php if ($course['hoan_thanh']): ?>
-                         <img src="icon.png" alt="Hoàn thành" class="checkmark" style="width: 24px; height: 24px;">
-                    <?php else: ?>
-                         <span class="percent"><?= $course['phan_tram'] ?>%</span>
-                    <?php endif; ?>
-               </td>
+                <?php
+                    // Hiển thị icon hoàn thành hoặc phần trăm tổng
+                    $icon_html = $course['hoan_thanh']
+                        ? '<img src="icon.png" alt="Hoàn thành" class="checkmark" style="width: 24px; height: 24px;">'
+                        : '<span class="percent">' . $course['phan_tram'] . '%</span>';
+                ?>
                 <td>
                     <div style="display: flex; align-items: center; gap: 10px;">
+                        <?= $icon_html ?>
                         <div>
                             <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong>
                             <small><?= strip_tags($course['mo_ta']) ?></small>
@@ -424,9 +438,9 @@ $conn->close();
                                     </span>
                                     <span class="chapter-status">
                                         <?php if (!$chuong['da_lam']): ?>
-                                            <span class="chapter-not-done"></span>
+                                            <span class="chapter-not-done">Chưa làm</span>
                                         <?php elseif ($chuong['trang_thai'] == 1): ?>
-                                            <span class="chapter-pass"> <?= $chuong['percent'] ?>%</span>
+                                            <span class="chapter-pass">✓ <?= $chuong['percent'] ?>%</span>
                                         <?php else: ?>
                                             <span class="chapter-percent"><?= $chuong['percent'] ?>%</span>
                                         <?php endif; ?>

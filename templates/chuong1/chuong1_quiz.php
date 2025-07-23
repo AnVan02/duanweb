@@ -10,9 +10,8 @@ if (!isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
-
-$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '2'; // Lấy id_test từ URL
-$ma_khoa = '1';
+$id_test = '5';
+$ma_khoa = '19';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "khoahoc.php";
 

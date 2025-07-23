@@ -398,7 +398,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
 // Kiểm tra chế độ chỉnh sửa
 $mode = isset($_GET['mode']) ? $_GET['mode'] : '';
 $student_id = isset($_GET['student_id']) ? $_GET['student_id'] : '';
