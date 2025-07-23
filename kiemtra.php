@@ -1,8 +1,6 @@
 <?php
 require 'list.php';
-
 session_start();
-
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -34,9 +32,9 @@ if (!$row) {
 }
 
 $course_ids = array_map('intval', explode(',', $row['Khoahoc']));
+$course_summary = [];
 
 foreach ($course_ids as $khoa_id) {
-    // Lấy tên và mô tả khóa học
     $stmt = $conn->prepare("SELECT khoa_hoc, mo_ta FROM khoa_hoc WHERE id = ?");
     $stmt->bind_param("i", $khoa_id);
     $stmt->execute();
@@ -45,10 +43,10 @@ foreach ($course_ids as $khoa_id) {
 
     $ten_khoa = $info['khoa_hoc'] ?? 'N/A';
     $mo_ta = $info['mo_ta'] ?? '';
-    
-    // Quan lý số bài đã làm và tổng số bài test
+
     $bai_dat = DemSoBaiDat($conn, $student_id, $khoa_id);
     $total_test = TongSoBaiTest($conn, $khoa_id);
+    $percent = ($total_test > 0) ? round(($bai_dat / $total_test) * 100) : 0;
     $hoan_thanh = ($total_test > 0 && $bai_dat >= $total_test);
 
     $course_summary[] = [
@@ -56,6 +54,8 @@ foreach ($course_ids as $khoa_id) {
         'mo_ta' => $mo_ta,
         'bai_dat' => $bai_dat,
         'tong' => $total_test,
+        'phan_tram' => $percent,
+        'hoan_thanh' => $hoan_thanh,
         'trang_thai' => $hoan_thanh ? 'Hoàn thành' : 'Chưa hoàn thành',
         'class' => $hoan_thanh ? 'status-completed' : 'status-incomplete',
         'id_khoa' => $khoa_id
@@ -67,178 +67,321 @@ $conn->close();
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Tổng kết bài kiểm tra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu khoá học</title>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: #f3f6fb;
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
-        .header {
-            text-align: center;
-            margin: 40px 0 32px 0;
+
+        .header-top {
+            max-width: 1265px;
+            margin: auto;
+            border-radius: 30px;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .header h1 {
-            color: #222;
-            font-size: 2.3rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
+
+        .logo_container img {
+            max-width: 120px;
+            height: auto;
         }
-        .header p {
-            color: #7f8c8d;
-            font-size: 1.1rem;
+
+        .logout {
+            background-color: #4D4D4D;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
         }
-        table {
-            width: 90%;
-            margin: 0 auto 40px auto;
-            border-collapse: separate;
-            border-spacing: 0;
-            background: #fff;
-            box-shadow: 0 4px 24px 0 rgba(44,62,80,0.08);
-            border-radius: 14px;
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            padding: 30px;
+        }
+
+        .banner-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 30px;
+            border-radius: 24px;
             overflow: hidden;
         }
+
+        .banner {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 24px;
+        }
+
+        .banner-text {
+            position: absolute;
+            top: 30%;
+            left: 5%;
+            width: 40%;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        .banner-text h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+        }
+
         th, td {
-            padding: 1rem 1.2rem;
-            border-bottom: 1px solid #eaeaea;
+            padding: 12px 8px;
+            border-bottom: 1px solid #969696;
             text-align: left;
+            /* vertical-align: top; */
+            font-size: 14px;
         }
-        th {
-            background: #3498db;
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 1.05rem;
-            font-weight: 600;
-            border-bottom: 3px solid #217dbb;
+
+        td small {
+            color: #777;
+            display: block;
+            margin-top: 8px;
+            max-width: 360px;
+            line-height: 1.4;
         }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        tbody tr:hover {
-            background: #f0f8ff;
-            transition: background 0.18s;
-        }
-        .status-completed {
-            background-color: #2ecc71;
-            color: #fff;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(46,204,113,0.08);
-        }
-        .status-incomplete {
-            background-color: #e74c3c;
-            color: #fff;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(231,76,60,0.08);
-        }
+
         .btn {
-            background-color: #2980b9;
-            color: #fff;
-            padding: 10px 22px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(52,152,219,0.08);
-            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-            border: none;
-            outline: none;
             display: inline-block;
+            background-color: #2d6cdf;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
         }
-        .btn:hover, .btn:focus {
-            background-color: #1c6396;
-            box-shadow: 0 4px 16px rgba(52,152,219,0.15);
-            transform: translateY(-2px) scale(1.03);
+
+        .btn:hover {
+            background-color: #1558c0;
         }
-        @media (max-width: 900px) {
+
+        .status-completed {
+            color: #00AD26;
+            font-weight: 600;
+        }
+
+        .status-incomplete {
+            color: #AD0000;
+            font-weight: 600;
+        }
+
+        .checkmark {
+            color: #00AD26;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .percent {
+            color: #0091FF;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .chapter-list p {
+            margin: 4px 0;
+            color: #444;
+        }
+
+        .chapter-list.completed p {
+            color: #00AD26;
+            font-weight: 500;
+        }
+        @media screen and (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            .logo_container img {
+                max-width: 80px;
+            }
+
+            .logout {
+                margin-top: 10px;
+                padding: 6px 14px;
+                font-size: 13px;
+            }
+
+            .banner-text {
+                width: 90%;
+                top: 10%;
+                left: 5%;
+            }
+
+            .banner-text h2 {
+                font-size: 20px;
+            }
+
+            .banner-text p {
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 20px;
+            }
+
             table {
-                width: 100%;
-            }
-            th, td {
-                padding: 0.7rem 0.5rem;
-            }
-        }
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 1.3rem;
-            }
-            table, thead, tbody, th, td, tr {
+                font-size: 12px;
                 display: block;
-            }
-            th {
-                border-radius: 0;
-            }
-            tr {
-                margin-bottom: 1.2rem;
-            }
-            td {
-                border: none;
-                position: relative;
-                padding-left: 50%;
-                min-height: 38px;
-            }
-            td:before {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 48%;
-                padding-left: 10px;
+                overflow-x: auto;
                 white-space: nowrap;
-                font-weight: bold;
-                color: #888;
-                content: attr(data-label);
+            }
+
+            th, td {
+                padding: 8px 6px;
+                font-size: 13px;
+                min-width: 120px;
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 8px 14px;
+                display: inline-block;
+            }
+
+            .chapter-list p {
+                font-size: 12px;
+                margin: 3px 0;
+            }
+
+            .checkmark {
+                width: 18px;
+                height: 18px;
             }
         }
+      @media screen and (max-width: 768px) {
+            .banner-text {
+                top: 10%;
+                width: 90%;
+            }
+
+            .banner-text h2 {
+                font-size: 18px;
+            }
+
+            .banner-text p {
+                font-size: 13px;
+            }
+
+            .table, table {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 10px 5px;
+                font-size: 12px;
+            }
+
+            .chapter-list p {
+                font-size: 11px;
+            }
+
+            .btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .logout {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+
+
+    
+
+        
+        
     </style>
 </head>
 <body>
-    <div style="text-align:right; margin: 50px 40px 0 0;">
-        <form action="logout.php" method="post" style="display: inline;">
-            <button type="submit" class="btn">Đăng xuất </button>
-        </form>
+    
+<div class="header-top">
+    <div class="logo_container">
+        <img src="rosa.png" alt="Logo">
+    </div>
+    <form action="logout.php" method="post">
+        <button type="submit" class="logout">Đăng xuất</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="banner-container">
+        <img src="code.png" class="banner" alt="Banner">
+        <div class="banner-text">
+            <h2>GIỚI THIỆU KHOÁ HỌC</h2>
+            <p>Khóa học Python toàn diện dành cho người mới, gồm nhiều giai đoạn từ cơ bản đến nâng cao.</p>
+        </div>
     </div>
 
-   <div class="header">
-        <h1>Tổng kết bài kiểm tra</h1>
-        <p>Xem kết quả và tiến độ học tập của bạn</p>
-    </div>
-<table>
-    <thead>
+    <table>
+        <thead>
         <tr>
-            <th>Khóa học</th>
-            <th>Bài kiểm tra</th>
+            <th>Tên khoá học</th>
+            <th>Chương</th>
             <th>Trạng thái</th>
-            <th>Mô tả</th>
             <th>Hành động</th>
         </tr>
-    </thead>
+        </thead>
         <tbody>
-            <?php foreach ($course_summary as $course): ?>
-                <tr>
-                    <td><?= htmlspecialchars($course['ten_khoa']) ?></td>
-                    <td><?= $course['bai_dat'] . ' / ' . $course['tong'] ?></td>
-                    <td><span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span></td>
-                    <td><?= strip_tags($course['mo_ta'], '<h1><h2><ul><li><strong><p><br>') ?></td>
-                    <td><a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a></td>
-                </tr>
-            <?php endforeach; ?>
+        <?php foreach ($course_summary as $course): ?>
+            <tr>
+                <?php
+                    $icon_html = $course['hoan_thanh']
+                        ? '<img src="icon.png" alt="Hoàn thành" class="checkmark" style="width: 24px; height: 24px;">'
+                        : '<span class="percent">' . 50 . '%</span>';
+                ?>
+            <tr>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <?= $icon_html ?>
+                        <div>
+                            <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong>
+                            <small><?= strip_tags($course['mo_ta']) ?></small>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="<?= $course['hoan_thanh'] ? 'chapter-list completed' : 'chapter-list' ?>">
+                        <p>Chương 1: Giới thiệu chung về Python</p>
+                        <p>Chương 2: Cấu trúc điều kiện, vòng lặp.</p>
+                        <p>Chương 3: Cấu trúc dữ liệu trong Python</p>
+                        <p>Chương 4: Module & Package</p>
+                        <p>Chương 5: Pandas</p>
+                        <p>Chương 6: Matplotlib</p>
+                    </div>
+                </td>
+                <td><span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span></td>
+                <td><a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a></td>
+            </tr>
+        <?php endforeach; ?>
         </tbody>
-</table>
-
+    </table>
+</div>
 </body>
 </html>
-
-<script>
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1); // chặn quay lại
-    };
-</script>

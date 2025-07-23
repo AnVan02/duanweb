@@ -5,7 +5,7 @@ require_once __DIR__ . '/send_verification_email.php';
 require_once __DIR__ . '/verify_email_code.php';
 
 if (!isset($_SESSION['pending_device'])) {
-    header("Location: login.php");
+    header("Location: index.html");
     exit;
 }
 
@@ -59,9 +59,9 @@ if ($step === 'verify') {
                 ]);
 
                 unset($_SESSION['pending_device']);
-                $_SESSION['student_id'] = $info['user_id'];
+                $_SESSION['user_id'] = $info['user_id'];
 
-                header("Location: overview.php");
+                header("Location: dashboard.php");
                 exit;
             }
         } else {
@@ -89,173 +89,51 @@ if ($step === 'verify') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>XÁC MINH TÀI KHOẢN</title>
-    <link rel="shortcut icon" href="image/icon_rosa.jpg" />
-    <style>
-        body {
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
-            font-family: Arial, sans-serif;
-            margin: 0; padding: 0;
-        }
-        .container {
-            max-width: 400px;
-            margin: 100px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        h2 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .code-input {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        .code-input input {
-            width: 45px;
-            height: 50px;
-            font-size: 24px;
-            text-align: center;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            outline: none;
-            transition: border 0.2s;
-        }
-        .code-input input:focus {
-            border: 2px solid #0077b6;
-        }
-        button {
-            padding: 10px 20px;
-            border: none;
-            margin: 5px;
-            font-size: 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button[type="submit"] {
-            background: orange;
-            color: white;
-        }
-        #resend_btn {
-            background: #ccc;
-        }
-        #resend_btn:disabled {
-            background: #bbb;
-            cursor: not-allowed;
-        }
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-        .success {
-            color: green;
-            margin-top: 10px;
-        }
-        #countdown {
-            font-size: 13px;
-            margin-top: 10px;
-            color: #0077b6;
-        }
-    </style>
+    <title>Xác minh thiết bị</title>
 </head>
 <body>
+    <h3>Thiết bị mới. Vui lòng nhập mã xác minh được gửi đến email:</h3>
 
-<div class="container">
-    <img src="image/icon_rosa.jpg" width="80" alt="Verify Icon">
-    <h2>ROSA AI READY</h2>
-    <p>Vui lòng nhập mã gồm 6 chữ số đã được gửi đến email của bạn</p>
-
-    <form method="POST" id="verifyForm">
+    <form method="POST">
         <input type="hidden" name="step" value="verify">
-        <div class="code-input">
-            <input type="text" maxlength="1" required>
-            <input type="text" maxlength="1" required>
-            <input type="text" maxlength="1" required>
-            <input type="text" maxlength="1" required>
-            <input type="text" maxlength="1" required>
-            <input type="text" maxlength="1" required>
-        </div>
-        <input type="hidden" name="code" id="full_code">
-
-        <div>
-            <button type="submit" class="verify-btn" value="resend_code" id="resend_btn">Gửi lại mã</button>
-            <button type="submit" name="action" value="submit_code">Xác nhận</button>
-        </div>
+        <input type="text" name="code" placeholder="Mã xác nhận">
+        <button type="submit" name="action" value="submit_code">Xác nhận</button>
+        <button type="submit" name="action" value="resend_code" id="resend_btn">Gửi lại mã</button>
     </form>
 
-    <p id="countdown"></p>
+    <p id="countdown" style="font-weight:bold; color:blue;"></p>
 
-    <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
-    <?php if (!empty($message)) echo "<div class='success'>$message</div>"; ?>
-</div>
+    <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+    <?php if (!empty($message)) echo "<p style='color:green;'>$message</p>"; ?>
 
-<script>
-    const inputs = document.querySelectorAll('.code-input input');
-    const hiddenCodeInput = document.getElementById('full_code');
-    const resendBtn = document.getElementById('resend_btn');
-    const countdown = document.getElementById('countdown');
-    let timeLeft = <?= $time_left ?>;
+    <script>
+        let timeLeft = <?= $time_left ?>;
 
-    // Tự chuyển sang ô tiếp theo
-    inputs.forEach((input, index) => {
-        input.addEventListener('input', () => {
-            input.value = input.value.replace(/\D/, '');
-            if (input.value && index < inputs.length - 1) {
-                inputs[index + 1].focus();
-            }
-        });
+        const countdownEl = document.getElementById("countdown");
+        const resendBtn = document.getElementById("resend_btn");
 
-        input.addEventListener('keydown', (e) => {
-            if (e.key === "Backspace" && !input.value && index > 0) {
-                inputs[index - 1].focus();
-            }
-        });
-    });
-
-    // Gộp mã khi submit
-    document.getElementById('verifyForm').addEventListener('submit', function(e) {
-        const action = document.activeElement.value;
-        const code = Array.from(inputs).map(i => i.value).join('');
-
-        if (action === 'submit_code') {
-            if (code.length !== 6) {
-                e.preventDefault();
-                alert("Vui lòng nhập đủ 6 chữ số.");
+        function updateCountdown() {
+            if (timeLeft <= 0) {
+                countdownEl.textContent = "Bạn có thể gửi lại mã.";
+                resendBtn.disabled = false;
                 return;
             }
-            hiddenCodeInput.value = code;
+
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+
+            countdownEl.textContent = `Vui lòng chờ: ${minutes} phút ${seconds < 10 ? '0' : ''}${seconds} giây để gửi lại mã`;
+            resendBtn.disabled = true;
+            timeLeft--;
+
+            setTimeout(updateCountdown, 1000);
         }
-    });
 
-    // Đếm ngược
-    function updateCountdown() {
-        if (timeLeft <= 0) {
-            countdown.textContent = "Bạn có thể gửi lại mã.";
-            resendBtn.disabled = false;
-            return;
-        }
-
-        let min = Math.floor(timeLeft / 60);
-        let sec = timeLeft % 60;
-        countdown.textContent = `Chờ ${min} phút ${sec < 10 ? '0' : ''}${sec} giây để gửi lại mã`;
-        resendBtn.disabled = true;
-        timeLeft--;
-        setTimeout(updateCountdown, 1000);
-    }
-
-    updateCountdown();
-</script>
-
+        updateCountdown();
+    </script>
 </body>
 </html>

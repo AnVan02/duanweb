@@ -18,8 +18,7 @@ $info = $_SESSION['pending_device'];
 $user_id = $info['user_id'];
 $timeout_seconds = $info['timeout_email'] * 60;
 
-// Lấy thời điểm code_sent_at từ CSDL
-$stmt = $db->prepare("SELECT code_sent_at FROM users WHERE id = ?");
+$stmt = $db->prepare("SELECT code_sent_at FROM students WHERE id = ?");
 $stmt->execute([$user_id]);
 $row = $stmt->fetch();
 
@@ -78,7 +77,7 @@ if ($step === 'verify') {
             $result = send_verification_code($email, $full_name, $code, 'Xác minh tài khoản ROSA', 'Mã xác minh tài khoản');
 
             if ($result === true) {
-                $updateCode = $db->prepare("UPDATE users SET email_code = ?, code_sent_at = NOW(), verify_fail_count = 0 WHERE id = ?");
+                $updateCode = $db->prepare("UPDATE students SET email_code = ?, code_sent_at = NOW(), verify_fail_count = 0 WHERE id = ?");
                 $updateCode->execute([$code, $user_id]);
                 header("Location: " . $_SERVER['PHP_SELF']);
                 exit;
@@ -97,46 +96,44 @@ if ($step === 'verify') {
     <title>Xác minh thiết bị</title>
     <style>
         body {
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            background: linear-gradient(135deg,#99CCFF,#99CCFF);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
-
         .container {
-            max-width: 400px;
-            margin: 100px auto;
+            max-width: 350px;
+            margin: 140px auto;
             background: white;
             padding: 30px;
-            border-radius: 20px;
+            border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             text-align: center;
         }
-
-        .container h3 {
+        h3 {
             font-size: 22px;
             margin-bottom: 15px;
             color: #333;
         }
-
-        .container p#countdown {
-            font-weight: bold;
-            color: #0077b6;
-            margin-top: 15px;
+        .digit-box {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
         }
-
-        input[type="text"] {
-            width: 80%;
-            padding: 12px;
-            font-size: 18px;
+        input.digit {
+            width: 40px;
+            height: 50px;
+            font-size: 24px;
             text-align: center;
-            margin: 10px 0;
-            border: 1px solid #ccc;
             border-radius: 10px;
+            border: 1px solid #ccc;
         }
-
+        input[type="hidden"] {
+            display: none;
+        }
         button {
-            background: orange;
+            background: #00CCFF;
             color: white;
             border: none;
             padding: 12px 25px;
@@ -146,71 +143,106 @@ if ($step === 'verify') {
             cursor: pointer;
             transition: background 0.3s ease;
         }
-
         button:disabled {
             background: #ccc;
             cursor: not-allowed;
         }
-
         .error {
             color: red;
             font-size: 14px;
             margin-top: 10px;
         }
-
         .success {
             color: green;
             font-size: 14px;
             margin-top: 10px;
         }
+        #countdown {
+            font-weight: bold;
+            color: #0077b6;
+        }
     </style>
 </head>
 <body>
+<div class="header">
+    
+<div class="container">
+    <img src="image/icon_rosa.jpg" width="60" alt="Verify Icon">
+    <h3>ROSA AI READY </h3>
+    <p>Vui lòng nhập mã gồm 6 chữ số đã được gửi đến email của bạn</p>
 
-    <div class="container">
-        <h3>Thiết bị mới</h3>
-        <p>Vui lòng nhập mã xác minh được gửi đến email của bạn</p>
+    <form method="POST" id="verifyForm">
+        <input type="hidden" name="step" value="verify">
+        <input type="hidden" name="code" id="code_combined">
+        <div class="digit-box">
+            <?php for ($i = 0; $i < 6; $i++): ?>
+                <input type="text" maxlength="1" class="digit" inputmode="numeric" pattern="[0-9]*" required>
+            <?php endfor; ?>
+        </div>
+        <div>
+            <button type="submit" name="action" value="submit_code" id="submitBtn">Xác nhận</button>
+            <button type="submit" name="action" value="resend_code" id="resend_btn">Gửi lại mã</button>
+        </div>
+    </form>
+    <p id="countdown"></p>
+    <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
+    <?php if (!empty($message)) echo "<div class='success'>$message</div>"; ?>
+</div>
+<script>
+    const digits = document.querySelectorAll('.digit');
+    const codeInput = document.getElementById('code_combined');
+    const form = document.getElementById('verifyForm');
+    const resendBtn = document.getElementById('resend_btn');
+    const countdownEl = document.getElementById('countdown');
 
-        <form method="POST">
-            <input type="hidden" name="step" value="verify">
-            <input type="number" name="code" placeholder="Mã xác nhận" maxlength="6" requiredpattern="\d*"inputmode="numeric"oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-            <div>
-                <button type="submit" name="action" value="submit_code">Xác nhận</button>
-                <button type="submit" name="action" value="resend_code" id="resend_btn">Gửi lại mã</button>
-            </div>
-        </form>
-
-        <p id="countdown"></p>
-
-        <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
-        <?php if (!empty($message)) echo "<div class='success'>$message</div>"; ?>
-    </div>
-
-    <script>
-        let timeLeft = <?= $time_left ?>;
-        const countdownEl = document.getElementById("countdown");
-        const resendBtn = document.getElementById("resend_btn");
-
-        function updateCountdown() {
-            if (timeLeft <= 0) {
-                countdownEl.textContent = "Bạn có thể gửi lại mã.";
-                resendBtn.disabled = false;
-                return;
+    // Auto move and restrict to digits
+    digits.forEach((input, index) => {
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/\D/g, '');
+            if (input.value && index < digits.length - 1) {
+                digits[index + 1].focus();
             }
+            updateHiddenInput();
+        });
 
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !input.value && index > 0) {
+                digits[index - 1].focus();
+            }
+        });
+    });
 
-            countdownEl.textContent = `Vui lòng chờ: ${minutes} phút ${seconds < 10 ? '0' : ''}${seconds} giây để gửi lại mã`;
+    function updateHiddenInput() {
+        let code = '';
+        digits.forEach(d => code += d.value);
+        codeInput.value = code;
+    }
+
+    // Submit with Enter
+    form.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('submitBtn').click();
+        }
+    });
+
+    // Countdown resend
+    let timeLeft = <?= $time_left ?>;
+    function updateCountdown() {
+        if (timeLeft <= 0) {
+            countdownEl.textContent = "Bạn có thể gửi lại mã.";
+            resendBtn.disabled = false;
+        } else {
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            countdownEl.textContent = `Vui lòng chờ: ${m} phút ${s < 10 ? '0' : ''}${s} giây để gửi lại mã`;
             resendBtn.disabled = true;
             timeLeft--;
-
             setTimeout(updateCountdown, 1000);
         }
-
-        updateCountdown();
-    </script>
+    }
+    updateCountdown();
+</script>
 
 </body>
 </html>
-

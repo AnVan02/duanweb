@@ -1,12 +1,13 @@
-
 <?php
+require 'list.php';
+
 session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Kết nối CSDL
-$conn = new mysqli("localhost", "root", "", "student");
+$conn = new mysqli("localhost", "nvpbgqcv_rosa_courses", "Vietson@ROSA@150", "nvpbgqcv_rosa_courses");
 $conn->set_charset("utf8mb4");
 
 if ($conn->connect_error) {
@@ -19,8 +20,7 @@ if (!$student_id) {
     exit();
 }
 
-// Lấy danh sách các khóa học mà học viên đã đăng ký
-$stmt = $conn->prepare("SELECT Khoahoc FROM students WHERE Student_ID = ?");
+$stmt = $conn->prepare("SELECT Khoahoc FROM students WHERE student_id = ?");
 $stmt->bind_param("s", $student_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -34,9 +34,6 @@ if (!$row) {
 
 $course_ids = array_map('intval', explode(',', $row['Khoahoc']));
 
-// Chuẩn bị lấy thông tin cho từng khóa học
-$course_summary = [];
-
 foreach ($course_ids as $khoa_id) {
     // Lấy tên và mô tả khóa học
     $stmt = $conn->prepare("SELECT khoa_hoc, mo_ta FROM khoa_hoc WHERE id = ?");
@@ -47,52 +44,10 @@ foreach ($course_ids as $khoa_id) {
 
     $ten_khoa = $info['khoa_hoc'] ?? 'N/A';
     $mo_ta = $info['mo_ta'] ?? '';
-
-    // Đếm tổng số bài test
-    $stmt = $conn->prepare("SELECT COUNT(*) AS tong_test FROM test WHERE id_khoa = ?");
-    $stmt->bind_param("i", $khoa_id);
-    $stmt->execute();
-    $total_test = $stmt->get_result()->fetch_assoc()['tong_test'] ?? 0;
-    $stmt->close();
-
-    // Lấy thông tin chi tiết về các bài test và kết quả
-    $stmt = $conn->prepare("
-        SELECT 
-            t.id_test,
-            t.so_cau_hien_thi,
-            t.pass,
-            kq.kq_cao_nhat
-        FROM test t
-        LEFT JOIN ket_qua kq ON t.id_test = kq.test_id AND kq.student_id = ?
-        WHERE t.id_khoa = ?
-    ");
-    $stmt->bind_param("si", $student_id, $khoa_id);
-    $stmt->execute();
-    $test_results = $stmt->get_result();
-    $stmt->close();
-
-    $bai_dat = 0;
-    // $da_lam = 0;
-
-    while ($test_row = $test_results->fetch_assoc()) {
-        $kq_cao_nhat = $test_row['kq_cao_nhat'];
-        $so_cau_hien_thi = $test_row['so_cau_hien_thi'];
-        $pass_percent = floatval($test_row['pass']) ?? 100;
-        
-        if ($kq_cao_nhat !== null && $so_cau_hien_thi > 0) {
-            // $da_lam++;
-            // Tính phần trăm: kết quả cao nhất / số câu hiển thị * 100
-            $phan_tram = ($kq_cao_nhat / $so_cau_hien_thi * 100);
-            
-            // Nếu >= pass% thì tính là đạt
-            if ($phan_tram >= $pass_percent) {
-                $bai_dat++;
-            }
-        }
-    }
-
-    // Xác định trạng thái hoàn thành
-    // Khóa học chỉ hoàn thành khi TẤT CẢ bài test đều đạt
+    
+    // Quan lý số bài đã làm và tổng số bài test
+    $bai_dat = DemSoBaiDat($conn, $student_id, $khoa_id);
+    $total_test = TongSoBaiTest($conn, $khoa_id);
     $hoan_thanh = ($total_test > 0 && $bai_dat >= $total_test);
 
     $course_summary[] = [
@@ -105,15 +60,14 @@ foreach ($course_ids as $khoa_id) {
         'id_khoa' => $khoa_id
     ];
 }
-
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Tổng kết bài kiểm tra</title>
+    <title>TỔNG KẾT BÀI KIỂM TRA</title>
+    <link rel="shortcut icon" href="image/icon_rosa.jpg" />
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -246,7 +200,6 @@ $conn->close();
     </style>
 </head>
 <body>
-
     <div style="text-align:right; margin: 50px 40px 0 0;">
         <form action="logout.php" method="post" style="display: inline;">
             <button type="submit" class="btn">Đăng xuất </button>
@@ -274,7 +227,7 @@ $conn->close();
                     <td><?= $course['bai_dat'] . ' / ' . $course['tong'] ?></td>
                     <td><span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span></td>
                     <td><?= strip_tags($course['mo_ta'], '<h1><h2><ul><li><strong><p><br>') ?></td>
-                    <td><a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a></td>
+                    <td><a href="pythonbasic/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
