@@ -79,278 +79,426 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu khoá học</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f3f6fb;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+           background: #f3f6fb;
+            min-height: 100vh;
+            color: #333;
+            padding: 10px;
         }
 
         .header-top {
-            max-width: 1265px;
-            margin: auto;
-            border-radius: 30px;
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .logo_container img {
-            max-width: 120px;
-            height: auto;
+            height: 40px;
+            width: auto;
         }
 
         .logout {
-            background-color: #4D4D4D;
+            background: rgba(0, 106, 220, 0.92);
             color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .logout:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 30px;
-            border: 1px solid #ccc;
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            backdrop-filter: blur(10px);
         }
 
         .banner-container {
             position: relative;
-            width: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 30px 20px;
             margin-bottom: 30px;
-            border-radius: 24px;
             overflow: hidden;
         }
 
+        .banner-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.3;
+        }
+
         .banner {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 24px;
+            display: none; /* Ẩn ảnh banner gốc */
         }
 
         .banner-text {
-            position: absolute;
-            top: 30%;
-            left: 5%;
-            width: 40%;
+            position: relative;
+            z-index: 2;
             color: white;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
         }
 
         .banner-text h2 {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
+        .banner-text p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* Hide table elements on mobile, show card layout */
         table {
             width: 100%;
+            border-collapse: collapse;
         }
 
-        th, td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #969696;
-            text-align: left;
-            font-size: 14px;
+        thead {
+            display: none; /* Hide table header on mobile */
         }
 
-        td small {
-            color: #777;
+        tbody tr {
             display: block;
-            margin-top: 8px;
-            max-width: 360px;
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+
+        tbody tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        tbody td {
+            display: block;
+            padding: 0;
+            border: none;
+            border-bottom: none;
+        }
+
+        /* Course Header */
+        .desktop-only:first-child,
+        .desktop-only:nth-child(2),
+        .mobile-only:first-child {
+            padding: 20px;
+            /* border-bottom: 1px solid #f0f0f0; */
+        }
+
+        /* Course title and completion badge */
+        .mobile-only:first-child > div:first-child {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .mobile-only:first-child strong {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .mobile-only:first-child small {
+            font-size: 14px;
+            color: #666;
             line-height: 1.4;
+            margin-top: 10px;
         }
 
-        .btn {
-            display: inline-block;
-            background-color: #2d6cdf;
+        /* Completion badges */
+        .percent {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
             color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background-color: #1558c0;
-        }
-
-        .status-completed {
-            color: #00AD26;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 14px;
             font-weight: 600;
-        }
-
-        .status-incomplete {
-            color: #AD0000;
-            font-weight: 600;
+            border: none;
         }
 
         .checkmark {
-            color: #00AD26;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .percent {
-            color: #0091FF;
+            width: 24px;
+            height: 24px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-size: 16px;
             font-weight: bold;
         }
 
-        .percent-individual {
-            color: #FF6B35;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
+        /* Chapter list styling */
         .chapter-list {
-            max-width: 400px;
+            padding: 0 20px;
+            margin-bottom: 20px;
         }
 
         .chapter-list p {
-            margin: 4px 0;
-            color: #444;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f8f9fa;
+            margin: 0;
         }
 
-        .chapter-list.completed p {
-            color: #00AD26;
+        .chapter-list p:last-child {
+            border-bottom: none;
+        }
+
+        .chapter-list p::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .chapter-list p:has(strong)::before {
+            background: #4CAF50;
+        }
+
+        .chapter-list p span {
+            flex: 1;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .chapter-list p strong {
+            color: #4CAF50;
+        }
+
+        /* Footer with status and button */
+        .mobile-only:last-child {
+            padding: 15px 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .mobile-row-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .status-completed {
+            color: #4CAF50;
             font-weight: 500;
+            font-size: 14px;
         }
 
-        .chapter-status {
-            margin-left: 10px;
-            font-size: 12px;
+        .status-incomplete {
+            color: #f44336;
+            font-weight: 500;
+            font-size: 14px;
         }
 
-        .chapter-percent {
-            color: #FF6B35;
-            font-weight: bold;
+        .btn {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
         }
 
-        .chapter-pass {
-            color: #00AD26;
-            font-weight: bold;
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
 
-        .chapter-not-done {
-            color: #999;
+        .btn::after {
+            content: '→';
+            font-size: 16px;
         }
 
-        @media screen and (max-width: 480px) {
+        /* Hide desktop-only elements on mobile */
+        .desktop-only {
+            display: none !important;
+        }
+
+        .mobile-only {
+            display: block !important;
+        }
+
+        /* Desktop styles */
+        @media (min-width: 769px) {
             body {
-                font-size: 14px;
+                padding: 30px;
             }
 
-            .logo_container img {
-                max-width: 80px;
+            .banner-container {
+                position: relative;
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+                /* border-radius: 16px; */
+                padding: 30px 20px;
+                margin-bottom: 30px;
+                overflow: hidden;
             }
-
-            .logout {
-                margin-top: 10px;
-                padding: 6px 14px;
-                font-size: 13px;
-            }
-
-            .banner-text {
-                width: 90%;
-                top: 10%;
-                left: 5%;
-            }
-
-            .banner-text h2 {
-                font-size: 20px;
-            }
-
-            .banner-text p {
-                font-size: 13px;
+            .header-top {
+                max-width: 1200px;
+                margin: 0 auto 30px auto;
+                padding: 20px 30px;
             }
 
             .container {
-                padding: 15px;
-                border-radius: 20px;
-            }
-
-            table {
-                font-size: 12px;
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            th, td {
-                padding: 8px 6px;
-                font-size: 13px;
-                min-width: 120px;
-            }
-
-            .btn {
-                font-size: 12px;
-                padding: 8px 14px;
-                display: inline-block;
-            }
-
-            .chapter-list p {
-                font-size: 12px;
-                margin: 3px 0;
-            }
-
-            .checkmark {
-                width: 18px;
-                height: 18px;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .banner-text {
-                top: 10%;
-                width: 90%;
+                padding: 30px;
             }
 
             .banner-text h2 {
-                font-size: 18px;
+                font-size: 36px;
             }
 
             .banner-text p {
-                font-size: 13px;
-            }
-
-            .table, table {
-                width: 100%;
-                display: block;
-                overflow-x: auto;
-            }
-
-            th, td {
-                padding: 10px 5px;
-                font-size: 12px;
-            }
-
-            .chapter-list p {
-                font-size: 11px;
-            }
-
-            .btn {
-                padding: 6px 10px;
-                font-size: 12px;
+                font-size: 16px;
             }
 
             .logout {
-                padding: 5px 10px;
-                font-size: 12px;
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            /* Show desktop table layout */
+            thead {
+                display: table-header-group;
+            }
+
+            tbody tr {
+                display: table-row;
+                background: transparent;
+                border-radius: 0;
+                margin-bottom: 0;
+                box-shadow: none;
+                border-bottom: 1px solid #969696;
+            }
+
+            tbody tr:hover {
+                transform: none;
+                box-shadow: none;
+                background-color: rgba(0,0,0,0.02);
+            }
+
+            tbody td {
+                display: table-cell;
+                padding: 12px 8px;
+                border-bottom: 1px solid #969696;
+                text-align: left;
+                font-size: 14px;
+            }
+
+            .desktop-only {
+                display: table-cell !important;
+            }
+
+            .mobile-only {
+                display: none !important;
+            }
+
+            th, td {
+                padding: 12px 8px;
+                border-bottom: 1px solid #969696;
+                text-align: left;
+                font-size: 14px;
+            }
+
+            th {
+                background-color: rgba(0,0,0,0.05);
+                font-weight: 600;
+            }
+
+            td small {
+                color: #777;
+                display: block;
+                margin-top: 8px;
+                max-width: 360px;
+                line-height: 1.4;
+            }
+
+            .chapter-list {
+                max-width: 400px;
+                padding: 0;
+                margin: 0;
+            }
+
+            .chapter-list p {
+                margin: 4px 0;
+                color: #444;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 4px 0;
+                border-bottom: none;
+            }
+
+            .chapter-list p::before {
+                display: none;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                border-radius: 6px;
+            }
+
+            .btn::after {
+                display: none;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (max-width: 768px) and (min-width: 481px) {
+            .container {
+                padding: 25px;
+            }
+
+            .banner-text h2 {
+                font-size: 28px;
             }
         }
     </style>
@@ -387,63 +535,86 @@ $conn->close();
         </thead>
         <tbody>
         <?php foreach ($course_summary as $course): ?>
-            <tr>
-                 <td style="text-align: center;">
-                    <?php if ($course['hoan_thanh']): ?>
-                         <img src="icon.png" alt="Hoàn thành" class="checkmark" style="width: 24px; height: 24px;">
-                    <?php else: ?>
-                         <span class="percent"><?= $course['phan_tram'] ?>%</span>
-                    <?php endif; ?>
-               </td>
-                <td>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div>
-                            <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong>
-                            <small><?= strip_tags($course['mo_ta']) ?></small>
-                        </div>
+        <tr>
+           <!-- Máy tính: Cột 1 (tích hoặc %) -->
+            <td class="desktop-only" style="text-align: center;">
+                <?php if ($course['hoan_thanh']): ?>
+                    <span class="checkmark">✓</span>
+                <?php else: ?>
+                    <span class="percent"><?= $course['phan_tram'] ?>%</span>
+                <?php endif; ?>
+            </td>
+
+            <!-- Máy tính: Cột 2 (tên khoá + mô tả) -->
+            <td class="desktop-only">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div>
+                        <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong><br>
+                        <small><?= strip_tags($course['mo_ta']) ?></small>
                     </div>
-                </td>
+                </div>
+            </td>
+
+            <!-- Mobile: Gộp cột 1 & 2 -->
+         <td colspan="2" class="mobile-only">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <!-- Dòng 1: Tên khoá + icon hoàn thành hoặc % -->
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong>
+                    <?php if ($course['hoan_thanh']): ?>
+                        <span class="checkmark">✓</span>
+                    <?php else: ?>
+                        <span class="percent"><?= $course['phan_tram'] ?>%</span>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Dòng 2: Mô tả -->
+                <div>
+                    <small><?= strip_tags($course['mo_ta']) ?></small>
+                </div>
+            </div>
+        </td>
+
+                <!-- Cột 3: Danh sách chương -->
                 <td>
                     <div class="chapter-list">
                         <?php if (!empty($course['chi_tiet_chuong'])): ?>
                             <?php 
-                            // Lấy danh sách chương thực tế có trong database
                             $chapters_available = array_keys($course['chi_tiet_chuong']);
-                            sort($chapters_available); // Sắp xếp theo thứ tự tăng dần
+                            sort($chapters_available);
+                            foreach ($chapters_available as $chapter_num): 
+                                $chuong = $course['chi_tiet_chuong'][$chapter_num];
+                                $ten_hien_thi = htmlspecialchars($chuong['ten_test']);
                             ?>
-                            
-                            <?php foreach ($chapters_available as $chapter_num): ?>
-                                <?php $chuong = $course['chi_tiet_chuong'][$chapter_num]; ?>
                                 <p>
                                     <span>
-                                        <?php 
-                                        // Hiển thị tên test gốc từ database
-                                        $ten_hien_thi = htmlspecialchars($chuong['ten_test']);
-                                        ?>
-                                        <?= $ten_hien_thi ?>
-                                    </span>
-                                    <span class="chapter-status">
-                                        <?php if (!$chuong['da_lam']): ?>
-                                            <span class="chapter-not-done"></span>
-                                        <?php elseif ($chuong['trang_thai'] == 1): ?>
-                                            <span class="chapter-pass"> <?= $chuong['percent'] ?>%</span>
-                                        <?php else: ?>
-                                            <span class="chapter-percent"><?= $chuong['percent'] ?>%</span>
-                                        <?php endif; ?>
+                                        <?= $chuong['trang_thai'] == 1
+                                            ? "<strong>$ten_hien_thi</strong>"
+                                            : $ten_hien_thi ?>
                                     </span>
                                 </p>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <p>Không có bài kiểm tra nào</p>
-                            <?php 
-                            // Debug: Hiển thị thông tin debug nếu cần
-                            // echo "<small>Debug: student_id=$student_id, khoa_id={$course['id_khoa']}</small>"; 
-                            ?>
+                            <p><span>Không có bài kiểm tra nào</span></p>
                         <?php endif; ?>
                     </div>
                 </td>
-                <td><span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span></td>
-                <td><a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a></td>
+
+                <!-- Cột 4 & 5: Desktop view -->
+                <td class="desktop-only">
+                    <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+                </td>
+                <td class="desktop-only">
+                    <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+                </td>
+
+                <!-- Cột gộp 4 & 5: Mobile view -->
+               <td class="mobile-only" colspan="2">
+                    <div class="mobile-row-bottom">
+                        <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+                        <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+                    </div>
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
