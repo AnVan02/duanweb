@@ -1,333 +1,185 @@
-<?php
-ob_start();
-date_default_timezone_set('Asia/Ho_Chi_Minh');
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-session_start();
-if (!isset($_SESSION['student_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-// Kết nối cơ sở dữ liệu
-$conn = new mysqli("localhost", "root", "", "student");
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
-
-$ma_khoa = '1';
-$id_test = '1';
-$student_id = $_SESSION['student_id'];
-$link_quay_lai = "khoahoc.php";
-
-// Kiểm tra quyền truy cập khóa học
-$stmt = $conn->prepare("SELECT Khoahoc FROM students WHERE Student_ID = ?");
-$stmt->bind_param("s", $student_id);
-$stmt->execute();
-$result = $stmt->get_result();
-if ($row = $result->fetch_assoc()) {
-    $khoahoc = $row['Khoahoc'];
-    $khoahoc_list = array_map('intval', explode(',', $khoahoc));
-    if (!in_array(intval($ma_khoa), $khoahoc_list)) {
-        echo "<script>alert('Bạn không có quyền truy cập khóa học này!'); window.location.href = 'login.php';</script>";
-        exit();
-    }
-} else {
-    echo "<script>alert('Không tìm thấy thông tin sinh viên!'); window.location.href = 'login.php';</script>";
-    exit();
-}
-$stmt->close();
-
-// Kiểm tra ID bài test
-$stmt = $conn->prepare("SELECT ten_test FROM test WHERE id_test = ?");
-$stmt->bind_param("i", $id_test);
-$stmt->execute();
-$result = $stmt->get_result();
-if ($result->num_rows == 0) {
-    echo "<script>alert('ID bài test ($id_test) không tồn tại trong hệ thống. Vui lòng kiểm tra lại!');</script>";
-    exit();
-}
-$row = $result->fetch_assoc();
-$id_baitest = $row['ten_test'];
-$stmt->close();
-
-// Lấy số câu hỏi cần hiển thị từ bảng test
-$stmt = $conn->prepare("SELECT so_cau_hien_thi FROM test WHERE id_test = ?");
-$stmt->bind_param("i", $id_test);
-$stmt->execute();
-$result = $stmt->get_result();
-if ($row = $result->fetch_assoc()) {
-    $so_cau_hien_thi = intval($row['so_cau_hien_thi']);
-} else {
-    $so_cau_hien_thi = 10; // fallback nếu không có dữ liệu
-}
-$stmt->close();
-
-
-// Lấy tên khóa học và câu hỏi
-$stmt = $conn->prepare("SELECT khoa_hoc FROM khoa_hoc WHERE id = ?");
-$stmt->bind_param("s", $ma_khoa);
-$stmt->execute();
-$result = $stmt->get_result();
-if ($row = $result->fetch_assoc()) {
-    $ten_khoa = $row['khoa_hoc']; // Lưu tên khóa học để hiển thị
-    $stmt2 = $conn->prepare("SELECT * FROM quiz WHERE id_khoa = ? AND id_baitest = ? ORDER BY RAND() LIMIT ?");
-    $stmt2->bind_param("ssi", $ma_khoa, $id_test, $so_cau_hien_thi);
-    $stmt2->execute();
-    $result2 = $stmt2->get_result();
-    $questions = [];
-    while ($row2 = $result2->fetch_assoc()) {
-        $questions[] = [
-            'id' => $row2['Id_cauhoi'],
-            'question' => $row2['cauhoi'],
-            'choices' => [
-                'A' => $row2['cau_a'],
-                'B' => $row2['cau_b'],
-                'C' => $row2['cau_c'],
-                'D' => $row2['cau_d']
-            ],
-            'images' => [
-                'A' => $row2['hinhanh_a'],
-                'B' => $row2['hinhanh_b'],
-                'C' => $row2['hinhanh_c'],
-                'D' => $row2['hinhanh_d']
-            ],
-            'explanations' => [
-                'A' => $row2['giaithich_a'],
-                'B' => $row2['giaithich_b'],
-                'C' => $row2['giaithich_c'],
-                'D' => $row2['giaithich_d']
-            ],
-            'correct' => $row2['dap_an'],
-            'image' => $row2['hinhanh']
-        ];
-    }
-    
-    if (count($questions) < 1) {
-        die("Lỗi: Không đủ câu hỏi cho khóa học '$ten_khoa' và bài test '$id_test'.");
-    }
-    $_SESSION['questions'] = $questions;
-    $_SESSION['ten_khoa'] = $ten_khoa; // Lưu tên khóa học
-    $_SESSION['id_baitest'] = $id_test; // Lưu ID bài test
-} else {
-    die("Lỗi: Không tìm thấy khóa học với mã '$ma_khoa'");
-}
-$stmt->close();
-$stmt2->close();
-
-
-// Lấy số lần thử tối đa
-function getTestInfo($conn, $id_test) {
-    $sql = "SELECT lan_thu FROM test WHERE id_test = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id_test);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $lan_thu = $result->num_rows > 0 ? $result->fetch_assoc()['lan_thu'] : 1;
-    $stmt->close();
-    return $lan_thu;
-}
-$max_attempts = getTestInfo($conn, $id_test);
-
-// Khởi tạo biến
-$current_index = isset($_SESSION['current_index']) ? intval($_SESSION['current_index']) : 0;
-$answers = isset($_SESSION['answers']) ? $_SESSION['answers'] : [];
-$score = isset($_SESSION['score']) ? $_SESSION['score'] : 0;
-
-// Kiểm tra số lần thử
-$stmt = $conn->prepare("SELECT so_lan_thu FROM ket_qua WHERE student_id = ? AND khoa_id = ? AND test_id = ?");
-$stmt->bind_param("sis", $student_id, $ma_khoa, $id_test);
-$stmt->execute();
-$result = $stmt->get_result();
-$attempts = $result->num_rows > 0 ? $result->fetch_assoc()['so_lan_thu'] : 0;
-$stmt->close();
-
-// Xử lý gửi câu trả lời
-if ($_SERVER["REQUEST_METHOD"] === "POST" && (isset($_POST['next']) || isset($_POST['submit']) || isset($_POST['previous']))) {
-    if (isset($_POST['answer']) && isset($_SESSION['questions'][$current_index])) {
-        $user_answer = $_POST['answer'];
-        $current_question = $_SESSION['questions'][$current_index];
-        $is_correct = ($user_answer === $current_question['correct']);
-        $answers[$current_index] = [
-            'selected' => $user_answer,
-            'is_correct' => $is_correct
-        ];
-        $_SESSION['answers'] = $answers;
-        if ($is_correct && !isset($_SESSION['score_saved'][$current_index])) {
-            $score++;
-            $_SESSION['score'] = $score;
-            $_SESSION['score_saved'][$current_index] = true;
-        }
-    }
-
-    if (isset($_POST['next']) && $current_index < count($_SESSION['questions']) - 1) {
-        $current_index++;
-        $_SESSION['current_index'] = $current_index;
-    } elseif (isset($_POST['previous']) && $current_index > 0) {
-        $current_index--;
-        $_SESSION['current_index'] = $current_index;
-    } elseif (isset($_POST['submit'])) {
-        $conn->close();
-        header("Location: result.php");
-        exit();
-    }
-    header("Location: quiz.php");
-    exit();
-}
-
-$conn->close();
-?>
-
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài kiểm tra</title>
-    <style>
-       body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
-            margin: 0;
-            padding: 20px;
-            font-size: 17px;
-            color: #333;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-        }
-        .question-box {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            padding: 24px;
-            margin-bottom: 30px;
-            border-left: 6px solid #007bff;
-        }
-        .question-box h3 {
-            color: #007bff;
-            margin-top: 0;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #f1f1f1;
-        }
-        ul li label {
-            font-size: 17px;
-            cursor: pointer;
-        }
-        button {
-            padding: 10px 11px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        button:hover:not(:disabled) {
-            background-color: #0056b3;
-        }
-        img {
-            max-width: 90%;        /* Chiều rộng tối đa là 100% khung chứa */
-            max-height: 500px;      /* Giới hạn chiều cao tối đa nếu cần */
-            height: auto;           /* Giữ tỷ lệ gốc của ảnh */
-            width: auto;            /* Không kéo giãn ảnh nhỏ */
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: block;       
-        }
-        .btn-area {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navigation-links {
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-        }
-        a.nav-link {
-            padding: 10px 11px;
-            background-color: #28a745;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        a.nav-link:hover {
-            background-color: #218838;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        
-        <?php if ($attempts >= $max_attempts): ?>
-            <p class="no-answers">Bạn đã sử dụng hết số lần làm bài! <a class="nav-link" href="recent_result.php">Xem kết quả</a></p>
-        <?php elseif ($current_index < count($_SESSION['questions'])): ?>
-            <?php $question = $_SESSION['questions'][$current_index]; ?>
-            <form method="POST" action="">
-                <div class="question-box">
-                    <div class="question-number">Câu <?php echo $current_index + 1; ?></div>
-                    <h3><?php echo htmlspecialchars($question['question']); ?></h3>
-                    <?php if (!empty($question['image'])): ?>
-                        <img src="<?php echo 'admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
-                    <?php endif; ?>
-                    <ul>
-                        <?php foreach ($question['choices'] as $key => $value): ?>
-                            <li>
-                                <label>
-                                    <input type="radio" name="answer" value="<?php echo $key; ?>" 
-                                        <?php echo isset($answers[$current_index]) && $answers[$current_index]['selected'] === $key ? 'checked' : ''; ?> 
-                                        required> 
-                                    <?php echo $key; ?>. <?php echo htmlspecialchars($value); ?>
-                                </label>
-                                <?php if (!empty($question['images'][$key])): ?>
-                                    <img src="<?php echo 'admin/' . htmlspecialchars($question['images'][$key]); ?>" alt="Hình ảnh đáp án <?php echo $key; ?>">
-                                <?php endif; ?>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <div class="btn-area">
-                        <button type="submit" name="previous" <?php echo $current_index == 0 ? 'disabled' : ''; ?>>Câu trước</button>
-                        <?php if ($current_index == count($_SESSION['questions']) - 1): ?>
-                            <button type="submit" name="submit">Nộp bài</button>
-                        <?php else: ?>
-                            <button type="submit" name="next">Câu sau</button>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </form>
+<tr>
+    <!-- Cột 1: Dấu tích hoặc phần trăm -->
+    <td style="text-align: center;">
+        <?php if ($course['hoan_thanh']): ?>
+            <img src="icon.png" alt="Hoàn thành" class="checkmark" style="width: 24px; height: 24px;">
         <?php else: ?>
-            <p>Đã hoàn thành bài test. Chuyển hướng đến trang kết quả...</p>
-            <script>window.location.href = 'result.php';</script>
+            <span class="percent"><?= $course['phan_tram'] ?>%</span>
         <?php endif; ?>
-    </div>
-</body>
-</html>
-<?php ob_end_flush(); ?>
+    </td>
+
+    <!-- Cột 2: Tên khoá học + mô tả -->
+    <td>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div>
+                <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong>
+                <small><?= strip_tags($course['mo_ta']) ?></small>
+            </div>
+        </div>
+    </td>
+
+    <!-- Cột 3: Danh sách chương -->
+    <td>
+        <div class="chapter-list">
+            <?php if (!empty($course['chi_tiet_chuong'])): ?>
+                <?php 
+                $chapters_available = array_keys($course['chi_tiet_chuong']);
+                sort($chapters_available);
+                foreach ($chapters_available as $chapter_num): 
+                    $chuong = $course['chi_tiet_chuong'][$chapter_num];
+                    $ten_hien_thi = htmlspecialchars($chuong['ten_test']);
+                ?>
+                    <p>
+                        <span>
+                            <?= $chuong['trang_thai'] == 1
+                                ? "<strong style='color: #28a745;'>$ten_hien_thi</strong>"
+                                : $ten_hien_thi ?>
+                        </span>
+                    </p>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Không có bài kiểm tra nào</p>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <!-- Cột 4 & 5: Desktop view -->
+    <td class="desktop-only">
+        <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+    </td>
+    <td class="desktop-only">
+        <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+    </td>
+
+    <!-- Cột gộp 4 & 5: Mobile view -->
+    <td class="mobile-only" colspan="2">
+        <div class="mobile-row-bottom">
+            <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+            <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+        </div>
+    </td>
+</tr>
+<tr>
+    <!-- Cột 1: ✅ nếu hoàn thành, % nếu chưa -->
+    <td style="text-align: center;">
+        <?php if ($course['hoan_thanh']): ?>
+            <span style="font-size: 20px; color: green;">✅</span>
+        <?php else: ?>
+            <span style="font-weight: bold;"><?= $course['phan_tram'] ?>%</span>
+        <?php endif; ?>
+    </td>
+
+    <!-- Cột 2: Tên khoá học + mô tả -->
+    <td>
+        <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong>
+        <br>
+        <small><?= strip_tags($course['mo_ta']) ?></small>
+    </td>
+
+    <!-- Cột 3: Danh sách chương -->
+    <td>
+        <div class="chapter-list">
+            <?php if (!empty($course['chi_tiet_chuong'])): ?>
+                <?php 
+                $chapters_available = array_keys($course['chi_tiet_chuong']);
+                sort($chapters_available);
+                ?>
+                <?php foreach ($chapters_available as $chapter_num): ?>
+                    <?php $chuong = $course['chi_tiet_chuong'][$chapter_num]; ?>
+                    <p>
+                        <span>
+                            <?php $ten_hien_thi = htmlspecialchars($chuong['ten_test']); ?>
+                            <?php if ($chuong['trang_thai'] == 1): ?>
+                                <strong style="color: #28a745;"><?= $ten_hien_thi ?></strong>
+                            <?php else: ?>
+                                <?= $ten_hien_thi ?>
+                            <?php endif; ?>
+                        </span>
+                    </p>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Không có bài kiểm tra nào</p>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <!-- Máy tính: trạng thái và nút -->
+    <td class="desktop-only">
+        <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+    </td>
+    <td class="desktop-only">
+        <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+    </td>
+
+    <!-- Điện thoại: Gộp trạng thái + nút -->
+    <td colspan="2" class="mobile-only">
+        <div class="mobile-row-bottom" style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+            <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+        </div>
+    </td>
+</tr>
+
+<!--  -->
+
+<tr>
+    <!-- Cột 1: ✅ nếu hoàn thành, % nếu chưa -->
+    <td style="text-align: center;">
+        <?php if ($course['hoan_thanh']): ?>
+            <span style="font-size: 20px; color: green;">✅</span>
+        <?php else: ?>
+            <span style="font-weight: bold;"><?= $course['phan_tram'] ?>%</span>
+        <?php endif; ?>
+    </td>
+
+    <!-- Cột 2: Tên khoá học + mô tả -->
+    <td>
+        <strong><?= htmlspecialchars($course['ten_khoa']) ?></strong>
+        <br>
+        <small><?= strip_tags($course['mo_ta']) ?></small>
+    </td>
+
+    <!-- Cột 3: Danh sách chương -->
+    <td>
+        <div class="chapter-list">
+            <?php if (!empty($course['chi_tiet_chuong'])): ?>
+                <?php 
+                $chapters_available = array_keys($course['chi_tiet_chuong']);
+                sort($chapters_available);
+                ?>
+                <?php foreach ($chapters_available as $chapter_num): ?>
+                    <?php $chuong = $course['chi_tiet_chuong'][$chapter_num]; ?>
+                    <p>
+                        <span>
+                            <?php $ten_hien_thi = htmlspecialchars($chuong['ten_test']); ?>
+                            <?php if ($chuong['trang_thai'] == 1): ?>
+                                <strong style="color: #28a745;"><?= $ten_hien_thi ?></strong>
+                            <?php else: ?>
+                                <?= $ten_hien_thi ?>
+                            <?php endif; ?>
+                        </span>
+                    </p>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Không có bài kiểm tra nào</p>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <!-- Máy tính: trạng thái và nút -->
+    <td class="desktop-only">
+        <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+    </td>
+    <td class="desktop-only">
+        <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+    </td>
+
+    <!-- Điện thoại: Gộp trạng thái + nút -->
+    <td colspan="2" class="mobile-only">
+        <div class="mobile-row-bottom" style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="<?= $course['class'] ?>"><?= $course['trang_thai'] ?></span>
+            <a href="templates/chapter1.php?khoa=<?= $course['id_khoa'] ?>" class="btn">Bắt đầu</a>
+        </div>
+    </td>
+</tr>
+

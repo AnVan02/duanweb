@@ -28,8 +28,8 @@
         <button onclick="goToTest()" class="logout-btn">
             <i class="fa fa-sign-out-alt">Kiểm tra</i>
         </button>
-
     </nav>
+    
     <div class="container">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>

@@ -16,7 +16,6 @@ if (!isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
-
 $id_test = '71';
 $ma_khoa = '10';
 $student_id = $_SESSION['student_id'];
