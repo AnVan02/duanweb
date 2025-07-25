@@ -5,10 +5,47 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif, Montserrat;
     line-height: 1.6;
     color: #333;
     font-size: 17px;
+}
+
+
+.chapter {
+    width: 25%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.content {
+    width: 75%;
+    padding: 30px;
+    background-color: #ffffff;
+}
+
+/* thanh header  */
+.header-top {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* đảm bảo nằm trên các thành phần khác */
+    background-color: white;
+    /* hoặc màu nền phù hợp */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.logo-container img {
+    max-width: 120px;
+    height: auto;
+    text-align: center;
 }
 
 .navigation-links {
@@ -74,24 +111,21 @@ nav h3 {
     border-radius: 5px;
 }
 
-.button:hover {
-    color: #333;
-}
-
 .container {
     display: flex;
     padding-top: 6rem;
     justify-content: space-between;
     transition: all 0.3s ease-in-out;
     width: 100%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .chapter {
     background-color: #fffcfc;
     width: 430px;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow-y: auto;
-    margin-top: 5px;
+    margin-top: 35px;
     margin-left: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border: 0.5px solid #e2e2e2;
@@ -117,7 +151,7 @@ nav h3 {
     margin-left: 3rem;
     margin-right: 1rem;
     border-radius: 20px;
-    border: 0.5px solid #e2e2e2;
+    /* border: 0.5px solid #e2e2e2; */
     transition: all 0.3s ease-in-out;
 }
 
@@ -153,6 +187,7 @@ nav h3 {
     display: flex;
     justify-content: center;
     gap: 100px;
+    border-radius: 60px;
 }
 
 .display a {
@@ -210,6 +245,20 @@ section a:hover {
 
 .text-container_right {
     text-align: left;
+}
+
+@media (max-width :780px) {
+    body {
+        font-size: 15px;
+    }
+
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
 }
 
 @media (max-width: 480px) {

@@ -19,18 +19,51 @@
 </head>
 
 <body>
+ <!-- Header Top (Logo and Mobile Toggle) -->
+    <!--Máy tinh : Cột 1 hiện thị quay lại và muc lục -->
+    <div class="header-top">
+        <div class="logout-btn" onclick="logout()" aria-label="Logout">
+           <i class="fas fa-arrow-left"></i> Quay lại 
+        </div>
+        <div class="logo-container">
+            <img src="../ROSA_AI_Ready.png" alt="Logo">
+        </div>
+        <div class="button-toggle">
+            <button class="button" onclick="toggleChapter()" aria-label="Toggle Menu">
+               Mục lục <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Máy tinh côt 2 : tên môn học  -->
+    <!-- Navigation Bar -->
     <nav>
         <div class="button-toggle">
-            <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
+            <!-- <button class="button" onclick="toggleChapter()" aria-label="Toggle Menu">
+                <i class="fa fa-bars"></i>
+            </button> -->
         </div>
-        <h3>TỔNG QUAN VỀ NGÔN NGỮ LẬP TRÌNH TRONG PYTHON</h3>
-        
-        <button onclick="goToTest()" class="logout-btn">
-            <i class="fa fa-sign-out-alt">Kiểm tra</i>
-        </button>
+        <h3 class="nav-title">
+            TỔNG QUAN VỀ NGÔN NGỮ LẬP TRÌNH TRONG PYTHON
+        </h3>
+
+        <!-- <button onclick="logout()" class="logout-btn" aria-label="Logout">
+            <i class="fa fa-sign-out-alt"></i> Thoát
+        </button> -->
     </nav>
-    
-    <div class="container">
+    <!-- Mobile : Gôp cột 1 $ 2-->
+    <td class="mobile-only">
+        <div style="display:flex, flex-direction:column; gap: 4px;">
+            <button class="button" onclick="toggleChapter()" aria-label="Toggle Menu">
+                Mục lục <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        </div>
+    </td>    
+    <td>
+    </td>
+
+
+    <div class="container" style="flex-direction: row-reverse;">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
             <a href="chapter1_1.php">Tổng quan về ngôn ngữ lập trình python.</a>
@@ -63,7 +96,7 @@
             <a href="chapter6_2.php">Lưu biểu đồ.</a>
             <a href="exercise6.php">Bài tập chương 6</a>
         </div>
-
+        <div></div>
         <div class="content">
             <div class="main">
                 <h3>Giới thiệu chung.</h3>
@@ -259,29 +292,26 @@
                 <p>• <b>Pandas:</b> Đây là thư viện quan trọng trong lĩnh vực khoa học dữ liệu và xử lý dữ liệu lớn. Các
                     phiên bản mới nhất của Pandas chỉ hỗ trợ Python 3, giúp cải thiện tốc độ xử lý dữ liệu, tối ưu bộ
                     nhớ và hỗ trợ tốt hơn các kiểu dữ liệu hiện đại như Categorical và Datetime64..</p>
-                <div class="display">
-                    <a href="chapter1.php" class="select">
-                        <div class="arrow">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                        <div class="text-container_left">
-                            <div class="previously">PREVIOUSLY</div>
-                            <div class="link">Tổng quan chương 1.</div>
-                        </div>
-                    </a>
-
-                    <a href="chapter1_2.php" class="select">
-                        <div class="text-container_right">
-                            <div class="previously">UP NEXT</div>
-                            <div class="link">Chương trình đầu tiên làm quen với python.</div>
-                        </div>
-                        <div class="arrow">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
+    </div>
+     <div class="display">
+        <a href="chapter1.php" class="select">
+            <div class="arrow">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="text-container_left">
+                <div class="previously">Bài trước đó </div>
+            </div>
+        </a>
+        <a href="chapter1_2.php" class="select">
+            <div class="text-container_right">
+                <div class="previously">Bài tiếp theo</div>
+            </div>
+            <div class="arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </a>
     </div>
     <script src="static/javascript/main.js"></script>
     <script src="static/javascript/code.js"></script>
