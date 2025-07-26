@@ -1,0 +1,140 @@
+    body {
+        font-family: montserrat;
+        background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+        margin: 0;
+        padding: 20px;
+        font-size: 17px;
+        color: #333;
+    }
+
+    .header {
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: #FFFFFF;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1336px;
+        margin: 0 auto;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #e53e3e;
+        letter-spacing: 2px;
+    }
+
+    .logo-img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
+
+    .logo-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-family: 'Arial', sans-serif;
+        font-weight: 900;
+    }
+
+
+    .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #2c3e50;
+        text-align: center;
+    }
+
+    .question-box {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        padding: 24px;
+        margin-bottom: 30px;
+        border-left: 6px solid #007bff;
+    }
+
+    .question-box h3 {
+        color: #007bff;
+        margin-top: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    ul li {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f1f1f1;
+    }
+
+    ul li label {
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+
+    img {
+        max-width: 100%;
+        /* Chiều rộng tối đa là 100% khung chứa */
+        max-height: 500px;
+        /* Giới hạn chiều cao tối đa nếu cần */
+        height: auto;
+        /* Giữ tỷ lệ gốc của ảnh */
+        width: auto;
+        /* Không kéo giãn ảnh nhỏ */
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: block;
+        margin: 0 auto;
+        /* Căn giữa ảnh */
+    }
+
+    .btn-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navigation-links {
+        text-align: center;
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    a.nav-link {
+        padding: 10px 11px;
+        background-color: #28a745;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    a.nav-link:hover {
+        background-color: #218838;
+    }

@@ -190,7 +190,7 @@ $conn->close();
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            background: #FFFFFF;
             margin: 0;
             padding: 20px;
             font-size: 17px;
@@ -208,8 +208,36 @@ $conn->close();
             color: #2c3e50;
             text-align: center;
         }
+        h3 {
+            text-align: center; 
+            color: #203D6F; 
+            font-size: 20px; 
+            font-weight: 300; 
+            word-wrap: break-word
+        }
+        .score-info {
+            width: 100%;
+            max-width: 1000px;
+            font-weight:600px;
+            margin: 0 auto 28px auto;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 3px #EAEAEA solid;
+            font-size: 17px;
+            text-align:center;
+            background: white;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
         .question-block {
             margin-bottom: 20px;
+        }
+        .question-text {
+            margin-bottom:20px;
+            font-size:18px;
+            font-weight:bold;
         }
         ul {
             list-style: none;
@@ -222,13 +250,14 @@ $conn->close();
             background-color: #f1f1f1;
         }
         li.correct {
-            background-color: #d4edda;
-            color: #155724;
+            /* background-color: #d4edda; */
+            border-radius: 30px
+            color: #00AD26;
             font-weight: bold;
         }
         li.incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
+            /* background-color: #f8d7da; */
+            color: #AD0000;
             font-weight: bold;
         }
         img {
@@ -242,11 +271,12 @@ $conn->close();
             display: block;
             margin: 0 auto;         /* Căn giữa ảnh */
         }
+
         .explanation-block {
             margin-top: 10px;
-            padding: 15px;
-            border-left: 6px solid;
-            background-color: #fff3cd;
+            padding: 6px 10px;
+            /* border-left: 6px solid; */
+            background-color: #F8FDFF;
             border-radius: 6px;
             font-size: 17px;
         }
@@ -283,29 +313,48 @@ $conn->close();
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Kết quả bài kiểm tra</h1>
-        <div class="score-info">
-            <p><strong>Khóa học:</strong> <?php echo htmlspecialchars($ten_khoa); ?></p>
-            <p><strong>Bài test:</strong> <?php echo htmlspecialchars($ten_test); ?></p>
-            <!--<p><strong>Tổng điểm:</strong> <?php echo $score; ?> / <?php echo $total_questions; ?></p>-->
-            <p><strong>Tổng điểm:</strong> <?php echo $score; ?>/<?php echo $total_questions; ?> (<span class="percentage"><?php echo $current_percentage; ?>%</span>)</p>
-            <p><strong>Điểm cao nhất:</strong> <?php echo $highest_score; ?> / <?php echo $total_questions; ?> (<span class="percentage"><?php echo $highest_percentage; ?>%</span>)</p>
-            <p><strong>Số lần làm bài:</strong> <?php echo $attempts; ?> / <?php echo $max_attempts; ?></p>
-            <p><strong>Số câu cần đúng để đạt:</strong> <?php echo $required_for_80_percent; ?> câu</p>
-            <p><strong>Trạng thái:</strong> 
-                <span class="pass-status <?php echo $score >= $pass_score ? 'pass' : 'fail'; ?>">
-                    <?php echo $highest_score >= $pass_score ? 'Đạt' : 'Không đạt'; ?>
-                </span>
-            </p>
+      <header class="header">
+        <div class="header-content">
+            <a href="javascript:void(0)" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>
+            <div class="logo">
+                <img src="../../ROSA_AI_Ready.png" alt="Logo">
+            </div>
+        
         </div>
+    </header>
+    <div class="container">
+        <h1>KẾT QUẢ BÀI KIỂM TRA CUỐI KHOÁ</h1>
+        <h3>Bạn phải vượt qua bài kiêm tra để hoàn tất bài học </h3>
+        <table  class="score-info" border="1"  cellpadding="5" cellspacing="0">
+            <tr>
+                <th>Khoá học</th>
+                <th>Bài test</th>
+                <th>Điểm cao nhất</th>
+                <th>Số lần làm bài</th>
+                <th>Số câu cần đúng để đạt</th>
+                <th>Trạng thái</th>
+            </tr>
+            <tr>
+                <td><?php echo htmlspecialchars($ten_khoa); ?></td>
+                <td><?php echo htmlspecialchars($ten_test); ?></td>
+                <td><?php echo $score; ?>/<?php echo $total_questions; ?> (<span class="percentage"><?php echo $current_percentage; ?>%</span>)</td>
+                <td><?php echo $attempts; ?> / <?php echo $max_attempts; ?></td>
+                <td><?php echo $required_for_80_percent; ?> câu</td>
+                <td>
+                   <?php echo $highest_score >= $pass_score ? 'Đạt' : 'Không đạt'; ?>
+                </td>
+            </tr>
+        </table>
         <hr>
         <?php if (empty($answers) || empty($questions)): ?>
             <p class="no-answers">Bạn chưa trả lời câu hỏi nào! <a class="nav-link" href="chuong1_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1">Quay lại làm bài</a></p>
         <?php else: ?>
             <?php foreach ($questions as $index => $question): ?>
                 <div class="question-block">
-                    <p class="question-text">Câu <?php echo $index + 1; ?>: <?php echo htmlspecialchars($question['question']); ?></p>
+                    <p class="question-text" style="font-weight: bold;">Câu <?php echo $index + 1; ?>/<?php echo $total_questions; ?>: <?php echo htmlspecialchars($question['question']); ?></p>
                     <?php if (!empty($question['image'])): ?>
                         <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
                     <?php endif; ?>
@@ -338,11 +387,20 @@ $conn->close();
                     <?php
                     // Xác định lại biến $is_correct cho giải thích
                     $is_correct = isset($answers[$index]) && ($answers[$index]['selected'] === $question['correct']);
-
+                            
                     // Giải thích nếu chọn sai
                     if (isset($answers[$index]['selected']) && !empty(trim($question['explanations'][$answers[$index]['selected']] ?? ''))) {
-                        echo "<div class='explanation-block' style='border-color: " . ($is_correct ? "#28a745" : "#dc3545") . ";'>";
+                        echo "<div class='explanation-block' style='border-color: " .";'>";
                         echo "<p><strong>Giải thích: </strong>" . htmlspecialchars($question['explanations'][$answers[$index]['selected']] ?? '') . "</p>";
+                       if (!empty($question['images'][$index])) {
+                             echo "<div style='text-align: left;'>
+                                    <div style='display: flex; align-items: center;'>
+                                        <img src='../../GT.png' alt='Ảnh minh họa' style='max-height:40px; margin-right:10px;'>
+                                        <span><strong style='color:#205AB1;'>Giải thích:</strong> " . htmlspecialchars($explanation) . "</span>
+                                    </div>
+                                </div>";
+                        }
+                
                         echo "</div>";
                     }
                     ?>

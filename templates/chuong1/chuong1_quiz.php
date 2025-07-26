@@ -197,87 +197,167 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <title>Quiz - <?php echo htmlspecialchars($ten_khoa); ?></title>
-  <style>
-     body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    <style>
+            body {
+            font-family: montserrat;
+            background:#FFFFFF;
             margin: 0;
             padding: 20px;
             font-size: 17px;
             color: #333;
         }
+
+        .header {
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #FFFFFF;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1336px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e53e3e;
+            letter-spacing: 2px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            align-items: center;
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Arial', sans-serif;
+            font-weight: 900;
+        }
+
+
         .container {
             max-width: 1100px;
             margin: 40px auto;
             background-color: #ffffff;
-            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 3px #AFAFAF solid
         }
+
         h2 {
             color: #2c3e50;
             text-align: center;
         }
+
         .question-box {
-            background: #fff;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
             padding: 24px;
             margin-bottom: 30px;
-            border-left: 6px solid #007bff;
         }
+
         .question-box h3 {
             color: #007bff;
             margin-top: 0;
         }
+
         ul {
             list-style: none;
             padding: 0;
         }
+
         ul li {
             margin-bottom: 10px;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 23px;
             background-color: #f1f1f1;
+            background: white;
+            border-radius: 30px; border: 1px #205AB1 solid;
+
         }
+
         ul li label {
             font-size: 17px;
-            cursor: pointer;
-        }
-        button {
-            padding: 10px 11px;
-            background-color: #007bff;
-            color: white;
-            border: none;
             border-radius: 5px;
-            font-size: 16px;
             cursor: pointer;
-            margin-right: 10px;
+
+            
         }
+
+        button {
+            padding-left: 39px; 
+            padding-right: 39px; 
+            padding-top: 17px; 
+            color: white;
+            padding-bottom: 17px; 
+            background: #3961A6; 
+            border-radius: 30px; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 10px; 
+            
+            display: inline-flex
+        }
+
         button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
+            justify-content: center; 
+            display: flex; 
+            flex-direction: column; 
+            color: white; 
+            border-radius: 30px;
+            background: #91684D
+            text-transform: uppercase; 
+            word-wrap: break-word"
+            justify-content: center; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            border-radius: 30px; 
+            word-wrap: break-word
         }
-        button:hover:not(:disabled) {
-            background-color: #0056b3;
-        }
+
+
         img {
-            max-width: 100%;        /* Chiều rộng tối đa là 100% khung chứa */
-            max-height: 500px;      /* Giới hạn chiều cao tối đa nếu cần */
-            height: auto;           /* Giữ tỷ lệ gốc của ảnh */
-            width: auto;            /* Không kéo giãn ảnh nhỏ */
+            
+            max-width: 100%;
+            /* Chiều rộng tối đa là 100% khung chứa */
+            max-height: 500px;
+            /* Giới hạn chiều cao tối đa nếu cần */
+            height: auto;
+            /* Giữ tỷ lệ gốc của ảnh */
+            width: auto;
+            /* Không kéo giãn ảnh nhỏ */
             border: 1px solid #ddd;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: block;
-            margin: 0 auto;         /* Căn giữa ảnh */
+            margin: 0 auto;
+            /* Căn giữa ảnh */
         }
+
         .btn-area {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .navigation-links {
             text-align: center;
             margin: 20px 0;
@@ -285,6 +365,7 @@ $conn->close();
             background-color: #f8f9fa;
             border-radius: 10px;
         }
+
         a.nav-link {
             padding: 10px 11px;
             background-color: #28a745;
@@ -292,10 +373,13 @@ $conn->close();
             border-radius: 5px;
             text-decoration: none;
         }
+
         a.nav-link:hover {
             background-color: #218838;
         }
+
     </style>
+
         <script>
             let pageLoaded = false;
             let navigationHandled = false;
@@ -344,6 +428,22 @@ $conn->close();
 
 </head>
 <body>
+   <header class="header">
+        <div class="header-content">
+            <a href="javascript:void(0)" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>
+             <div class="logo">
+                <img src="../../ROSA_AI_Ready.png" alt="Logo">
+            </div>
+            <button2 class="menu-btn" onclick="toggleSidebar()">
+                <span>Mục lục</span>
+                <i class="fas fa-bars"></i>
+            </button2>
+        </div>
+    </header>
+    
     <div class="container">
         <?php if ($attempts >= $max_attempts): ?>
             <p class="no-answers">Bạn đã sử dụng hết số lần làm bài! <a class="nav-link" href="chuong1_result.php?id_test=<?php echo htmlspecialchars($id_test); ?>">Xem kết quả</a></p>
@@ -351,7 +451,7 @@ $conn->close();
             <?php $question = $_SESSION['questions_' . $id_test][$current_index]; ?>
             <form method="POST" action="">
                 <div class="question-box">
-                    <h3>Câu <?php echo $current_index + 1; ?> / <?php echo count($_SESSION['questions_' . $id_test]); ?>: </h3>
+                    <h3>Câu <?php echo $current_index + 1; ?> / <?php echo count($_SESSION['questions_' . $id_test]); ?>: </h3> 
                     <h3><?php echo htmlspecialchars($question['question']); ?></h3>
                     <?php if (!empty($question['image'])): ?>
                         <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
