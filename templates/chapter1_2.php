@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
+    <link rel="shortcut icon" href="../RS_icon.jpg" />
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/code.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-
 <body>
+    <header class="header">
+        <div class="header-content">
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>
+             <div class="logo">
+                <img src="../ROSA_AI_Ready.png" alt="ROSA" class="logo-img">
+            </div>
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <span>Mục lục</span>
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
     <nav>
         <div class="button-toggle">
             <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
         </div>
         <h3>CHƯƠNG TRÌNH ĐẦU TIÊN LÀM QUEN VỚI PYTHON</h3>
+        <button onclick="logout()" class="logout-btn">
+            <i class="fa fa-sign-out-alt">Thoát</i>
+        </button>
     </nav>
     <div class="container">
         <div class="chapter" id="chapter">
@@ -198,12 +215,11 @@
             </div>
         </div>
 
-        <div class="space">
-
-        </div>
+       
     </div>
     <script src="static/javascript/main.js"></script>
     <script src="static/javascript/code.js"></script>
+   
 </body>
 
 </html>

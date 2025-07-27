@@ -1,292 +1,790 @@
-<?php require "../header.php" ?>
-
 <?php
-// Bật hiển thị lỗi
+ob_start();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+if (!isset($_SESSION['student_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$conn = new mysqli("localhost", "root", "", "student");
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+// Lấy id_test từ URL
+$id_test = '1';
+$ma_khoa = '1';
+$student_id = $_SESSION['student_id'];
+$link_quay_lai = "index.php";
+$link_tiep_tuc = "dashboard.php";
+
+// Kiểm tra quyền truy cập khóa học
+$stmt = $conn->prepare("SELECT Khoahoc FROM students WHERE Student_ID = ?");
+$stmt->bind_param("s", $student_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $khoahoc = $row['Khoahoc'];
+    $khoahoc_list = array_map('intval', explode(',', $khoahoc));
+    if (!in_array(intval($ma_khoa), $khoahoc_list)) {
+        echo "<script>
+            alert('Bạn không có quyền truy cập khóa học này!');
+            window.location.href = 'login.php';
+        </script>";
+        exit();
+    }
+} else {
+    echo "<script>
+        alert('Không tìm thấy thông tin sinh viên!');
+        window.location.href = 'login.php';
+    </script>";
+    exit();
+}
+$stmt->close();
+
+// Kiểm tra ID bài test
+$stmt = $conn->prepare("SELECT id_test FROM test WHERE id_test = ?");
+$stmt->bind_param("i", $id_test);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows == 0) {
+    echo "<script>alert('ID bài test ($id_test) không tồn tại trong hệ thống. Vui lòng kiểm tra lại!');</script>";
+    exit();
+}
+$row = $result->fetch_assoc();
+$id_baitest = $row['id_test'];
+$stmt->close();
+
+// Lấy tên khóa học
+$stmt = $conn->prepare("SELECT khoa_hoc FROM khoa_hoc WHERE id = ?");
+$stmt->bind_param("s", $ma_khoa);
+$stmt->execute();
+$result = $stmt->get_result();
+$id_khoa = $result->num_rows > 0 ? $result->fetch_assoc()['khoa_hoc'] : '';
+$stmt->close();
+
+// Lấy tên bài test
+$stmt = $conn->prepare("SELECT ten_test FROM test WHERE id_test = ?");
+$stmt->bind_param("s", $id_test);
+$stmt->execute();
+$result = $stmt->get_result();
+$ten_test = $result->num_rows > 0 ? $result->fetch_assoc()['ten_test'] : '';
+$stmt->close();
+
+// Lấy thông tin bài test (số lần thử tối đa)
+function getTestInfo($conn, $id_test, $id_khoa) {
+    $sql = "SELECT lan_thu FROM test WHERE id_test = ? AND id_khoa = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $id_test, $id_khoa);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $lan_thu = $result->num_rows > 0 ? $result->fetch_assoc()['lan_thu'] : 3;
+    $stmt->close();
+    return $lan_thu;
+}
+$max_attempts = getTestInfo($conn, $id_baitest, $id_khoa);
+
+// Lấy kết quả gần nhất
+$stmt = $conn->prepare("SELECT kq_cao_nhat, test_gan_nhat, so_lan_thu FROM ket_qua WHERE student_id = ? AND khoa_id = ? AND test_id = ?");
+$stmt->bind_param("sis", $student_id, $ma_khoa, $id_test);
+$stmt->execute();
+$result = $stmt->get_result();
+$recent_result = $result->num_rows > 0 ? $result->fetch_assoc() : null;
+$stmt->close();
+
+// Lấy danh sách câu hỏi từ session nếu đã làm bài
+$questions = $_SESSION['questions_' . $id_test] ?? [];
+
+// Nếu chưa có session (chưa từng làm bài), mới lấy từ database để đếm số câu hỏi
+if (empty($questions)) {
+    $stmt = $conn->prepare("SELECT * FROM quiz WHERE id_khoa = ? AND id_baitest = ?");
+    $stmt->bind_param("ss", $ma_khoa, $id_test);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $questions = [];
+    while ($row = $result->fetch_assoc()) {
+        $questions[] = [
+            'id' => $row['Id_cauhoi'],
+            'question' => $row['cauhoi'],
+            'choices' => [
+                'A' => $row['cau_a'],
+                'B' => $row['cau_b'],
+                'C' => $row['cau_c'],
+                'D' => $row['cau_d']
+            ],
+            'images' => [
+                'A' => $row['hinhanh_a'],
+                'B' => $row['hinhanh_b'],
+                'C' => $row['hinhanh_c'],
+                'D' => $row['hinhanh_d']
+            ],
+            'explanations' => [
+                'A' => $row['giaithich_a'],
+                'B' => $row['giaithich_b'],
+                'C' => $row['giaithich_c'],
+                'D' => $row['giaithich_d']
+            ],
+            'correct' => $row['dap_an'],
+            'image' => $row['hinhanh']
+        ];
+    }
+    $stmt->close();
+}
+$_SESSION['questions_' . $id_test] = $questions;
+
+// Lấy thông tin bài test (không bao gồm required_pass_percent)
+$stmt = $conn->prepare("SELECT id_test, ten_test, lan_thu FROM test WHERE id_test = ?");
+$stmt->bind_param("i", $id_test);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows == 0) {
+    echo "<script>alert('ID bài test ($id_test) không tồn tại trong hệ thống. Vui lòng kiểm tra lại!');</script>";
+    exit();
+}
+
+$test_info = $result->fetch_assoc();
+$id_baitest = $test_info['id_test'];
+$ten_test = $test_info['ten_test'] ?? 'Bài test ' . $id_test;
+$max_attempts = $test_info['lan_thu'] ?? 3;
+$required_pass_percent = 80; // Giá trị mặc định
+$stmt->close();
 ?>
 
-<?php
-// Bao gồm tệp kết nối
-include('../tintuc_test/admin/config/config.php');
-
-// Kiểm tra nếu `link` được truyền qua URL
-if (!isset($_GET['link']) || empty($_GET['link'])) {
-    die("Không tìm thấy link bài viết.");
-}
-
-// Lấy link bài viết từ URL và xử lý để tránh lỗi SQL Injection
-$article_link = mysqli_real_escape_string($mysqli, $_GET['link']); 
-
-// Truy vấn bài viết dựa trên `article_link`
-$sql_article = "SELECT * FROM article WHERE article_link = '$article_link' LIMIT 1";
-$query_article = mysqli_query($mysqli, $sql_article);
-
-// Kiểm tra nếu xảy ra lỗi truy vấn SQL
-if (!$query_article) {
-    die("Lỗi truy vấn SQL: " . mysqli_error($mysqli));
-}
-
-// Kiểm tra nếu không tìm thấy bài viết
-if (mysqli_num_rows($query_article) === 0) {
-    die("Bài viết không tồn tại hoặc đã bị xóa.");
-}
-
-// Lấy dữ liệu bài viết
-$article = mysqli_fetch_assoc($query_article);
-?>
- <!-- Breadcrumb -->
-<div class="container-layout">
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">TRANG CHỦ</a></li>
-        <li class="breadcrumb-item active" aria-current="page">TIN TỨC</li>
-    </ol>
-</nav>
-
-<!--<div class="container-layout">-->
-    <div class="main-layout">
-        <!-- Cột bên trái: Bài viết chính -->
-        <section class="article">
-             <div class="article__content">
-                <h1><?= htmlspecialchars($article['article_title']); ?></h1>
-                <div class="article-info">
-                    <div class="article-meta d-flex space-between align-center">
-                        <span style="font-size:17px">
-                            <?= date("d/m/Y", strtotime($article['article_date'])); ?> <?php echo " " . htmlspecialchars($article['article_author']); ?>
-                        </span>
-                        <span class="social-icons">
-                            <a href="https://www.facebook.com/people/ROSA-AI-Computer/61559427752479/" target="_blank">
-                                <i class="fab fa-facebook" style="color: #1877F2; font-size:25px"></i>
-                            </a>
-                            
-                            <a href="https://www.linkedin.com/in/rosa-ai-computer-20980b352/" target="_blank">
-                                <i class="fab fa-linkedin" style="color: #0A66C2; font-size:25px "></i>
-                            </a>
-                             <!-- Icon sao chép link -->
-                            <a href="javascript:void(0);" onclick="copyLink()" title="Sao chép liên kết">
-                                <i class="fas fa-link" style="color: #000000; font-size:20px;"></i>
-                            </a>
-                                
-                          <script>
-                            function copyLink() {
-                                const link = "https://rosacomputer.vn/tintuc_test/tintuc/<?= htmlspecialchars($article['article_link']); ?>";
-                                navigator.clipboard.writeText(link)
-                                    .then(() => {
-                                        // Xóa thông báo cũ nếu tồn tại
-                                        const existingNotification = document.querySelector('.copy-notification');
-                                        if (existingNotification) {
-                                            existingNotification.remove();
-                                        }
-                            
-                                        // Tạo phần tử thông báo
-                                        const notification = document.createElement('div');
-                                        notification.className = 'copy-notification';
-                            
-                                        const text = document.createElement('span');
-                                        text.className = 'notification-text';
-                                        text.textContent = 'Link copied !';
-                            
-                                        notification.appendChild(text);
-                            
-                                        // Thêm thông báo vào vị trí ngay sau icon copy link
-                                        const copyLinkIcon = document.querySelector('.social-icons a[onclick="copyLink()"]');
-                                        copyLinkIcon.insertAdjacentElement('afterend', notification);
-                            
-                                        // Xóa thông báo sau 1 giây
-                                        setTimeout(() => {
-                                            notification.remove();
-                                        }, 1000);
-                                    })
-                                    .catch(err => {
-                                        console.error("Lỗi khi sao chép: ", err);
-                                    });
-                            }
-                            </script>
-                        </span>
-                    </div>
-                     <hr style="width=30px">
-                </div>
-                <div class="article__context"><?= htmlspecialchars_decode($article['article_content']); ?></div> 
-                <div class="article__summary"><?= htmlspecialchars_decode($article['article_summary']); ?></div>
-
-                <div class="article__tag">
-                    <strong>Thẻ: </strong> 
-                    <?php
-                    $tags = explode(',', $article['article_tag']);
-                    foreach ($tags as $tag) {
-                        $tag = trim($tag);
-                        if (!empty($tag)) {
-                            echo '<a href="../tintuc/tag/' . urlencode($tag) . '" class="article_link">' . htmlspecialchars($tag) . '</a>';
-                        }
-                    }
-                    ?>
-                </div><p></p>
-                <div class="rosa-contact">
-                    <h4>ROSA COMPUTER</h4>
-                    <p>Địa chỉ: 150 Ter Bùi Thị Xuân, Phường Bến Thành, TP. Hồ Chí Minh.</p>
-                    <p>Phòng KD: (028) 39293770 - (028) 39293765</p>
-                    <p>Phòng kỹ thuật & Bảo hành: (028) 39260996</p>
-                    <p>Website: 
-                        <a href="https://www.rosacomputer.vn" target="_blank">www.rosacomputer.vn</a> | 
-                        <a href="https://www.rosacomputer.ai" target="_blank">www.rosacomputer.ai</a>
-                    </p>
-                </div>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Cuối Khóa - ROSA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .back-btn:hover {
+            color: #333;
+        }
+        
+        .back-btn::before {
+            content: "←";
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e74c3c;
+            letter-spacing: 2px;
+        }
+        
+        .spacer {
+            width: 80px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .title-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .main-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            font-weight: 400;
+        }
+        
+        .quiz-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .quiz-table thead {
+            background: #f8f9fa;
+        }
+        
+        .quiz-table th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+            font-size: 16px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .quiz-table td {
+            padding: 25px 20px;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 16px;
+            color: #495057;
+        }
+        
+        .quiz-table tbody tr:hover {
+            background: #f8f9fa;
+            transition: background 0.3s;
+        }
+        
+        .quiz-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .course-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .test-name {
+            color: #34495e;
+        }
+        
+        .questions-count, .attempts-count {
+            font-weight: 500;
+            color: #27ae60;
+        }
+        
+        .pass-rate {
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        
+        .start-btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .start-btn {
+            background: #3961A6;
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .start-btn:active {
+            transform: translateY(0);
+        }
+        
+        .start-btn.disabled {
+            background: #bdc3c7;
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
+        }
+        
+        /* Styles cho phần kết quả */
+        /* .result-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+         */
+        .result-table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        
+        .result-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        
+        .result-table td:first-child {
+            font-weight: 600;
+            color: #495057;
+            width: 30%;
+        }
+        
+        .result-table td:last-child {
+            color: #2c3e50;
+        }
+        
+        .detail-section {
+            margin-top: 30px;
+        }
+        
+        .detail-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        /* .question-block {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        } */
+        
+        .question-text {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .choices-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .choices-list li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #e9ecef;
+        }
+        
+        .choices-list li.correct {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: 600;
+        }
+        
+        .choices-list li.incorrect {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: 600;
+        }
+        
+        .explanation-block {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .explanation-block strong {
+            color: #856404;
+        }
+        
+        .explanation-block img {
+            max-width: 250px;
+            height: auto;
+            margin: 10px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: block;
+        }
+        
+        .correct-answer-block {
+            margin-top: 15px;
+            padding: 15px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .correct-answer-block p {
+            margin: 0;
+            color: #155724;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                background: #f5f7fa;
+            }
+            
+            .container {
+                padding: 0 20px;
+                margin: 20px auto;
+                max-width: 100%;
+            }
+            
+            .main-title {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+            
+            .header {
+                padding: 15px 20px;
+                background: white;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            /* Mobile: Hide table and show card layout */
+            .quiz-card {
+                display: none;
+            }
+            
+            .mobile-card {
+                display: block;
+                background: white;
+                border-radius: 15px;
+                padding: 25px 20px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                margin-bottom: 30px;
+            }
+            
+            .course-info {
+                margin-bottom: 20px;
+            }
+            
+            .course-title {
+                font-size: 18px;
+                font-weight: 600;
+                color: #2c3e50;
+                margin-bottom: 8px;
+            }
+            
+            .course-desc {
+                font-size: 14px;
+                color: #7f8c8d;
+                line-height: 1.4;
+                margin-bottom: 20px;
+            }
+            
+            .test-title {
+                font-size: 20px;
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 20px;
+            }
+            
+            .test-stats {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+            
+            .stat-item {
+                text-align: center;
+                flex: 1;
+            }
+            
+            .stat-label {
+                font-size: 12px;
+                color: #7f8c8d;
+                margin-bottom: 5px;
+            }
+            
+            .stat-value {
+                font-size: 16px;
+                font-weight: 600;
+                color: #2c3e50;
+            }
+            
+            .start-btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 16px;
+                margin-top: 20px;
+            }
+            
+            .result-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .detail-title {
+                font-size: 18px;
+            }
+            
+            .question-block {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .choices-list li {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Desktop: Hide mobile card */
+        .mobile-card {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>        
+            <div class="logo">
+            <img src="../../ROSA_AI_Ready.png" alt="Logo">
+        </div>
+        <div class="spacer"></div>
+    </div>
+    
+    <div class="container">
+        <div class="title-section">
+            <h1 class="main-title">KÊT QUẢ KIỂM TRA GẦN ĐÂY</h1>
+            <p class="subtitle">Bạn cần vượt qua bài kiểm tra để hoàn tất khóa học</p>
+        </div>
+        
+        <div class="quiz-card">
+            <table class="quiz-table">
+                <thead>
+                    <tr>
+                        <th>Tên khóa học</th>
+                        <th>Bài test</th>
+                        <th>Số câu</th>
+                        <th>Số lần làm</th>
+                        <th>Yêu cầu đạt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="course-name"><?php echo htmlspecialchars($id_khoa); ?></td>
+                        <td class="test-name"><?php echo htmlspecialchars($ten_test); ?></td>
+                        <td class="questions-count"><?php echo count($_SESSION['questions_' . $id_test] ?? []); ?></td>
+                        <td class="attempts-count"><?php echo $max_attempts; ?></td>
+                        <td class="pass-rate"><?php echo htmlspecialchars($required_pass_percent); ?>%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Mobile Card Layout -->
+        <div class="mobile-card">
+            <div class="course-info">
+                <div class="course-title"><?php echo htmlspecialchars($id_khoa); ?></div>
+                <div class="course-desc">Dành cho người mới năm viết thế giấy để làm ứng dụng và biến, ứng dụp, hàm và cấu trúc dữ liệu</div>
             </div>
             
-        </section>
+            <div class="test-title"><?php echo htmlspecialchars($ten_test); ?></div>
+            
+            <div class="test-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Số lần làm</div>
+                    <div class="stat-value"><?php echo $max_attempts; ?></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Yêu cầu đạt</div>
+                    <div class="stat-value"><?php echo htmlspecialchars($required_pass_percent); ?>%</div>
+                </div>
+            </div>
+        </div>
+        
+        <?php if ($recent_result): ?>
+        <div class="result-section">
+            
+            <?php if (!empty($recent_result['test_gan_nhat'])): ?>
+            <h3 class="detail-title" style="margin-top: 30px;">Chi tiết lần làm bài gần nhất</h3>
+            <div class="detail-section">
+            <?php
+            // Parse đáp án
+            $test_gan_nhat = $recent_result['test_gan_nhat'];
+            $answers = [];
+            $question_ids = [];
+            if ($test_gan_nhat) {
+                $pairs = explode(';', $test_gan_nhat);
+                foreach ($pairs as $pair) {
+                    if (strpos($pair, ':') !== false) {
+                        list($qid, $ans) = explode(':', $pair);
+                        $answers[$qid] = $ans;
+                        $question_ids[] = $qid;
+                    }
+                }
+            }
 
-        <!-- Cột bên phải: Tin tức mới -->
-       
+            // Lấy nội dung câu hỏi từ DB theo đúng thứ tự $question_ids
+            if (!empty($question_ids)) {
+                $placeholders = implode(',', array_fill(0, count($question_ids), '?'));
+                $types = str_repeat('s', count($question_ids));
+                $stmt = $conn->prepare("SELECT * FROM quiz WHERE Id_cauhoi IN ($placeholders)");
+                $stmt->bind_param($types, ...$question_ids);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $questions_map = [];
+                while ($row = $result->fetch_assoc()) {
+                    $questions_map[$row['Id_cauhoi']] = [
+                        'id' => $row['Id_cauhoi'],
+                        'question' => $row['cauhoi'],
+                        'choices' => [
+                            'A' => $row['cau_a'],
+                            'B' => $row['cau_b'],
+                            'C' => $row['cau_c'],
+                            'D' => $row['cau_d']
+                        ],
+                        'images' => [
+                            'A' => $row['hinhanh_a'],
+                            'B' => $row['hinhanh_b'],
+                            'C' => $row['hinhanh_c'],
+                            'D' => $row['hinhanh_d']
+                        ],
+                        'explanations' => [
+                            'A' => $row['giaithich_a'],
+                            'B' => $row['giaithich_b'],
+                            'C' => $row['giaithich_c'],
+                            'D' => $row['giaithich_d']
+                        ],
+                        'correct' => $row['dap_an'],
+                        'image' => $row['hinhanh']
+                    ];
+                }
+                $stmt->close();
+
+                $index = 0;
+                foreach ($question_ids as $qid) {
+                    if (!isset($questions_map[$qid])) continue;
+                    $q = $questions_map[$qid];
+                    $user_ans = $answers[$qid] ?? null;
+                    $is_correct = $user_ans === $q['correct'];
+                    echo "<div class='question-block'>";
+                    echo "<p class='question-text'>Câu " . ($index + 1) . ": " . htmlspecialchars($q['question']) . "</p>";
+
+                    // Hiển thị hình ảnh câu hỏi nếu có
+                    if (!empty($q['image'])) {
+                        echo "<img src='/rosa_courses/login/admin/" . htmlspecialchars($q['image']) . "' alt='Hình ảnh câu hỏi' class='question-image' onerror='this.style.display=\"none\"'>";
+                    }
+
+                    echo "<ul class='choices-list'>";
+                    foreach ($q['choices'] as $key => $val) {
+                        $li_class = '';
+                        if ($user_ans !== null && $key === $user_ans) {
+                            $li_class = $is_correct ? 'correct' : 'incorrect';
+                        }
+                        // Hiển thị đáp án đúng nếu user chưa chọn hoặc chọn sai
+                        if ($key === $q['correct'] && ($user_ans === null || $user_ans !== $q['correct'])) {
+                            $li_class = 'correct';
+                        }
+                        echo "<li class='$li_class'>";
+                        echo "$key. " . htmlspecialchars($val);
+                        // Hiển thị hình ảnh đáp án nếu có
+                        if (!empty($q['images'][$key])) {
+                            echo "<br><img src='/rosa_courses/login/admin/" . htmlspecialchars($q['images'][$key]) . "' alt='Hình ảnh đáp án $key' class='answer-image' style='max-width: 200px; margin-top: 5px;' onerror='this.style.display=\"none\"'>";
+                        }
+                        echo "</li>";
+                    }
+                    echo "</ul>";
+
+
+                    // Giải thích cho đáp án đúng (luôn hiển thị)
+                    if (isset($q['explanations'][$q['correct']]) && !empty(trim((string)$q['explanations'][$q['correct']]))) {
+                        $correct_explanation_style = ($user_ans === $q['correct']) ? 'background: #d4edda; border-color: #c3e6cb;' : 'background: #d1ecf1; border-color: #bee5eb;';
+                        echo "<div class='explanation-block' style='$correct_explanation_style'>";
+                        echo "<p><strong>Giải thích: </strong>" . htmlspecialchars($q['explanations'][$q['correct']]) . "</p>";
+                        echo "</div>";
+                    }
+
+                    echo "</div>";
+                    $index++;
+                }
+            } else {
+                echo "<p style='text-align: center; color: #7f8c8d; font-style: italic;'>Không có dữ liệu chi tiết bài làm gần nhất</p>";
+            }
+            ?>
+            </div>
+            <?php else: ?>
+            <p style='text-align: center; color: #7f8c8d; font-style: italic; margin-top: 20px;'>Chưa có dữ liệu chi tiết bài làm</p>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+        
+        <div class="start-btn-container">
+            <a href="chuong1_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1" class="start-btn<?php echo ($recent_result && $recent_result['so_lan_thu'] >= $max_attempts) ? ' disabled' : ''; ?>">Bắt đầu làm bài</a>
+        </div>
+        
+        <?php if ($recent_result && !empty($recent_result['test_gan_nhat'])): ?>
+        <!-- Code này đã được di chuyển vào phần trên -->
+        <?php endif; ?>
     </div>
-</div>
-
-<style>
-
-
-/* ---------- 1. CSS Reset & Root Vars ---------- */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:"Arial",sans-serif;line-height:1.6;color:#333;background:#fafafa}
-a{text-decoration:none}
-ul,ol{list-style:none}
-img{max-width:100%;display:block;height:auto}
-.article__content img,
-.article__summary img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-    height: auto;
-}
-
-:root{
-  --clr-primary:#ff0000;
-  --clr-secondary:#0a66c2;
-  --clr-bg:#fff;
-  --clr-muted:#777;
-  --radius:8px;
-  --shadow:0 4px 8px rgba(0,0,0,0.1);
-  --transition:0.25s ease-in-out;
-}
-
-/* ---------- 2. Layout Containers ---------- */
-.container-layout{
-  width:min(100%,1100px);
-  margin-inline:auto;
-  padding-inline:clamp(1rem,3vw,2rem);
-}
-
-.breadcrumb{
-  background:var(--clr-bg);
-  border-radius:var(--radius);
-  padding:0.75rem 1rem;
-  margin-block:1rem 2rem;
-  box-shadow:0 1px 3px rgba(0,0,0,0.08);
-}
-.breadcrumb li+li::before{content:"/";margin-inline:0.5rem;color:var(--clr-muted)}
-.breadcrumb a:hover{color:var(--clr-primary)}
-
-.main-layout{
-  display:flex;
-  align-items:flex-start;
-  gap:2rem;
-}
-
-/* ---------- 3. Article Column ---------- */
-.article{
-  flex:1 1 0;
-  min-width:0; /* Required for overflow */
-}
-.article__content{
-  background:var(--clr-bg);
-  padding:2.75rem 5%;
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-}
-.article__content h1{font-size:clamp(1.75rem,2vw+1rem,2.25rem);margin-bottom:1rem;color:#222}
-.article__content .article-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;font-size:0.95rem;gap:0.5rem;color:#000}
-.article__context{margin-block:1.25rem;font-size:1rem;line-height:1.8;text-align:justify;color:#444}
-.article__summary{margin-block:2rem}
-.article__summary p{margin-bottom:1.125rem;font-size:1.0625rem;color:#444}
-
-.article__tag{margin-top:2rem;display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center}
-.article__tag strong{margin-right:0.25rem;font-size:1rem}
-.article__tag a{background:#f5f5f5;color:var(--clr-primary);padding:0.35rem 0.75rem;border-radius:var(--radius);font-size:0.9rem;transition:var(--transition)}
-.article__tag a:hover{background:var(--clr-primary);color:#fff}
-
-/* Social icons */
-.social-icons{display:flex;align-items:center;gap:0.75rem}
-.social-icons a{font-size:1.4rem;transition:var(--transition)}
-.social-icons a:hover{transform:scale(1.1)}
-.notification-text{background:linear-gradient(45deg,var(--clr-primary),#fff);padding:0.25rem 0.75rem;border-radius:var(--radius);font-weight:700;font-size:0.8rem;text-transform:uppercase;color:#fff}
-
-/* ---------- 4. Sidebar Column ---------- */
-.sidebar{
-  flex:0 0 290px;
-  position:sticky;
-  top:1.25rem;
-  align-self:flex-start;
-  background:var(--clr-bg);
-  padding:1.5rem;
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  max-height:calc(100vh - 2.5rem);
-  overflow:auto;
-}
-.sidebar h3{font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;color:var(--clr-primary)}
-.sidebar p{font-size:0.9rem;color:var(--clr-muted);margin-bottom:1.25rem}
-
-.news-card{display:flex;gap:0.75rem;align-items:center;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid #e5e5e5}
-.news-card:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.news-card img{flex:0 0 90px;height:90px;object-fit:cover;border-radius:5px}
-.news-content{flex:1}
-.news-title a{font-size:1rem;font-weight:600;line-height:1.3;color:#222;transition:var(--transition)}
-.news-title a:hover{color:var(--clr-primary)}
-.news-date{font-size:0.8125rem;color:var(--clr-muted);margin-top:0.25rem}
-
-/* ---------- 5. Website Links Row ---------- */
-.website-links{display:flex;flex-wrap:nowrap;gap:0.5rem;margin-block:1.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:0.95rem}
-.website-links a{white-space:nowrap;color:var(--clr-primary);padding-inline:0.25rem;transition:var(--transition)}
-.website-links a:hover{color:#b71c1c}
-.website-links a::after{content:"|";margin-left:0.35rem;color:var(--clr-primary)}
-.website-links a:last-child::after{content:""}
-
-/* ---------- 6. Headlines Section (Featured News) ---------- */
-.heading-featured{font-weight:700;color:var(--clr-primary);font-size:1.15rem;margin-block:2rem 1rem}
-
-/* ---------- 7. Media Queries ---------- */
-@media (max-width:992px){
-  .sidebar{flex:0 0 240px}
-  .article__content{padding:2rem 1.25rem}
-}
-
-@media (max-width:768px){
-  .main-layout{flex-direction:column-reverse}
-  .sidebar{position:static;max-height:none;overflow:visible;width:100%}
-  .news-card img{width:80px;height:80px}
-  .article__content{padding:1.25rem}
-  .article__content h1{font-size:1.65rem}
-}
-
-@media (max-width:480px){
-  html{font-size:15px}
-  .article__context,.article__summary p{font-size:0.95rem}
-  .news-card{gap:0.5rem}
-  .news-card img{width:70px;height:70px}
-  .website-links{font-size:0.85rem}
-  .social-icons a{font-size:1.2rem}
-}
-
-/* ---------- 8. Helper Classes ---------- */
-.text-center{text-align:center}
-.hidden{display:none!important}
-
-/* End of stylesheet */
-</style>
-
-
-<?php require "../footer.php" ?>
-
+</body>
+</html>
+<?php $conn->close(); ob_end_flush(); ?>

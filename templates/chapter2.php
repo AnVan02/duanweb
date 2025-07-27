@@ -5,18 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
+    <link rel="shortcut icon" href="../RS_icon.jpg" />
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
-
 <body>
-    <nav>
-        <div class="button-toggle">
-            <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
+     <header class="header">
+        <div class="header-content">
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>
+             <div class="logo">
+                <img src="../ROSA_AI_Ready.png" alt="ROSA" class="logo-img">
+            </div>
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <span>Mục lục</span>
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <h3>CẤU TRÚC ĐIỀU KIỆN, VÒNG LẬP VÀ HÀM TRONG PYTHON</h3>
-    </nav>
+    </header>
+    <div class="title-section">
+        <h1 class="main-title">CẤU TRÚC ĐIỀU KIỆN, VÒNG LẬP VÀ HÀM TRONG PYTHON</h1>
+    </div>
     <div class="container">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>

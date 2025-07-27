@@ -17,8 +17,8 @@ if ($conn->connect_error) {
 }
 
 // Lấy id_test từ URL
-$id_test = '5';
-$ma_khoa = '19';
+$id_test = '1';
+$ma_khoa = '1';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "index.php";
 $link_tiep_tuc = "dashboard.php";
@@ -162,82 +162,242 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết quả gần nhất - <?php echo htmlspecialchars($id_khoa); ?></title>
+    <title><?php echo $recent_result ? 'Kết quả gần nhất' : 'Bài kiểm tra cuối khóa'; ?> - <?php echo htmlspecialchars($id_khoa); ?></title>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            background: #f8f9fa;
             margin: 0;
             padding: 0;
             min-height: 100vh;
             color: #333;
         }
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        
+        .header {
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ nhẹ */
+            position: sticky; /* Giữ header ở trên cùng khi cuộn */
+            top: 0;
+            z-index: 1000;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: center; /* Căn giữa nội dung header */
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 28px;
-            font-size: 35px;
-            letter-spacing: 0.5px;
-            text-align: center;
-        }
-        h3 {
-            color: #2d3436;
-            margin-top: 28px;
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
-            text-align: left;
-        }
-        .result-table, .test-info-table {
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1336px; /* Chiều rộng tối đa của nội dung */
             width: 100%;
-            max-width: 520px;
-            margin: 0 auto 28px auto;
-            background: #f8fafc;
-            border-radius: 14px;
-            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.07);
-            border: 1px solid #e0e6ed;
-            font-size: 17px;
-            border-collapse: separate;
-            border-spacing: 0;
+        }
+        
+       /* Kiểu dáng cho nút "Quay lại" trong header */
+        .back-btn {
+            background: none; /* Không có nền */
+            border: none; /* Không có viền */
+            cursor: pointer; /* Biến con trỏ thành bàn tay khi di chuột */
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            padding: 0;
+            display: flex; /* Để căn chỉnh icon và chữ */
+            align-items: center;
+            gap: 0.5rem; /* Khoảng cách giữa icon và chữ */
+            text-decoration: none; /* Bỏ gạch chân cho link 'Quay lại' */
+            transition: color 0.2s ease; /* Hiệu ứng chuyển màu mượt mà */
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+        
+          /* Logo ROSA */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Màu gradient cho chữ ROSA */
+            -webkit-background-clip: text; /* Cắt nền theo hình dạng chữ */
+            -webkit-text-fill-color: transparent; /* Làm màu chữ trong suốt để thấy nền */
+            background-clip: text;
+            font-family: 'Arial', sans-serif; /* Font Arial cho chữ logo */
+            font-weight: 900;
+        }
+
+        .spacer {
+            width: 100px;
+        }
+        
+        .title-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .main-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+         .subtitle {
+            font-size: 16px;
+            color: #6c757d;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            /* background: white; */
+            border-radius: 12px;
+            /* box-shadow: 0 4px 20px rgba(0,0,0,0.08); */
+        }
+        
+        /* Styles cho bảng khi chưa có kết quả */
+        .test-info-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 12px;
             overflow: hidden;
-            transition: box-shadow 0.3s;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+            font-size: 15px;
         }
-        .result-table tr, .test-info-table tr {
-            border-bottom: 1px solid #e0e6ed;
+
+        .test-info-table thead th {
+            background: #f2f6ff; /* xanh nhạt */
+            color: #333;
+            font-weight: 600;
+            padding: 14px 16px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
         }
-        .result-table tr:last-child, .test-info-table tr:last-child {
+
+        .test-info-table tbody td {
+            padding: 14px 16px;
+            text-align: center;
+            color: #333;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .test-info-table tbody tr:last-child td {
             border-bottom: none;
         }
-        .result-table td, .test-info-table td {
-            padding: 14px 18px;
-            text-align: left;
+
+        .test-info-table tbody tr:hover {
+            background-color: #f9fbff;
         }
-        .result-table td:first-child, .test-info-table td:first-child {
-            color: #1565c0;
+        .result-table thead th {
+            background-color: #f2f6ff;
+            color: #333;
             font-weight: 600;
-            width: 44%;
-            background: #f1f7fe;
-            border-right: 1px solid #e0e6ed;
+            text-align: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid #e0e0e0;
         }
-        .result-table td:last-child, .test-info-table td:last-child {
-            color: #222;
-            font-weight: 500;
-            background: #fff;
-        }
-        .result-table:hover, .test-info-table:hover {
+
+        /* Styles cho bảng khi đã có kết quả */
+     .result-table {
+        width: 100%;
+        max-width: 800px; /* hoặc 700px, 600px tùy ý */
+        margin: 0 auto 30px; /* căn giữa bảng */
+        border-spacing: 0;
+        border: 1px solid #c9d9f0;
+        border-radius: 20px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        font-size: 15px;
+        padding: 8px 6px;
+    }
+
+
+    .result-table tr {
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .result-table tr:last-child {
+        border-bottom: none;
+    }
+
+    .result-table td {
+        padding: 14px 16px;
+        text-align: center;
+        color: #333;
+    }
+
+
+    .result-table td:last-child {
+        background-color: #fff;
+        font-weight: 500;
+    }
+
+        
+        .result-table:hover {
             box-shadow: 0 6px 24px rgba(44, 62, 80, 0.13);
         }
+        
+        .navigation-links, .start-quiz-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        a.nav-link, a.start-quiz {
+            padding: 12px 30px;
+            margin-right: 10px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        a.nav-link {
+            background: linear-gradient(135deg, #21a6ff, #1890ff);
+            color: white;
+        }
+        
+        a.start-quiz {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+        }
+        
+        a.start-quiz:hover:not(.disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
+            background: linear-gradient(135deg, #0056b3, #004085);
+            color: white;
+            text-decoration: none;
+        }
+        
+        a.start-quiz.disabled {
+            background-color: #bdc3c7;
+            pointer-events: none;
+            cursor: not-allowed;
+            color: #fff;
+            opacity: 0.7;
+        }
+        
         .detail-answer-block {
             background: #f9fbe7;
             border-radius: 10px;
@@ -247,66 +407,52 @@ $stmt->close();
             box-shadow: 0 1px 4px rgba(44, 62, 80, 0.04);
             text-align: left;
         }
+        
         .detail-answer-block strong {
             color: #388e3c;
         }
+        
         .detail-answer-block span[style*="font-weight:bold"] {
             background: #e3f2fd;
             border-radius: 4px;
             padding: 2px 6px;
         }
-        .navigation-links {
-            margin-top: 20px;
-        }
-        a.nav-link, a.start-quiz {
-            padding: 7px 10px;
-            margin-right: 10px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
-            display: inline-block;
-        }
-        a.nav-link {
-            background-color: #21a6ffff;
-            color: white;
-        }
-        a.start-quiz {
-            background-color: #2ecc71;
-            color: white;
-        }
-        a.start-quiz:hover:not(.disabled) {
-            background-color: #27ae60;
-            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.13);
-        }
-        a.start-quiz.disabled {
-            background-color: #bdc3c7;
-            pointer-events: none;
-            cursor: not-allowed;
-            color: #fff;
-            opacity: 0.7;
-        }
+        
         .no-result {
             color: #e74c3c;
             font-weight: 600;
             margin-top: 20px;
             text-align: center;
         }
-        @media (max-width: 700px) {
+        
+        @media (max-width: 768px) {
             .container {
-                padding: 12px 2vw;
+                margin: 20px;
+                padding: 20px;
             }
-            .result-table, .test-info-table {
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .test-info-table thead th,
+            .test-info-table tbody td {
+                padding: 12px 8px;
+                font-size: 14px;
+            }
+            
+            .result-table {
                 font-size: 15px;
                 max-width: 100%;
             }
+            
             a.nav-link, a.start-quiz {
-                font-size: 16px;
-                padding: 10px 16px;
+                font-size: 14px;
+                padding: 10px 20px;
             }
         }
-        .question-block {
+        
+        /* .question-block {
             background: #fff;
             border-radius: 6px;
             box-shadow: 0 1px 2px rgba(44, 62, 80, 0.04);
@@ -315,10 +461,12 @@ $stmt->close();
             border-left: 3px solid #007bff;
             transition: box-shadow 0.2s;
         }
+         */
         .question-text {
             margin-bottom: 4px;
             font-size: 18px;
         }
+        
         .question-image {
             max-width: 100%;
             height: auto;
@@ -327,11 +475,13 @@ $stmt->close();
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: block;
         }
+        
         ul {
             margin: 0 0 2px 0;
             padding: 0;
             list-style: none;
         }
+        
         ul li {
             margin-bottom: 2px;
             padding: 4px 7px;
@@ -339,14 +489,16 @@ $stmt->close();
             font-size: 18px;
             line-height: 1.3;
         }
+        
         ul li.correct {
-            background-color: #e6f4ea;
+            /* background-color: #e6f4ea; */
             color: #155724;
             font-weight: 700;
             position: relative;
             padding-left: 25px;
             font-size: 18px;
         }
+        
         ul li.correct::before {
             content: "✓";
             position: absolute;
@@ -355,13 +507,15 @@ $stmt->close();
             font-weight: bold;
             font-size: 16px;
         }
+        
         ul li.incorrect {
-            background-color: #fdeaea;
+            /* background-color: #fdeaea; */
             color: #c0392b;
             font-weight: 600;
             position: relative;
             padding-left: 25px;
         }
+        
         ul li.incorrect::before {
             content: "✗";
             position: absolute;
@@ -370,14 +524,20 @@ $stmt->close();
             font-weight: bold;
             font-size: 16px;
         }
+        
         .explanation-block {
-            margin-top: 2px;
-            padding: 6px 10px;
-            border-left: 3px solid;
-            background-color: #fffbe7;
-            border-radius: 3px;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #f8fcff; /* Nền xanh rất nhạt */
+            border: 1px solid #1976d2; /* Viền xanh dương */
+            border-radius: 30px;
             font-size: 17px;
+            display: flex;
+            align-items: center;
+            color: #333;
+            line-height: 1.6;
         }
+
         img {
             max-width: 300px;
             border-radius: 6px;
@@ -385,6 +545,7 @@ $stmt->close();
             border: 1px solid #eee;
             display: block;
         }
+        
         hr {
             margin: 6px 0 0 0;
             border: none;
@@ -393,18 +554,43 @@ $stmt->close();
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="navigation-links">
-            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="nav-link">← Quay lại</a>
+    <header class="header">
+        <div class="header-content">
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>
+            <div class="logo">
+                <img src="../../ROSA_AI_Ready.png" alt="Logo">
+            </div>
+            <button2 class="menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button2>
         </div>
-        <h1>Kết quả bài test gần nhất</h1>
+    </header>
+    
+    <div class="container">
+        <div class="title-section">
+            <h1 class="main-title"><?php echo $recent_result ? 'KẾT QUẢ KIỂM TRA GẦN ĐÂY' : 'BÀI KIỂM TRA CUỐI KHÓA'; ?></h1>
+            <p class="subtitle">Bạn cần vượt qua bài kiểm tra để hoàn tất khóa học</p>
+        </div>
+
         <?php if ($recent_result): ?>
             <table class="result-table">
-                <tr><td>Khóa học:</td><td><?php echo htmlspecialchars($id_khoa); ?></td></tr>
-                <tr><td>Bài test: </td><td> <?php echo htmlspecialchars($ten_test); ?></td></tr>
-                <tr><td>Điểm cao nhất:</td><td><?php echo $recent_result['kq_cao_nhat']; ?> / <?php echo count($_SESSION['questions_' . $id_test] ?? []); ?></td></tr>
-                <tr><td>Số lần làm bài:</td><td><?php echo $recent_result['so_lan_thu']; ?> / <?php echo $max_attempts; ?></td></tr>
-                <tr><td>Trạng thái :</td><td><?php echo $recent_result['kq_cao_nhat'] >= 4 ? 'Đạt' : 'Không đạt'; ?></td></tr>
+                <tr>
+                    <th>Tên khóa học</th>
+                    <th>Bài test</th>
+                    <th>Điểm cao nhất</th>
+                    <th>Số lần làm</th>
+                    <th>Trạng thái</th>
+                </tr>
+
+
+                <td><?php echo htmlspecialchars($id_khoa); ?></td>
+                <td><?php echo htmlspecialchars($ten_test); ?></td>
+                <td><?php echo $recent_result['kq_cao_nhat']; ?> / <?php echo count($_SESSION['questions_' . $id_test] ?? []); ?></td>
+                <td><?php echo $recent_result['so_lan_thu']; ?> / <?php echo $max_attempts; ?></td>
+                <td><?php echo $recent_result['kq_cao_nhat'] >= 4 ? 'Đạt' : 'Không đạt'; ?></td>
             </table>
             <div class="navigation-links">
                 <a href="chuong1_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1" class="start-quiz<?php echo ($recent_result && $recent_result['so_lan_thu'] >= $max_attempts) ? ' disabled' : ''; ?>">Bắt đầu làm bài</a>
@@ -474,10 +660,12 @@ $stmt->close();
                         echo "<div class='question-block'>";
                         echo "<p class='question-text'>Câu " . ($index + 1) . ": " . htmlspecialchars($q['question']) . "</p>";
 
+
                         // Hiển thị hình ảnh câu hỏi nếu có
                         if (!empty($q['image'])) {
                             echo "<img src='/rosa_courses/login/admin/" . htmlspecialchars($q['image']) . "' alt='Hình ảnh câu hỏi' class='question-image' onerror='this.style.display=\"none\"'>";
                         }
+                        
 
                         echo "<ul>";
                         foreach ($q['choices'] as $key => $val) {
@@ -502,10 +690,11 @@ $stmt->close();
                         }
                         if (!empty(trim((string)$explanation))) {
                             echo "<div class='explanation-block' style='border-color: " . ($is_correct ? "#28a745" : "#dc3545") . ";'>";
-                            echo "<p><strong>Giải thích: </strong>" . htmlspecialchars($explanation) . "</p>";
+                            echo "<img src='../../GT.png' alt='Icon giải thích' style='width: 20px; height: 20px; margin-top: 2px;'>";
+                            echo "<div>";
+                            echo "<p ><strong style='color: #1976d2; font-weight: 600;'>Giải thích: </strong>" . htmlspecialchars($explanation) . "</p>";
                             echo "</div>";
                         }
-
                         echo "<hr>";
                         echo "</div>";
                         $index++;
@@ -516,13 +705,26 @@ $stmt->close();
             <?php endif; ?>
         <?php else: ?>
             <table class="test-info-table">
-                <tr><td>Khóa học:</td><td><?php echo htmlspecialchars($id_khoa); ?></td></tr>
-                <tr><td>Bài test: </td><td> <?php echo htmlspecialchars($ten_test); ?></td></tr>
-                <tr><td>Số câu hỏi:</td><td><?php echo count($_SESSION['questions_' . $id_test] ?? []); ?></td></tr>
-                <tr><td>Số lần làm tối đa:</td><td><?php echo $max_attempts; ?></td></tr>
-                <tr><td>Yêu cầu đậu:</td><td><?php echo htmlspecialchars($required_pass_percent); ?>%</td></tr>
+                <thead>
+                    <tr>
+                        <th>Tên khóa học</th>
+                        <th>Bài test</th>
+                        <th>Số câu</th>
+                        <th>Số lần làm</th>
+                        <th>Yêu cầu đạt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo htmlspecialchars($id_khoa); ?></td>
+                        <td><?php echo htmlspecialchars($ten_test); ?></td>
+                        <td><?php echo count($_SESSION['questions_' . $id_test] ?? []); ?></td>
+                        <td><?php echo $max_attempts; ?></td>
+                        <td><?php echo htmlspecialchars($required_pass_percent); ?>%</td>
+                    </tr>
+                </tbody>
             </table>
-            <div class="navigation-links">
+            <div class="start-quiz-container">
                 <a href="chuong1_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1" class="start-quiz">Bắt đầu làm bài</a>
             </div>
         <?php endif; ?>

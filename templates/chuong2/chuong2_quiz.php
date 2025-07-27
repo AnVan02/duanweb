@@ -10,9 +10,8 @@ if (!isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
-
-$id_test = '6';
-$ma_khoa = '19';
+$id_test = '23';
+$ma_khoa = '2';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "khoahoc.php";
 

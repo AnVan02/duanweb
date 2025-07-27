@@ -1,126 +1,137 @@
+
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Làm quen với Python</title>
+    <title>Giới thiệu</title>
+    <link rel="shortcut icon" href="../RS_icon.jpg" />
     <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
+     <header class="header">
         <div class="header-content">
-            <a href="javascript:void(0)" class="back-btn" onclick="goBack()">
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
                 <i class="fas fa-arrow-left"></i>
                 <span>Quay lại</span>
             </a>
-            <div class="logo">ROSA<span class="reg">&reg;</span></div>
+             <div class="logo">
+                <img src="../ROSA_AI_Ready.png" alt="ROSA" class="logo-img">
+            </div>
             <button class="menu-btn" onclick="toggleSidebar()">
                 <span>Mục lục</span>
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </header>
-
     <div class="title-section">
-        <h1 class="main-title">LÀM QUEN VỚI PYTHON</h1>
+        <h1 class="main-title">GIỚI THIỆU CHUNG VỀ PYTHON</h1>
         <p class="subtitle">
             <a href="#">Chương 1: Giới thiệu chung</a> > <a href="#">Làm quen với Python</a>
         </p>
     </div>
-
-    <div class="main-container fade-in">
-        <div class="content-grid">
-            <div class="main-content">
-                <div class="content-section">
-                    <h2 class="section-title">Giới thiệu chung</h2>
-                    <p class="content-text">
-                        Trong chương này, chúng ta sẽ khám phá những khái niệm cơ bản và cần thiết để làm quen với ngôn ngữ lập trình Python. Python đã trở thành một trong những ngôn ngữ lập trình phổ biến nhất trong cộng đồng lập trình viên nhờ vào sự dễ học, cú pháp rõ ràng và khả năng linh hoạt trong việc ứng dụng vào nhiều lĩnh vực khác nhau như phát triển web, khoa học dữ liệu, trí tuệ nhân tạo và tự động hóa.
-                    </p>
-                </div>
-
-
-                <div class="content-section">
-                    <h2 class="section-title">Tổng quan về Python</h2>
-                    <p class="content-text">
-                        Chúng ta sẽ bắt đầu bằng việc giới thiệu tổng quan về Python, lịch sử phát triển và những ưu điểm nổi bật của nó. Python không chỉ được thiết kế để dễ đọc và dễ hiểu, mà còn cung cấp một môi trường mạnh mẽ cho việc phát triển các ứng dụng phức tạp.
-                    </p>
-                </div>
-
-                <div class="content-section">
-                    <h2 class="section-title">Làm quen với Python</h2>
-                    <p class="content-text">
-                        Chúng ta sẽ thực hiện một bước đầu tiên đơn giản nhưng quan trọng: viết và chạy chương trình đầu tiên bằng Python. Qua đó, bạn sẽ hiểu rõ hơn về cách thức hoạt động của ngôn ngữ này và làm quen với công cụ lập trình. Biến và các kiểu dữ liệu cơ bản trong Python. Chúng ta sẽ tìm hiểu về biến và các kiểu dữ liệu cơ bản trong Python.
-                    </p>
-                </div>
-            </div>
-
-            <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-            
-            <div class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <button class="close-sidebar-btn" onclick="closeSidebar()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="sidebar-content">
-                    <div class="chapter-section">
-                        <div class="chapter-number">Chương 1: Giới thiệu chung</div>
-                        <ul class="chapter-items">
-                            
-                            <li class="chapter-item" onclick="selectChapter(this)">Tổng quan về Python</a></li>
-                            <li class="chapter-item active" onclick="selectChapter(this)">Làm quen với python.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Biến và các kiểu dữ liệu cơ bản</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Toán tử trong python.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Bài tập chương 1.</li>
-                        </ul>
-                    </div>
-
-                    <div class="chapter-section">
-                        <div class="chapter-number">Chương 2: Cấu trúc điều khiển</div>
-                        <ul class="chapter-items">
-                            <li class="chapter-item" onclick="selectChapter(this)">Câu lệnh điều kiện if.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Vòng lặp for và while.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Break và continue</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Xử lý ngoại lệ.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Bài tập chương 2.</li>
-                        </ul>
-                    </div>
-
-                    <div class="chapter-section">
-                        <div class="chapter-number">Chương 3: Hàm và Module</div>
-                        <ul class="chapter-items">
-                            <li class="chapter-item" onclick="selectChapter(this)">Định nghĩa hàm.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Tham số và đối số.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Lambda functions</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Import và module.</li>
-                            <li class="chapter-item" onclick="selectChapter(this)">Bài tập chương 3.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="chapter" id="chapter">
+            <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
+            <a href="chapter1_1.php">Tổng quan về ngôn ngữ lập trình python.</a>
+            <a href="chapter1_2.php">Chương trình đầu tiên làm quen với python.</a>
+            <a href="chapter1_3.php">Biến và các kiểu dữ liệu cơ bản trong python.</a>
+            <a href="chapter1_4.php">Toán tử trong python.</a>
+            <a href="exercise1.php">Bài tập chương 1</a>
+            <h3><a href="chapter2.php">Chương 2: Cấu trúc điều kiên, vòng lập và hàm trong python</a></h3>
+            <a href="chapter2_1.php">Cấu trúc điều kiện.</a>
+            <a href="chapter2_2.php">Vòng lập trong python.</a>
+            <a href="chapter2_3.php">try và except trong python.</a>
+            <a href="chapter2_4.php">Hàm trong python.</a>
+            <a href="exercise2.php">Bài tập chương 2</a>
+            <h3><a href="chapter3.php">Chương 3: Cấu trúc dữ liệu trong python</a></h3>
+            <a href="chapter3_1.php">List trong python.</a>
+            <a href="chapter3_2.php">Tuples trong python.</a>
+            <a href="chapter3_3.php">Dictionary trong python.</a>
+            <a href="chapter3_4.php">Set trong python.</a>
+            <a href="exercise3.php">Bài tập chương 3</a>
+            <h3><a href="chapter4.php">Chương 4: Module và Package</a></h3>
+            <a href="chapter4_1.php">Module.</a>
+            <a href="chapter4_2.php">Package.</a>
+            <a href="exercise4.php">Bài tập chương 4</a>
+            <h3><a href="chapter5.php">Chương 5: PANDAS</a></h3>
+            <a href="chapter5_1.php">Series.</a>
+            <a href="chapter5_2.php">Dataframe.</a>
+            <a href="exercise5.php">Bài tập chương 5</a>
+            <h3><a href="chapter6.php">Chương 6: MATPLOTLIB</a></h3>
+            <a href="chapter6_1.php">Pyplot cơ bản.</a>
+            <a href="chapter6_2.php">Lưu biểu đồ.</a>
+            <a href="exercise6.php">Bài tập chương 6</a>
         </div>
 
-        <div class="navigation">
-            <a href="javascript:void(0)" class="nav-btn prev" onclick="goToPrevious()">
-                <i class="fas fa-arrow-left"></i>
-                <div>
-                    <div class="nav-text">Bài trước đó</div>
-                    
+        <div class="content">
+            <div class="main">
+                <h3>Giới thiệu chung</h3>
+                <p>Trong chương này, chúng ta sẽ khám phá những khái niệm cơ bản và cần thiết để làm quen với ngôn ngữ
+                    lập trình Python. Python đã trở thành một trong những ngôn ngữ lập trình phổ biến nhất trong cộng
+                    đồng lập trình viên nhờ vào sự dễ học, cú pháp rõ ràng và khả năng linh hoạt trong việc ứng dụng vào
+                    nhiều lĩnh vực khác nhau như phát triển web, khoa học dữ liệu, trí tuệ nhân tạo và tự động hóa.Trong
+                    chương này, chúng ta sẽ khám phá những khái niệm cơ bản và cần thiết để làm quen với ngôn ngữ lập
+                    trình Python. Python đã trở thành một trong những ngôn ngữ lập trình phổ biến nhất trong cộng đồng
+                    lập trình viên nhờ vào sự dễ học, cú pháp rõ ràng và khả năng linh hoạt trong việc ứng dụng vào
+                    nhiều lĩnh vực khác nhau như phát triển web, khoa học dữ liệu, trí tuệ nhân tạo và tự động hóa.</p>
+                <h3>Tổng quan về ngôn ngữ lập trình python.</h3>
+                <p> Chúng ta sẽ bắt đầu bằng việc giới thiệu tổng quan về Python, lịch sử phát triển và những ưu điểm
+                    nổi bật của nó. Python không chỉ được thiết kế để đơn giản và dễ hiểu, mà còn cung cấp một môi
+                    trường mạnh mẽ cho việc phát triển các ứng dụng phức tạp.</p>
+                <h3>Chương trình đầu tiên làm quen với Python</h3>
+                <p> Chúng ta sẽ thực hiện một bước đầu tiên đơn giản nhưng quan trọng: viết và chạy chương trình đầu
+                    tiên bằng Python. Qua đó, bạn sẽ hiểu rõ hơn về cách thức hoạt động của ngôn ngữ này và làm quen với
+                    công cụ lập trình.</p>
+                <h3>Biến và các kiểu dữ liệu cơ bản trong Python</h3>
+                <p>Chúng ta sẽ tìm hiểu về biến và các kiểu dữ liệu cơ bản trong Python. Biến là cách mà chúng ta lưu
+                    trữ thông tin trong chương trình, trong khi các kiểu dữ liệu cơ bản như số nguyên, số thực, chuỗi và
+                    danh sách sẽ là những khối xây dựng cơ bản cho các ứng dụng mà bạn sẽ phát triển sau này.</p>
+                <div class="section">
+                    <section>
+                        <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
+                        <a href="chapter1_1.php">Tổng quan về ngôn ngữ lập trình python.</a>
+                        <a href="chapter1_2.php">Chương trình đầu tiên làm quen với python.</a>
+                        <a href="chapter1_3.php">Biến và các kiểu dữ liệu cơ bản trong python.</a>
+                        <a href="chapter1_4.php">Toán tử trong python.</a>
+                        <a href="exercise1.php">Bài tập chương 1</a>
+                    </section>
                 </div>
-            </a>
-            
-            <div class="vertical-divider"></div>
-            <a href="javascript:void(0)" class="nav-btn next" onclick="goToNext()">
-                <div>
-                    <div class="nav-text">Bài tiếp theo</div>
-                </div>
-                <i class="fas fa-arrow-right"></i>
-            </a>
+            </div>
         </div>
     </div>
+    <div class="display">
+        <a href="index.php" class="select">
+            <div class="arrow">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="text-container_left">
+                <div class="previously">PREVIOUSLY</div>
+                <div class="link">Giới thiệu khóa học.</div>
+            </div>
+        </a>
+
+        <a href="chapter1_1.php" class="select">
+            <div class="text-container_right">
+                <div class="previously">UP NEXT</div>
+                <div class="link">Tổng quan về ngôn ngữ lập trình python.</div>
+            </div>
+            <div class="arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </a>
+    </div>
     <script src="static/javascript/main.js"></script>
-    <script src="static/javascript/code.js"></script>
+    <script src="static/javascript/study.js"></script>
+    <script>
+        function logout() {
+            window.location.href = "../kiemtra.php";
+        }
+
+    </script>
 </body>
+
 </html>

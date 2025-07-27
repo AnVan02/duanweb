@@ -17,8 +17,8 @@ if ($conn->connect_error) {
 }
 
 // Lấy id_test từ URL
-$id_test = isset($_GET['id_test']) ? $_GET['id_test'] : '8';
-$ma_khoa = '19';
+$id_test = '1';
+$ma_khoa = '1';
 $student_id = $_SESSION['student_id'];
 $link_quay_lai = "index.php";
 $link_tiep_tuc = "dashboard.php";
@@ -98,45 +98,45 @@ $result = $stmt->get_result();
 $recent_result = $result->num_rows > 0 ? $result->fetch_assoc() : null;
 $stmt->close();
 
-// Lấy danh sách câu hỏi từ database để hiển thị số câu hỏi
-$stmt = $conn->prepare("SELECT * FROM quiz WHERE id_khoa = ? AND id_baitest = ?");
-$stmt->bind_param("ss", $ma_khoa, $id_test);
-$stmt->execute();
-$result = $stmt->get_result();
-$questions = [];
-while ($row = $result->fetch_assoc()) {
-    $questions[] = [
-        'id' => $row['Id_cauhoi'],
-        'question' => $row['cauhoi'],
-        'choices' => [
-            'A' => $row['cau_a'],
-            'B' => $row['cau_b'],
-            'C' => $row['cau_c'],
-            'D' => $row['cau_d']
-        ],
-        'images' => [
-            'A' => $row['hinhanh_a'],
-            'B' => $row['hinhanh_b'],
-            'C' => $row['hinhanh_c'],
-            'D' => $row['hinhanh_d']
-        ],
-        'explanations' => [
-            'A' => $row['giaithich_a'],
-            'B' => $row['giaithich_b'],
-            'C' => $row['giaithich_c'],
-            'D' => $row['giaithich_d']
-        ],
-        'correct' => $row['dap_an'],
-        'image' => $row['hinhanh']
-    ];
-}
-// RANDOM 5 câu hỏi nếu số lượng > 5
-if (count($questions) > 5) {
-    shuffle($questions);
-    $questions = array_slice($questions, 0, 5);
+// Lấy danh sách câu hỏi từ session nếu đã làm bài
+$questions = $_SESSION['questions_' . $id_test] ?? [];
+
+// Nếu chưa có session (chưa từng làm bài), mới lấy từ database để đếm số câu hỏi
+if (empty($questions)) {
+    $stmt = $conn->prepare("SELECT * FROM quiz WHERE id_khoa = ? AND id_baitest = ?");
+    $stmt->bind_param("ss", $ma_khoa, $id_test);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $questions = [];
+    while ($row = $result->fetch_assoc()) {
+        $questions[] = [
+            'id' => $row['Id_cauhoi'],
+            'question' => $row['cauhoi'],
+            'choices' => [
+                'A' => $row['cau_a'],
+                'B' => $row['cau_b'],
+                'C' => $row['cau_c'],
+                'D' => $row['cau_d']
+            ],
+            'images' => [
+                'A' => $row['hinhanh_a'],
+                'B' => $row['hinhanh_b'],
+                'C' => $row['hinhanh_c'],
+                'D' => $row['hinhanh_d']
+            ],
+            'explanations' => [
+                'A' => $row['giaithich_a'],
+                'B' => $row['giaithich_b'],
+                'C' => $row['giaithich_c'],
+                'D' => $row['giaithich_d']
+            ],
+            'correct' => $row['dap_an'],
+            'image' => $row['hinhanh']
+        ];
+    }
+    $stmt->close();
 }
 $_SESSION['questions_' . $id_test] = $questions;
-$stmt->close();
 
 // Lấy thông tin bài test (không bao gồm required_pass_percent)
 $stmt = $conn->prepare("SELECT id_test, ten_test, lan_thu FROM test WHERE id_test = ?");
@@ -155,9 +155,6 @@ $ten_test = $test_info['ten_test'] ?? 'Bài test ' . $id_test;
 $max_attempts = $test_info['lan_thu'] ?? 3;
 $required_pass_percent = 80; // Giá trị mặc định
 $stmt->close();
-
-// Đóng kết nối database
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -262,7 +259,7 @@ $conn->close();
             margin-top: 20px;
         }
         a.nav-link, a.start-quiz {
-            padding: 7 buoypx 10px;
+            padding: 7px 10px;
             margin-right: 10px;
             text-decoration: none;
             border-radius: 8px;
@@ -405,13 +402,12 @@ $conn->close();
             <table class="result-table">
                 <tr><td>Khóa học:</td><td><?php echo htmlspecialchars($id_khoa); ?></td></tr>
                 <tr><td>Bài test: </td><td> <?php echo htmlspecialchars($ten_test); ?></td></tr>
-                <tr><td>Số câu hỏi:</td><td>5</td></tr>
                 <tr><td>Điểm cao nhất:</td><td><?php echo $recent_result['kq_cao_nhat']; ?> / <?php echo count($_SESSION['questions_' . $id_test] ?? []); ?></td></tr>
                 <tr><td>Số lần làm bài:</td><td><?php echo $recent_result['so_lan_thu']; ?> / <?php echo $max_attempts; ?></td></tr>
                 <tr><td>Trạng thái :</td><td><?php echo $recent_result['kq_cao_nhat'] >= 4 ? 'Đạt' : 'Không đạt'; ?></td></tr>
             </table>
             <div class="navigation-links">
-                <a href="chuong4_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1" class="start-quiz<?php echo ($recent_result && $recent_result['so_lan_thu'] >= $max_attempts) ? ' disabled' : ''; ?>">Bắt đầu làm bài</a>
+                <a href="chuong3_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1" class="start-quiz<?php echo ($recent_result && $recent_result['so_lan_thu'] >= $max_attempts) ? ' disabled' : ''; ?>">Bắt đầu làm bài</a>
             </div>
             <?php if (!empty($recent_result['test_gan_nhat'])): ?>
                 <h3>Chi tiết lần làm bài gần nhất:</h3>
@@ -420,61 +416,100 @@ $conn->close();
                 // Parse đáp án
                 $test_gan_nhat = $recent_result['test_gan_nhat'];
                 $answers = [];
+                $question_ids = [];
                 if ($test_gan_nhat) {
                     $pairs = explode(';', $test_gan_nhat);
                     foreach ($pairs as $pair) {
                         if (strpos($pair, ':') !== false) {
                             list($qid, $ans) = explode(':', $pair);
                             $answers[$qid] = $ans;
+                            $question_ids[] = $qid;
                         }
                     }
                 }
-                
-                // Lấy danh sách câu hỏi từ session (đã random)
-                $questions = $_SESSION['questions_' . $id_test] ?? [];
-                $index = 0;
-                foreach ($questions as $q) {
-                    $qid = $q['id'];
-                    $user_ans = $answers[$qid] ?? null;
-                    $is_correct = $user_ans === $q['correct'];
-                    echo "<div class='question-block'>";
-                    echo "<p class='question-text'>Câu " . ($index + 1) . ": " . htmlspecialchars($q['question']) . "</p>";
-                    
-                    // Hiển thị hình ảnh câu hỏi nếu có
-                    if (!empty($q['image'])) {
-                        echo "<img src='/rosa_courses/login/admin/" . htmlspecialchars($q['image']) . "' alt='Hình ảnh câu hỏi' class='question-image' onerror='this.style.display=\"none\"'>";
+
+                // Lấy nội dung câu hỏi từ DB theo đúng thứ tự $question_ids
+                if (!empty($question_ids)) {
+                    $placeholders = implode(',', array_fill(0, count($question_ids), '?'));
+                    $types = str_repeat('s', count($question_ids));
+                    $stmt = $conn->prepare("SELECT * FROM quiz WHERE Id_cauhoi IN ($placeholders)");
+                    $stmt->bind_param($types, ...$question_ids);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $questions_map = [];
+                    while ($row = $result->fetch_assoc()) {
+                        $questions_map[$row['Id_cauhoi']] = [
+                            'id' => $row['Id_cauhoi'],
+                            'question' => $row['cauhoi'],
+                            'choices' => [
+                                'A' => $row['cau_a'],
+                                'B' => $row['cau_b'],
+                                'C' => $row['cau_c'],
+                                'D' => $row['cau_d']
+                            ],
+                            'images' => [
+                                'A' => $row['hinhanh_a'],
+                                'B' => $row['hinhanh_b'],
+                                'C' => $row['hinhanh_c'],
+                                'D' => $row['hinhanh_d']
+                            ],
+                            'explanations' => [
+                                'A' => $row['giaithich_a'],
+                                'B' => $row['giaithich_b'],
+                                'C' => $row['giaithich_c'],
+                                'D' => $row['giaithich_d']
+                            ],
+                            'correct' => $row['dap_an'],
+                            'image' => $row['hinhanh']
+                        ];
                     }
-                    
-                    echo "<ul>";
-                    foreach ($q['choices'] as $key => $val) {
-                        $li_class = '';
-                        if ($user_ans !== null && $key === $user_ans) {
-                            $li_class = $is_correct ? 'correct' : 'incorrect';
+                    $stmt->close();
+
+                    $index = 0;
+                    foreach ($question_ids as $qid) {
+                        if (!isset($questions_map[$qid])) continue;
+                        $q = $questions_map[$qid];
+                        $user_ans = $answers[$qid] ?? null;
+                        $is_correct = $user_ans === $q['correct'];
+                        echo "<div class='question-block'>";
+                        echo "<p class='question-text'>Câu " . ($index + 1) . ": " . htmlspecialchars($q['question']) . "</p>";
+
+                        // Hiển thị hình ảnh câu hỏi nếu có
+                        if (!empty($q['image'])) {
+                            echo "<img src='/rosa_courses/login/admin/" . htmlspecialchars($q['image']) . "' alt='Hình ảnh câu hỏi' class='question-image' onerror='this.style.display=\"none\"'>";
                         }
-                        echo "<li class='$li_class'>";
-                        echo "$key. " . htmlspecialchars($val);
-                        // Hiển thị hình ảnh đáp án nếu có
-                        if (!empty($q['images'][$key])) {
-                            echo "<br><img src='/rosa_courses/login/admin/" . htmlspecialchars($q['images'][$key]) . "' alt='Hình ảnh đáp án $key' class='answer-image' onerror='this.style.display=\"none\"'>";
+
+                        echo "<ul>";
+                        foreach ($q['choices'] as $key => $val) {
+                            $li_class = '';
+                            if ($user_ans !== null && $key === $user_ans) {
+                                $li_class = $is_correct ? 'correct' : 'incorrect';
+                            }
+                            echo "<li class='$li_class'>";
+                            echo "$key. " . htmlspecialchars($val);
+                            // Hiển thị hình ảnh đáp án nếu có
+                            if (!empty($q['images'][$key])) {
+                                echo "<br><img src='/rosa_courses/login/admin/" . htmlspecialchars($q['images'][$key]) . "' alt='Hình ảnh đáp án $key' class='answer-image' onerror='this.style.display=\"none\"'>";
+                            }
+                            echo "</li>";
                         }
-                        echo "</li>";
-                    }
-                    echo "</ul>";
-                    
-                    // Giải thích nếu chọn sai
-                    $explanation = '';
-                    if ($user_ans !== null && $user_ans !== '' && isset($q['explanations'][$user_ans])) {
-                        $explanation = $q['explanations'][$user_ans];
-                    }
-                    if (!empty(trim((string)$explanation))) {
-                        echo "<div class='explanation-block' style='border-color: " . ($is_correct ? "#28a745" : "#dc3545") . ";'>";
-                        echo "<p><strong>Giải thích: </strong>" . htmlspecialchars($explanation) . "</p>";
+                        echo "</ul>";
+
+                        // Giải thích nếu chọn sai
+                        $explanation = '';
+                        if ($user_ans !== null && $user_ans !== '' && isset($q['explanations'][$user_ans])) {
+                            $explanation = $q['explanations'][$user_ans];
+                        }
+                        if (!empty(trim((string)$explanation))) {
+                            echo "<div class='explanation-block' style='border-color: " . ($is_correct ? "#28a745" : "#dc3545") . ";'>";
+                            echo "<p><strong>Giải thích: </strong>" . htmlspecialchars($explanation) . "</p>";
+                            echo "</div>";
+                        }
+
+                        echo "<hr>";
                         echo "</div>";
+                        $index++;
                     }
-                    
-                    echo "<hr>";
-                    echo "</div>";
-                    $index++;
                 }
                 ?>
                 </div>
@@ -488,10 +523,10 @@ $conn->close();
                 <tr><td>Yêu cầu đậu:</td><td><?php echo htmlspecialchars($required_pass_percent); ?>%</td></tr>
             </table>
             <div class="navigation-links">
-                <a href="chuong4_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1" class="start-quiz">Bắt đầu làm bài</a>
+                <a href="chuong3_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1" class="start-quiz">Bắt đầu làm bài</a>
             </div>
         <?php endif; ?>
     </div>
 </body>
 </html>
-<?php ob_end_flush(); ?>
+<?php $conn->close(); ob_end_flush(); ?>

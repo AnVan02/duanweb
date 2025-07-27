@@ -16,8 +16,8 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-$ma_khoa = '1';
 $id_test = '1';
+$ma_khoa = '1';
 $student_id = $_SESSION['student_id'];
 
 
@@ -111,31 +111,40 @@ $student_id = $_SESSION['student_id'];
 ?>
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu</title>
+    <link rel="shortcut icon" href="../RS_icon.jpg" />
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" href="static/css/code.css">
-    <link rel="stylesheet" href="static/css/table.css">
-    <link rel="stylesheet" href="static/css/code_running.css">
+    <!-- <link rel="stylesheet" href="static/css/code.css"> -->
+    <!-- <link rel="stylesheet" href="static/css/table.css"> -->
+    <!-- <link rel="stylesheet" href="static/css/code_running.css"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
-
 <body>
-    <nav>
-        <div class="button-toggle">
-            <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
+    <header class="header">
+        <div class="header-content">
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>
+             <div class="logo">
+                <img src="../ROSA_AI_Ready.png" alt="ROSA" class="logo-img">
+            </div>
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <span>Mục lục</span>
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <h3>BÀI TẬP CHƯƠNG 1 </h3>
-    </nav>
+    </header>
+    <div class="title-section">
+        <h1 class="main-title">BÀI TẬP CHƯƠNG 1 </h1>
+    </div>
+
     <div class="container">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
