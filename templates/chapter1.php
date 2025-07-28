@@ -10,20 +10,31 @@
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
+</head>
 <body>
-    <nav>
-        <div class="button-toggle">
-            <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
+     <header class="header">
+        <div class="header-content">
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Quay lại</span>
+            </a>
+             <div class="logo">
+                <img src="../ROSA_AI_Ready.png" alt="ROSA" class="logo-img">
+            </div>
+            <button class="menu-btn" onclick="toggleSidebar()">
+                <span>Mục lục</span>
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <h3>GIỚI THIỆU CHUNG VỀ PYTHON</h3>
-        
-        <button onclick="logout()" class="logout-btn">
-            <i class="fa fa-sign-out-alt">Kiem tra</i>
-        </button>
-    </nav>
-    
+    </header>
+    <div class="title-section">
+        <h1 class="main-title">GIỚI THIỆU CHUNG VỀ PYTHON</h1>
+        <p class="subtitle">
+            <a href="#">Chương 1: Giới thiệu chung</a><a href="#">Làm quen với Python</a>
+        </p>
+    </div>
     <div class="container">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
@@ -91,34 +102,32 @@
                         <a href="exercise1.php">Bài tập chương 1</a>
                     </section>
                 </div>
-                <div class="display">
-                    <a href="index.php" class="select">
-                        <div class="arrow">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                        <div class="text-container_left">
-                            <div class="previously">PREVIOUSLY</div>
-                            <div class="link">Giới thiệu khóa học.</div>
-                        </div>
-                    </a>
-
-                    <a href="chapter1_1.php" class="select">
-                        <div class="text-container_right">
-                            <div class="previously">UP NEXT</div>
-                            <div class="link">Tổng quan về ngôn ngữ lập trình python.</div>
-                        </div>
-                        <div class="arrow">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
-        <div class="space">
+    </div>
+       <div class="navigation">
+        <a href="index.php" class="select">
+            <div class="arrow">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="text-container_left">
+                <div class="previously">PREVIOUSLY</div>
+                <div class="link">Giới thiệu khóa học.</div>
+            </div>
+        </a>
 
-        </div>
+        <a href="chapter1_1.php" class="select">
+            <div class="text-container_right">
+                <div class="previously">UP NEXT</div>
+                <div class="link">Tổng quan về ngôn ngữ lập trình python.</div>
+            </div>
+            <div class="arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </a>
     </div>
     <script src="static/javascript/main.js"></script>
+    <script src="static/javascript/study.js"></script>
     <script>
         function logout() {
             window.location.href = "../kiemtra.php";

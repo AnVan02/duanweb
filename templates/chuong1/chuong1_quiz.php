@@ -1,27 +1,25 @@
-
-<script>
-    const link_quay_lai = "../exercise1.php";
-</script>
-
-
 <?php
 ob_start();
+
 date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
+
+$link_quay_lai = "../exercise1.php";
+
 if (!isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
+
 $id_test = '71';
 $ma_khoa = '10';
 $student_id = $_SESSION['student_id'];
-// $link_quay_lai = "khoahoc.php";
 
-// Chỉ reset khi có ?start=1 trên URL
 if (isset($_GET['start']) && $_GET['start'] == 1) {
     $_SESSION['current_index_' . $id_test] = 0;
     $_SESSION['answers_' . $id_test] = [];
@@ -29,23 +27,33 @@ if (isset($_GET['start']) && $_GET['start'] == 1) {
     $_SESSION['score_saved_' . $id_test] = [];
     $_SESSION['test_completed'] = false;
     unset($_SESSION['questions_' . $id_test]);
-    // Thêm chuyển hướng để loại bỏ start=1 khỏi URL
     header("Location: chuong1_quiz.php?id_test=$id_test");
     exit();
 }
 
-// Kết nối cơ sở dữ liệu
+if (isset($_GET['reset']) && $_GET['reset'] == 'true') {
+    $_SESSION['current_index_' . $id_test] = 0;
+    $_SESSION['answers_' . $id_test] = [];
+    $_SESSION['score_' . $id_test] = 0;
+    $_SESSION['score_saved_' . $id_test] = [];
+    $_SESSION['test_completed'] = false;
+    unset($_SESSION['questions_' . $id_test]);
+    header("Location: chuong1_quiz.php?id_test=$id_test");
+    exit();
+}
+
 $conn = new mysqli("localhost", "root", "", "student");
 $conn->set_charset("utf8mb4");
+
 if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-// Kiểm tra quyền truy cập khóa học
 $stmt = $conn->prepare("SELECT Khoahoc FROM students WHERE Student_ID = ?");
 $stmt->bind_param("s", $student_id);
 $stmt->execute();
 $result = $stmt->get_result();
+
 if ($row = $result->fetch_assoc()) {
     $khoahoc = $row['Khoahoc'];
     $khoahoc_list = array_map('intval', explode(',', $khoahoc));
@@ -57,35 +65,39 @@ if ($row = $result->fetch_assoc()) {
     echo "<script>alert('Không tìm thấy thông tin sinh viên!'); window.location.href = 'login.php';</script>";
     exit();
 }
+
 $stmt->close();
 
-// Kiểm tra ID bài test và lấy thông tin test (lan_thu, so_cau_hien_thi, Pass)
 $stmt = $conn->prepare("SELECT ten_test, lan_thu, so_cau_hien_thi, Pass FROM test WHERE id_test = ?");
 $stmt->bind_param("i", $id_test);
 $stmt->execute();
 $result = $stmt->get_result();
+
 if ($result->num_rows == 0) {
     echo "<script>alert('ID bài test ($id_test) không tồn tại trong hệ thống. Vui lòng kiểm tra lại!');</script>";
     exit();
 }
+
 $row = $result->fetch_assoc();
-$id_baitest = $row['ten_test'];
+$id_baitest_name = $row['ten_test'];
 $max_attempts = isset($row['lan_thu']) ? intval($row['lan_thu']) : 1;
 $so_cau_hien_thi = isset($row['so_cau_hien_thi']) ? intval($row['so_cau_hien_thi']) : 0;
 $pass_score = isset($row['Pass']) ? $row['Pass'] : '';
+
 $stmt->close();
 
-// Lấy tên khóa học và câu hỏi
 $stmt = $conn->prepare("SELECT khoa_hoc FROM khoa_hoc WHERE id = ?");
 $stmt->bind_param("s", $ma_khoa);
 $stmt->execute();
 $result = $stmt->get_result();
+
 if ($row = $result->fetch_assoc()) {
     $ten_khoa = $row['khoa_hoc'];
     $stmt2 = $conn->prepare("SELECT * FROM quiz WHERE id_khoa = ? AND id_baitest = ?");
     $stmt2->bind_param("ss", $ma_khoa, $id_test);
     $stmt2->execute();
     $result2 = $stmt2->get_result();
+
     $questions = [];
     while ($row2 = $result2->fetch_assoc()) {
         $questions[] = [
@@ -113,7 +125,7 @@ if ($row = $result->fetch_assoc()) {
             'image' => $row2['hinhanh']
         ];
     }
-    // Nếu so_cau_hien_thi > 0 và nhỏ hơn tổng số câu hỏi, chọn ngẫu nhiên không trùng lặp số lượng câu hỏi cần hiển thị
+
     if ($so_cau_hien_thi > 0 && $so_cau_hien_thi < count($questions)) {
         if (!isset($_SESSION['questions_' . $id_test])) {
             $rand_keys = array_rand($questions, $so_cau_hien_thi);
@@ -131,31 +143,32 @@ if ($row = $result->fetch_assoc()) {
         }
         $questions = $_SESSION['questions_' . $id_test];
     }
+
     if (count($_SESSION['questions_' . $id_test]) < 1) {
-        die("Lỗi: Không đủ câu hỏi cho khóa học '$ten_khoa' và bài test '$id_test'.");
+        die("Lỗi: Không đủ câu hỏi cho khóa học '$ten_khoa' và bài test '$id_test'. Vui lòng kiểm tra lại cấu hình bài test hoặc cơ sở dữ liệu.");
     }
+
     $_SESSION['ten_khoa'] = $ten_khoa;
     $_SESSION['id_baitest'] = $id_test;
 } else {
     die("Lỗi: Không tìm thấy khóa học với mã '$ma_khoa'");
 }
+
 $stmt->close();
 $stmt2->close();
 
-// Khởi tạo biến
 $current_index = isset($_SESSION['current_index_' . $id_test]) ? intval($_SESSION['current_index_' . $id_test]) : 0;
 $answers = isset($_SESSION['answers_' . $id_test]) ? $_SESSION['answers_' . $id_test] : [];
 $score = isset($_SESSION['score_' . $id_test]) ? $_SESSION['score_' . $id_test] : 0;
 
-// Kiểm tra số lần thử
 $stmt = $conn->prepare("SELECT so_lan_thu FROM ket_qua WHERE student_id = ? AND khoa_id = ? AND test_id = ?");
 $stmt->bind_param("sis", $student_id, $ma_khoa, $id_test);
 $stmt->execute();
 $result = $stmt->get_result();
 $attempts = $result->num_rows > 0 ? $result->fetch_assoc()['so_lan_thu'] : 0;
+
 $stmt->close();
 
-// Xử lý gửi câu trả lời
 if ($_SERVER["REQUEST_METHOD"] === "POST" && (isset($_POST['next']) || isset($_POST['submit']) || isset($_POST['previous']))) {
     if (isset($_POST['answer']) && isset($_SESSION['questions_' . $id_test][$current_index])) {
         $user_answer = $_POST['answer'];
@@ -176,21 +189,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && (isset($_POST['next']) || isset($_P
     if (isset($_POST['next']) && $current_index < count($_SESSION['questions_' . $id_test]) - 1) {
         $current_index++;
         $_SESSION['current_index_' . $id_test] = $current_index;
-    } elseif (isset($_POST['previous']) && $current_index > 0) {
+    }
+    elseif (isset($_POST['previous']) && $current_index > 0) {
         $current_index--;
         $_SESSION['current_index_' . $id_test] = $current_index;
-    } elseif (isset($_POST['submit'])) {
+    }
+    elseif (isset($_POST['submit'])) {
         $conn->close();
         header("Location: chuong1_result.php?id_test=$id_test");
         exit();
     }
+
     header("Location: chuong1_quiz.php?id_test=$id_test");
     exit();
 }
 
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -199,8 +214,9 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <title>Quiz - <?php echo htmlspecialchars($ten_khoa); ?></title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-            body {
+        body {
             font-family: montserrat;
             background:#FFFFFF;
             margin: 0;
@@ -208,7 +224,6 @@ $conn->close();
             font-size: 17px;
             color: #333;
         }
-
         .header {
             padding: 1rem 2rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -217,13 +232,30 @@ $conn->close();
             z-index: 1000;
             background-color: #FFFFFF;
         }
-
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1336px;
             margin: 0 auto;
+        }
+        /* Kiểu dáng cho nút "Quay lại" trong header */
+        .back-btn {
+            background: none; /* Không có nền */
+            border: none; /* Không có viền */
+            cursor: pointer; /* Biến con trỏ thành bàn tay khi di chuột */
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            padding: 0;
+            display: flex; /* Để căn chỉnh icon và chữ */
+            align-items: center;
+            gap: 0.5rem; /* Khoảng cách giữa icon và chữ */
+            text-decoration: none; /* Bỏ gạch chân cho link 'Quay lại' */
+            transition: color 0.2s ease; /* Hiệu ứng chuyển màu mượt mà */
+        }
+         .back-btn i {
+            font-size: 1.2rem;
         }
 
         .logo {
@@ -235,24 +267,20 @@ $conn->close();
             color: #e53e3e;
             letter-spacing: 2px;
         }
-
         .logo-img {
             width: 40px;
             height: 40px;
             object-fit: contain;
             align-items: center;
         }
-
-        .logo-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Màu gradient cho chữ ROSA */
+            -webkit-background-clip: text; /* Cắt nền theo hình dạng chữ */
+            -webkit-text-fill-color: transparent; /* Làm màu chữ trong suốt để thấy nền */
             background-clip: text;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif; /* Font Arial cho chữ logo */
             font-weight: 900;
         }
-
-
         .container {
             max-width: 1100px;
             margin: 40px auto;
@@ -260,104 +288,131 @@ $conn->close();
             border-radius: 15px;
             border: 3px #AFAFAF solid
         }
-
+        .mobile-only-header {
+            display: none;
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        .mobile-only-header h2 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .mobile-only-header p {
+            color: #6c757d;
+            margin-top: 0;
+        }
         h2 {
             color: #2c3e50;
             text-align: center;
         }
-
         .question-box {
             border-radius: 10px;
             padding: 24px;
             margin-bottom: 30px;
         }
-
         .question-box h3 {
             color: #007bff;
             margin-top: 0;
         }
-
         ul {
             list-style: none;
             padding: 0;
         }
-
         ul li {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 23px;
-            background-color: #f1f1f1;
             background: white;
-            border-radius: 30px; border: 1px #205AB1 solid;
-
+            border: 1px solid #205AB1;
+            border-radius: 30px;
+            margin-bottom: 10px;
+            /* padding: 10px; */
+            transition: all 0.3s ease;
         }
 
         ul li label {
-            font-size: 17px;
-            border-radius: 5px;
-            cursor: pointer;
-
-            
-        }
-
-        button {
-            padding-left: 39px; 
-            padding-right: 39px; 
-            padding-top: 17px; 
-            color: white;
-            padding-bottom: 17px; 
-            background: #3961A6; 
-            border-radius: 30px; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 10px; 
-            
-            display: inline-flex
-        }
-
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            justify-content: center; 
-            display: flex; 
-            flex-direction: column; 
-            color: white; 
-            border-radius: 30px;
-            background: #91684D
-            text-transform: uppercase; 
-            word-wrap: break-word"
-            justify-content: center; 
-            font-weight: 600; 
-            text-transform: uppercase;
-            border-radius: 30px; 
-            word-wrap: break-word
-        }
-
-
-        img {
-            
-            max-width: 100%;
-            /* Chiều rộng tối đa là 100% khung chứa */
-            max-height: 500px;
-            /* Giới hạn chiều cao tối đa nếu cần */
-            height: auto;
-            /* Giữ tỷ lệ gốc của ảnh */
-            width: auto;
-            /* Không kéo giãn ảnh nhỏ */
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: block;
-            margin: 0 auto;
-            /* Căn giữa ảnh */
+            font-size: 17px;
+            border-radius: 25px;
+            cursor: pointer;
+            padding: 12px 18px;
         }
 
+        /* Hiệu ứng khi được chọn */
+        li:has(input[type="radio"]:checked) {
+            box-shadow: 1px 1px 20px 1px rgba(53, 128, 240, 0.5) inset;
+            /* border: 2px solid #205AB1; */
+            background-color: #f9fcff;
+        }
+
+
+
+
+        
+        /* Phần CSS mới cho các nút */
         .btn-area {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
         }
-
+        button {
+            padding: 17px 39px;
+            color: white;
+            border-radius: 30px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            display: inline-flex;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Nút Câu trước - Màu nâu khi active */
+        button[type="submit"][name="previous"] {
+            background: #6D4C41;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size:10px;
+        }
+        /* Nút Câu trước - Màu xám khi disabled */
+        button[type="submit"][name="previous"]:disabled {
+            background: #9E9E9E;
+            cursor: not-allowed;
+            box-shadow: none;
+            font-size:10px;
+        }
+        /* Hiệu ứng hover cho nút Câu trước */
+        button[type="submit"][name="previous"]:not(:disabled):hover {
+            background: #5D4037;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            font-size:10px;
+        }
+        /* Nút Câu sau/Nộp bài - Giữ nguyên màu xanh */
+        button[type="submit"][name="next"],
+        button[type="submit"][name="submit"] {
+            background: #3961A6;
+        }
+        /* Hiệu ứng hover cho nút Câu sau/Nộp bài */
+        button[type="submit"][name="next"]:hover,
+        button[type="submit"][name="submit"]:hover {
+            background: #2C4D8C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        img {
+            max-width: 100%;
+            max-height: 500px;
+            height: auto;
+            width: auto;
+            /* border: 1px solid #ddd; */
+            border-radius: 10px;
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+            display: block;
+            margin: 0 auto;
+        }
         .navigation-links {
             text-align: center;
             margin: 20px 0;
@@ -365,7 +420,6 @@ $conn->close();
             background-color: #f8f9fa;
             border-radius: 10px;
         }
-
         a.nav-link {
             padding: 10px 11px;
             background-color: #28a745;
@@ -373,102 +427,176 @@ $conn->close();
             border-radius: 5px;
             text-decoration: none;
         }
-
         a.nav-link:hover {
             background-color: #218838;
         }
 
-    </style>
+        @media (max-width: 768px) {
+          ul li {
+                background: white;
+                border: 1px solid #205AB1;
+                border-radius: 30px;
+                margin-bottom: 10px;
+                /* padding: 10px; */
+                transition: all 0.3s ease;
+            }
 
-        <script>
-            let pageLoaded = false;
-            let navigationHandled = false;
-            
-            window.addEventListener('load', function() {
-                pageLoaded = true;
+            ul li label {
+                display: block;
+                font-size: 17px;
+                border-radius: 25px;
+                cursor: pointer;
+                padding: 12px 18px;
+            }
+
+            /* Hiệu ứng khi được chọn */
+            li:has(input[type="radio"]:checked) {
+                box-shadow: 1px 1px 20px 1px rgba(31, 90, 177, 0.5) inset;
+                border: 2px solid #1f5ab1;
+                background-color: #f9fcff;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .mobile-only-header {
+                display: block;
+            }
+           .btn-area {
+                display: flex;
+                flex-direction: row; /* Theo chiều ngang mặc định */
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                font-size:20px;
+            }
+           
+            .back-btn span {
+                display: none;
+            }
                 
-                // Xử lý reload trang
-                if (performance.navigation.type === 1) {
-                    if (confirm("Bạn có chắc muốn tải lại? Việc này sẽ xóa toàn bộ bài làm.")) {
-                        window.location.href = `${link_quay_lai}?reset=true`;
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+    <script>
+        let pageLoaded = false;
+        let navigationHandled = false;
+        window.addEventListener('load', function() {
+            pageLoaded = true;
+            if (performance.navigation.type === 1) {
+                Swal.fire({
+                    title: 'Bạn có chắc muốn tải lại?',
+                    text: 'Việc này sẽ xóa toàn bộ bài làm.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3961A6',
+                    cancelButtonColor: '#6D4C41',
+                    confirmButtonText: 'Tiếp tục làm',
+                    cancelButtonText: 'Đừng làm bài'
+                }).then((result) => {
+                    if (result.isDismissed) {
+                        window.location.href = <?php echo json_encode($link_quay_lai); ?> + '?reset=true';
                     }
-                }
-            });
-            
-            // Xử lý back/forward
-            window.addEventListener('pageshow', function(event) {
-                if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-                    if (!navigationHandled) {
-                        navigationHandled = true;
-                        if (confirm("Bạn vừa quay lại trang. Bạn có muốn bắt đầu lại không?")) {
+                });
+            }
+        });
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                if (!navigationHandled) {
+                    navigationHandled = true;
+                    Swal.fire({
+                        title: 'Bạn đang làm bài kiểm tra.',
+                        text: 'Bạn có chắc chắn muốn dừng không?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3961A6',
+                        cancelButtonColor: '#6D4C41',
+                        confirmButtonText: 'Tiếp tục làm',
+                        cancelButtonText: 'Đừng làm bài'
+                    }).then((result) => {
+                        if (result.isDismissed) {
                             window.location.href = "../exercise1.php?reset=true";
                         }
-                    }
+                    });
                 }
-            });
-            
-            // Xử lý popstate (back button)
-            window.addEventListener('popstate', function(event) {
-                if (pageLoaded && !navigationHandled) {
-                    navigationHandled = true;
-                    if (confirm("Bạn vừa quay lại trang. Bạn có muốn bắt đầu lại không?")) {
+            }
+        });
+        window.addEventListener('popstate', function(event) {
+            if (pageLoaded && !navigationHandled) {
+                navigationHandled = true;
+                Swal.fire({
+                    title: 'Bạn đang làm bài kiểm tra.',
+                    text: 'Bạn có chắc chắn muốn dừng không?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3961A6',
+                    cancelButtonColor: '#6D4C41',
+                    confirmButtonText: 'Tiếp tục làm',
+                    cancelButtonText: 'Đừng làm bài'
+                }).then((result) => {
+                    if (result.isDismissed) {
                         window.location.href = "../exercise1.php?reset=true";
                     } else {
                         window.history.pushState(null, null, window.location.href);
                     }
-                }
-            });
-            
-            // Đẩy một state mới vào history khi trang load
-            window.addEventListener('load', function() {
-                window.history.pushState(null, null, window.location.href);
-            });
-        </script>
-
-
+                });
+            }
+        });
+        window.addEventListener('load', function() {
+            window.history.pushState(null, null, window.location.href);
+        });
+    </script>
 </head>
 <body>
-   <header class="header">
+    <header class="header">
         <div class="header-content">
-            <a href="javascript:void(0)" class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i>
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>)" class="back-btn" onclick="goBack()">
+                <img src="../../iconQL.png" alt="Quay lại" style="width:16px; height:16px; vertical-align:middle; margin-right:5px;">
                 <span>Quay lại</span>
             </a>
-             <div class="logo">
+
+              
+            <div class="logo">
                 <img src="../../ROSA_AI_Ready.png" alt="Logo">
             </div>
             <button2 class="menu-btn" onclick="toggleSidebar()">
-                <span>Mục lục</span>
                 <i class="fas fa-bars"></i>
             </button2>
         </div>
     </header>
+   
     
     <div class="container">
+        <div class="mobile-only-header">
+            <h2>BÀI KIỂM TRA CUỐI KHOÁ</h2>
+            <p>Bạn cần vượt qua bài kiểm tra để hoàn tất khóa học</p>
+        </div>
         <?php if ($attempts >= $max_attempts): ?>
             <p class="no-answers">Bạn đã sử dụng hết số lần làm bài! <a class="nav-link" href="chuong1_result.php?id_test=<?php echo htmlspecialchars($id_test); ?>">Xem kết quả</a></p>
         <?php elseif ($current_index < count($_SESSION['questions_' . $id_test])): ?>
             <?php $question = $_SESSION['questions_' . $id_test][$current_index]; ?>
             <form method="POST" action="">
                 <div class="question-box">
-                    <h3>Câu <?php echo $current_index + 1; ?> / <?php echo count($_SESSION['questions_' . $id_test]); ?>: </h3> 
+                    <h3>Câu <?php echo $current_index + 1; ?> / <?php echo count($_SESSION['questions_' . $id_test]); ?>: </h3>
                     <h3><?php echo htmlspecialchars($question['question']); ?></h3>
                     <?php if (!empty($question['image'])): ?>
-                        <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
+                        <img src="<?php echo '../../admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
                     <?php endif; ?>
                     <ul>
                         <?php foreach ($question['choices'] as $key => $value): ?>
                             <li>
                                 <label>
-                                    <input type="radio" name="answer" value="<?php echo $key; ?>" 
-                                        <?php echo isset($answers[$current_index]) && $answers[$current_index]['selected'] === $key ? 'checked' : ''; ?> 
-                                        required> 
+                                    <input type="radio" name="answer" value="<?php echo $key; ?>"
+                                        <?php echo isset($answers[$current_index]) && $answers[$current_index]['selected'] === $key ? 'checked' : ''; ?>
+                                        required>
                                     <?php echo $key; ?>. <?php echo htmlspecialchars($value); ?>
                                 </label>
-                                <?php if (!empty($question['images'][$key])): ?>
-                                    <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['images'][$key]); ?>" alt="Hình ảnh đáp án <?php echo $key; ?>">
-                                <?php endif; ?>
                             </li>
+                               
+                            <?php if (!empty($question['images'][$key])): ?>
+                                <img src="<?php echo '../../admin/' . htmlspecialchars($question['images'][$key]); ?>" alt="Hình ảnh đáp án <?php echo $key; ?>">
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
                     <div class="btn-area">
@@ -485,4 +613,5 @@ $conn->close();
     </div>
 </body>
 </html>
+
 <?php ob_end_flush(); ?>

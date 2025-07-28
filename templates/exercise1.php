@@ -112,8 +112,6 @@ $student_id = $_SESSION['student_id'];
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,16 +125,16 @@ $student_id = $_SESSION['student_id'];
     <link rel="stylesheet" href="static/css/code_running.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
 
 </head>
-
 <body>
-    <nav>
-        <div class="button-toggle">
-            <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
-        </div>
-        <h3>BÀI TẬP CHƯƠNG 1 </h3>
-    </nav>
+
+    <div class="title-section">
+        <h1 class="main-title">BÀI TẬP CHƯƠNG 1</h1>
+    </div>
+
     <div class="container">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
@@ -195,7 +193,7 @@ $student_id = $_SESSION['student_id'];
             <a href="chuong1/chuong1_intro.php" class="start-quiz  <?php echo ($recent_result && $recent_result['so_lan_thu'] >= $max_attempts) ? ' disabled' : ''; ?>">Bắt đầu làm bài ➜</a>
         </div>
                 <!-- code -->
-        <div class="display">
+        <div class="navigation">
             <a href="chapter1_4.php" class="select">
                 <div class="arrow">
                     <i class="fas fa-arrow-left"></i>
@@ -220,6 +218,7 @@ $student_id = $_SESSION['student_id'];
 </div>
 
     </div>
+    <script src="static/javascript/study.js"></script>
     <script src="static/javascript/main.js"></script>
     <script src="static/javascript/code.js"></script>
     <script src="static/javascript/code_running.js"></script>

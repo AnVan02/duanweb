@@ -186,169 +186,453 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <title>Kết quả Quiz - <?php echo htmlspecialchars($ten_khoa); ?></title>
-    <style>
+     <style>
+        /* CSS tổng thể cho trang */
         body {
-            font-family: Arial, sans-serif;
-            background: #FFFFFF;
+            font-family: 'Montserrat'; /* Sử dụng font Montserrat */
+            background: #F0F2F5; /* Nền màu xám nhạt */
             margin: 0;
-            padding: 20px;
+            padding: 0;
             font-size: 17px;
             color: #333;
         }
+
+        /* Header của trang */
+        .header {
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ nhẹ */
+            position: sticky; /* Giữ header ở trên cùng khi cuộn */
+            top: 0;
+            z-index: 1000;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: center; /* Căn giữa nội dung header */
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1336px; /* Chiều rộng tối đa của nội dung */
+            width: 100%;
+        }
+
+        /* Kiểu dáng cho nút "Quay lại" trong header */
+        .back-btn {
+            background: none; /* Không có nền */
+            border: none; /* Không có viền */
+            cursor: pointer; /* Biến con trỏ thành bàn tay khi di chuột */
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            padding: 0;
+            display: flex; /* Để căn chỉnh icon và chữ */
+            align-items: center;
+            gap: 0.5rem; /* Khoảng cách giữa icon và chữ */
+            text-decoration: none; /* Bỏ gạch chân cho link 'Quay lại' */
+            transition: color 0.2s ease; /* Hiệu ứng chuyển màu mượt mà */
+        }
+
+        .back-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Logo ROSA */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Màu gradient cho chữ ROSA */
+            -webkit-background-clip: text; /* Cắt nền theo hình dạng chữ */
+            -webkit-text-fill-color: transparent; /* Làm màu chữ trong suốt để thấy nền */
+            background-clip: text;
+            font-family: 'Arial', sans-serif; /* Font Arial cho chữ logo */
+            font-weight: 900;
+        }
+
+        /* Container chính của trang */
         .container {
             max-width: 1100px;
-            margin: 40px auto;
-            background-color: #ffffff;
-            padding: 30px;
+            margin: 40px auto; /* Căn giữa và tạo khoảng cách trên dưới */
+            /* background-color: #ffffff; */
             border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); Bóng đổ cho container */
+            /* padding: 30px; Khoảng đệm bên trong container */
         }
+
+        /* Tiêu đề chính của trang kết quả */
         h1 {
-            color: #2c3e50;
             text-align: center;
+            color: #2C3E50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
-        h3 {
-            text-align: center; 
-            color: #203D6F; 
-            font-size: 20px; 
-            font-weight: 300; 
-            word-wrap: break-word
+
+        /* Phụ đề bên dưới tiêu đề chính */
+        h3.quiz-subtitle { /* Đổi từ p sang h3 và thêm class để phân biệt */
+            text-align: center;
+            color: #6C757D;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            font-weight: 500;
         }
+
+        /* Bảng thông tin kết quả */
         .score-info {
             width: 100%;
-            max-width: 1000px;
-            font-weight:600px;
-            margin: 0 auto 28px auto;
-            background: #f8fafc;
-            border-radius: 20px;
-            border: 3px #EAEAEA solid;
-            font-size: 17px;
-            text-align:center;
-            background: white;
-            border-collapse: separate;
-            border-spacing: 0;
-            overflow: hidden;
-            transition: box-shadow 0.3s;
+            border-collapse: collapse; /* Gộp các đường viền */
+            margin: 0 auto 30px auto;
+            border-radius: 15px; /* Bo góc cho bảng */
+            overflow: hidden; /* Đảm bảo bo góc hoạt động */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Bóng đổ nhẹ cho bảng */
         }
+
+        .score-info th, .score-info td {
+            padding: 15px 20px;
+            text-align: center;
+            border: 1px solid #e0e0e0; /* Viền nhẹ cho các ô */
+        }
+
+        .score-info th {
+            background-color: #F8F9FA; /* Nền cho hàng tiêu đề */
+            color: #495057;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .score-info td {
+            background-color: #ffffff; /* Nền cho các ô dữ liệu */
+            font-size: 1em;
+        }
+
+        .score-info tr:last-child td {
+            border-bottom: none; /* Bỏ viền dưới cho hàng cuối */
+        }
+
+        /* Kiểu dáng cho trạng thái Đạt/Không đạt */
+        .status-pass {
+            color: #28a745; /* Màu xanh lá cho "Đạt" */
+            font-weight: 700;
+        }
+        .status-fail {
+            color: #dc3545; /* Màu đỏ cho "Không đạt" */
+            font-weight: 700;
+        }
+
+        .reset-button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .reset-button {
+            padding: 12px 30px;
+            background-color: #5a7bc4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .reset-button:hover:not(:disabled) {
+            background-color: #4a6bb0;
+        }
+
+        .reset-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Dòng kẻ ngang phân cách */
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 30px 0;
+        }
+
+        /* Khối câu hỏi chi tiết */
         .question-block {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #f0f0f0; /* Đường kẻ phân cách từng câu hỏi */
         }
+
+        .question-block:last-child {
+            border-bottom: none; /* Bỏ đường kẻ cho câu hỏi cuối cùng */
+        }
+
         .question-text {
-            margin-bottom:20px;
-            font-size:18px;
-            font-weight:bold;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 15px;
         }
+
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px auto;
+            display: block;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
         ul {
             list-style: none;
             padding: 0;
         }
+
         ul li {
             margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #f1f1f1;
-        }
-        li.correct {
-            /* background-color: #d4edda; */
-            border-radius: 30px
-            color: #00AD26;
-            font-weight: bold;
-        }
-        li.incorrect {
-            /* background-color: #f8d7da; */
-            color: #AD0000;
-            font-weight: bold;
-        }
-        img {
-            max-width: 100%;        /* Chiều rộng tối đa là 100% khung chứa */
-            max-height: 500px;      /* Giới hạn chiều cao tối đa nếu cần */
-            height: auto;           /* Giữ tỷ lệ gốc của ảnh */
-            width: auto;            /* Không kéo giãn ảnh nhỏ */
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: block;
-            margin: 0 auto;         /* Căn giữa ảnh */
+            /* padding: 12px 18px; */
+            border-radius: 8px;
+            /* background-color: #f7f7f7;
+            border: 1px solid #e9e9e9; */
+            display: flex; /* Để căn icon và chữ */
+            align-items: flex-start;
+            gap: 10px;
+            transition: background-color 0.2s;
         }
 
-        .explanation-block {
-            margin-top: 10px;
-            padding: 6px 10px;
-            /* border-left: 6px solid; */
-            background-color: #F8FDFF;
-            border-radius: 6px;
-            font-size: 17px;
+        /* Kiểu dáng cho đáp án đúng */
+        li.correct {
+            /* background-color: #e6ffed; Nền xanh nhạt */
+            border-color: #28a745; /* Viền xanh */
+            color: #28a745; /* Chữ xanh */
+            font-weight: 600;
         }
-        .no-answers {
-            color: #e74c3c;
-            text-align: center;
+
+        /* Kiểu dáng cho đáp án sai do người dùng chọn */
+        li.incorrect {
+            /* background-color: #ffe6e6; Nền đỏ nhạt */
+            border-color: #dc3545; /* Viền đỏ */
+            color: #dc3545; /* Chữ đỏ */
+            font-weight: 600;
+        }
+
+        .quiz-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin: 16px;
+            display: none;
+        }
+
+
+        .course-title {
+            font-size: 1.1em;
             font-weight: bold;
+            margin: 0;
         }
-        .navigation-actions {
-            display: flex;
-            align-items: center;
+
+        .course-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin: 4px 0 12px;
         }
-        button, a.nav-link {
-            padding: 10px 13px;
+
+        .test-title {
+            font-weight: bold;
+            font-size: 1em;
+            margin: 8px 0;
+        }
+
+        .test-info p {
+            font-size: 0.9em;
+            margin: 4px 0;
+        }
+
+
+        
+        /* Kiểu dáng chung cho biểu tượng check/cross */
+        .icon-status {
+            font-size: 1.1em;
+            line-height: 1.5; /* Căn chỉnh với text */
+        }
+
+        /* Khối giải thích - loại bỏ CSS cũ vì dùng inline style */
+
+        /* Thông báo khi không có câu trả lời */
+        .no-answers {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2em;
+            color: #e74c3c;
+            border: 1px solid #f2dede;
+            background-color: #fdf7f7;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        .no-answers a.nav-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
             background-color: #007bff;
             color: white;
-            border: none;
             border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-right: 10px;
             text-decoration: none;
+            transition: background-color 0.3s ease;
         }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        button:hover:not(:disabled), a.nav-link:hover {
+        .no-answers a.nav-link:hover {
             background-color: #0056b3;
         }
-        a.nav-link {
-            background-color: #28a745;
+
+        /* Navigation actions */
+        .navigation-actions {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 0;
+        }
+
+        .navigation-actions .nav-link {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigation-actions .nav-link:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto; /* Căn giữa và tạo khoảng cách trên dưới */
+            /* background-color: #ffffff; */
+            border-radius: 15px;
+            /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); Bóng đổ cho container */
+            /* padding: 30px; Khoảng đệm bên trong container */
+        }
+        .back-btn span {
+            display: none;
+        }
+        
+        .quiz-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-family: sans-serif;
+            margin: 16px;
+            display: block;
+            
+        }
+
+        .course-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .course-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin: 4px 0 12px;
+        }
+
+        .test-title {
+            font-weight: bold;
+            font-size: 1em;
+            margin: 8px 0;
+        }
+
+        .test-info p {
+            font-size: 0.9em;
+            margin: 4px 0;
+        }
+        .mobile-visible {
+            display: table; /* hoặc block nếu không phải table */
+            width: 100%;
+            display:none;
+        }
+
+
         }
     </style>
 </head>
 <body>
-      <header class="header">
+    <header class="header">
         <div class="header-content">
-            <a href="javascript:void(0)" class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i>
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <img src="../../iconQL.png" alt="Quay lại" style="width:16px; height:16px; vertical-align:middle; margin-right:5px;">
                 <span>Quay lại</span>
             </a>
+
             <div class="logo">
                 <img src="../../ROSA_AI_Ready.png" alt="Logo">
             </div>
-        
+            <button2 class="menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button2>
         </div>
     </header>
     <div class="container">
         <h1>KẾT QUẢ BÀI KIỂM TRA CUỐI KHOÁ</h1>
-        <h3>Bạn phải vượt qua bài kiêm tra để hoàn tất bài học </h3>
-        <table  class="score-info" border="1"  cellpadding="5" cellspacing="0">
+        <h3 class="quiz-subtitle">Bạn phải vượt qua bài kiểm tra để hoàn tất bài học</h3>
+
+        <div class="quiz-card">
+            <p><?php echo htmlspecialchars($ten_khoa); ?></p>
+            <p class="course-desc">Dành cho người mới nắm vững nền tảng với biến, vòng lặp, hàm và cấu trúc dữ liệu</p>
+
+            <hr>
+            <h4><?php echo htmlspecialchars($ten_test); ?></h4>
+            <hr>
+            <div class="test-info">
+                <p>Số lần làm: <?php echo $max_attempts; ?></p>
+                <p>Yêu cầu đạt: <?php echo $highest_score >= $pass_score ? 'Đạt' : 'Không đạt'; ?></p>
+            </div>
+        </div>
+
+        <table  class="score-info mobile-visible" border="1"  cellpadding="5" cellspacing="0">
             <tr>
-                <th>Khoá học</th>
+                <th>Tên khoá học</th>
                 <th>Bài test</th>
                 <th>Điểm cao nhất</th>
-                <th>Số lần làm bài</th>
-                <th>Số câu cần đúng để đạt</th>
-                <th>Trạng thái</th>
+                <th>Số lần làm</th>
+                <th>Kết quả</th>
             </tr>
             <tr>
                 <td><?php echo htmlspecialchars($ten_khoa); ?></td>
                 <td><?php echo htmlspecialchars($ten_test); ?></td>
-                <td><?php echo $score; ?>/<?php echo $total_questions; ?> (<span class="percentage"><?php echo $current_percentage; ?>%</span>)</td>
-                <td><?php echo $attempts; ?> / <?php echo $max_attempts; ?></td>
-                <td><?php echo $required_for_80_percent; ?> câu</td>
-                <td>
+                <td><?php echo $score; ?>/<?php echo $total_questions; ?></td>
+                <td><?php echo $attempts; ?></td>
+                <td class="<?php echo $highest_score >= $pass_score ? 'status-pass' : 'status-fail'; ?>">
                    <?php echo $highest_score >= $pass_score ? 'Đạt' : 'Không đạt'; ?>
                 </td>
             </tr>
         </table>
-        <hr>
+        <div class="reset-button-container">
+            <form method="POST" action="">
+                <button type="submit" name="reset" value="1" class="reset-button" <?php echo $attempts >= $max_attempts ? 'disabled' : ''; ?>>
+                    LÀM LẠI
+                </button>
+            </form>
+        </div>
         <?php if (empty($answers) || empty($questions)): ?>
             <p class="no-answers">Bạn chưa trả lời câu hỏi nào! <a class="nav-link" href="chuong1_quiz.php?id_test=<?php echo htmlspecialchars($id_test); ?>&start=1">Quay lại làm bài</a></p>
         <?php else: ?>
@@ -356,7 +640,7 @@ $conn->close();
                 <div class="question-block">
                     <p class="question-text" style="font-weight: bold;">Câu <?php echo $index + 1; ?>/<?php echo $total_questions; ?>: <?php echo htmlspecialchars($question['question']); ?></p>
                     <?php if (!empty($question['image'])): ?>
-                        <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
+                        <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi" class="question-image">
                     <?php endif; ?>
                     <ul>
                         <?php foreach ($question['choices'] as $key => $value): ?>
@@ -371,16 +655,18 @@ $conn->close();
                             // Nếu người dùng chọn đúng, tô xanh đáp án đúng
                             if ($selected_is_correct && $is_correct_answer) {
                                 $li_class = 'correct';
-                                $icon = '✔️';
+                                $icon = '<img src="../../dung.png" alt="icon" style="width:16px; height:16px;">';
+
                             }
                             // Nếu người dùng chọn sai, chỉ tô đỏ đáp án họ chọn
                             if (!$selected_is_correct && $is_selected) {
                                 $li_class = 'incorrect';
-                                $icon = '❌';
+                                $icon = '<img src="../../sai.png" alt="icon" style="width:16px; height:16px;">';
                             }
                             ?>
                             <li class="<?php echo $li_class; ?>">
-                                <?php echo $icon; ?> <?php echo $key; ?>. <?php echo htmlspecialchars($value); ?>
+                                <span><?php echo $key; ?>. <?php echo htmlspecialchars($value); ?></span>
+                                <span class="icon-status"><?php echo $icon; ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -388,35 +674,32 @@ $conn->close();
                     // Xác định lại biến $is_correct cho giải thích
                     $is_correct = isset($answers[$index]) && ($answers[$index]['selected'] === $question['correct']);
                             
-                    // Giải thích nếu chọn sai
+                    // Giải thích nếu chọn sai hoặc có giải thích
                     if (isset($answers[$index]['selected']) && !empty(trim($question['explanations'][$answers[$index]['selected']] ?? ''))) {
-                        echo "<div class='explanation-block' style='border-color: " .";'>";
-                        echo "<p><strong>Giải thích: </strong>" . htmlspecialchars($question['explanations'][$answers[$index]['selected']] ?? '') . "</p>";
-                       if (!empty($question['images'][$index])) {
-                             echo "<div style='text-align: left;'>
-                                    <div style='display: flex; align-items: center;'>
-                                        <img src='../../GT.png' alt='Ảnh minh họa' style='max-height:40px; margin-right:10px;'>
-                                        <span><strong style='color:#205AB1;'>Giải thích:</strong> " . htmlspecialchars($explanation) . "</span>
-                                    </div>
-                                </div>";
-                        }
-                
+                        $explanation = $question['explanations'][$answers[$index]['selected']] ?? '';
+                        echo "<div style='margin-top: 15px; padding: 12px; background-color: #e8f4fd; border: 1px solid #b3d9ff; border-radius: 30px; display: flex; align-items: flex-start; gap: 8px;'>";
+                        echo "<img src='../../GT.png' alt='Icon giải thích' style='width: 20px; height: 20px; margin-top: 2px;'>";
+                        echo "<div>";
+                        echo "<span style='color: #1976d2; font-weight: 600;'>Giải thích:</span> ";
+                        echo "<span style='color: #333;'>" . htmlspecialchars($explanation) . "</span>";
+                        echo "</div>";
                         echo "</div>";
                     }
                     ?>
-                    <hr>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
+        
         <div class="navigation-actions">
-            <form method="POST" action="">
-                <button type="submit" name="reset" value="1" <?php echo $attempts >= $max_attempts ? 'disabled' : ''; ?>>
-                    🔁 Làm lại (<?php echo $attempts; ?> / <?php echo $max_attempts; ?>)
-                </button>
-            </form>
-            <a href="<?php echo htmlspecialchars($link_tiep_tuc); ?>" class="nav-link" style="margin-left: 72%;">→ Tiếp tục</a>
+            <a href="<?php echo htmlspecialchars($link_tiep_tuc); ?>" class="nav-link">→ Tiếp tục</a>
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
 <?php ob_end_flush(); ?>
