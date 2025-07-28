@@ -226,11 +226,11 @@ $conn->close();
         }
         .header {
             padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
-            background-color: #FFFFFF;
+            border-bottom: 1px solid #AFAAAA; /* Đường gạch ngang dưới */
+
         }
         .header-content {
             display: flex;
@@ -239,6 +239,25 @@ $conn->close();
             max-width: 1336px;
             margin: 0 auto;
         }
+        /* Kiểu dáng cho nút "Quay lại" trong header */
+        .back-btn {
+            background: none; /* Không có nền */
+            border: none; /* Không có viền */
+            cursor: pointer; /* Biến con trỏ thành bàn tay khi di chuột */
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            padding: 0;
+            display: flex; /* Để căn chỉnh icon và chữ */
+            align-items: center;
+            gap: 0.5rem; /* Khoảng cách giữa icon và chữ */
+            text-decoration: none; /* Bỏ gạch chân cho link 'Quay lại' */
+            transition: color 0.2s ease; /* Hiệu ứng chuyển màu mượt mà */
+        }
+         .back-btn i {
+            font-size: 1.2rem;
+        }
+
         .logo {
             display: flex;
             align-items: center;
@@ -254,12 +273,12 @@ $conn->close();
             object-fit: contain;
             align-items: center;
         }
-        .logo-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Màu gradient cho chữ ROSA */
+            -webkit-background-clip: text; /* Cắt nền theo hình dạng chữ */
+            -webkit-text-fill-color: transparent; /* Làm màu chữ trong suốt để thấy nền */
             background-clip: text;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif; /* Font Arial cho chữ logo */
             font-weight: 900;
         }
         .container {
@@ -267,7 +286,8 @@ $conn->close();
             margin: 40px auto;
             background-color: #ffffff;
             border-radius: 15px;
-            border: 3px #AFAFAF solid
+            border: none; /* Mặc định không có border trên máy tính */
+
         }
         .mobile-only-header {
             display: none;
@@ -294,26 +314,41 @@ $conn->close();
             margin-bottom: 30px;
         }
         .question-box h3 {
-            color: #007bff;
+            color: #5B5B5B;
             margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #8EB6D8;
+            font-size: 18px;
+            font-weight: 500;
         }
         ul {
             list-style: none;
             padding: 0;
         }
         ul li {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 23px;
             background: white;
+            border: 1px solid #205AB1;
             border-radius: 30px;
-            border: 1px #205AB1 solid;
+            margin-bottom: 10px;
+            /* padding: 10px; */
+            transition: all 0.3s ease;
         }
+
         ul li label {
+            display: block;
             font-size: 17px;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
+            padding: 12px 18px;
         }
+
+        /* Hiệu ứng khi được chọn */
+        li:has(input[type="radio"]:checked) {
+            box-shadow: 1px 1px 20px 1px rgba(53, 128, 240, 0.5) inset;
+            /* border: 2px solid #205AB1; */
+            background-color: #f9fcff;
+        }
+
         /* Phần CSS mới cho các nút */
         .btn-area {
             display: flex;
@@ -340,18 +375,21 @@ $conn->close();
         button[type="submit"][name="previous"] {
             background: #6D4C41;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size:10px;
         }
         /* Nút Câu trước - Màu xám khi disabled */
         button[type="submit"][name="previous"]:disabled {
             background: #9E9E9E;
             cursor: not-allowed;
             box-shadow: none;
+            font-size:10px;
         }
         /* Hiệu ứng hover cho nút Câu trước */
         button[type="submit"][name="previous"]:not(:disabled):hover {
             background: #5D4037;
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            font-size:10px;
         }
         /* Nút Câu sau/Nộp bài - Giữ nguyên màu xanh */
         button[type="submit"][name="next"],
@@ -370,9 +408,9 @@ $conn->close();
             max-height: 500px;
             height: auto;
             width: auto;
-            border: 1px solid #ddd;
+            /* border: 1px solid #ddd; */
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
             display: block;
             margin: 0 auto;
         }
@@ -393,13 +431,136 @@ $conn->close();
         a.nav-link:hover {
             background-color: #218838;
         }
+        .header {
+            background-color: #f9f9f9;
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+      .logo img {
+            height: 61px; /* trước là 36px, giờ to hơn */
+            display: block;
+            margin: 0 auto;
+        }
+
+
+        /* Căn logo chính giữa trên điện thoại */
+        @media (max-width: 768px) {
+            .logo {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .back-btn {
+                font-size: 14px;
+                color: #333;
+                text-decoration: none;
+            }
+
+            .menu-btn {
+                background: none;
+                border: none;
+                font-size: 20px;
+                color: #333;
+            }
+
+            .mobile-title {
+                display: block;
+                text-align: center;
+                padding: 10px 0 0;
+            }
+
+            .mobile-title h2 {
+                font-size: 18px;
+                font-weight: bold;
+                color: #000;
+                margin: 5px 0;
+            }
+
+            .mobile-title p {
+                font-size: 14px;
+                color: #4a6fa1;
+                margin: 0;
+            }
+        }
+
+        /* Ẩn mobile-title trên máy tính */
+        @media (min-width: 769px) {
+            .mobile-title {
+                display: none;
+            }
+        }
+
+
+        
+
+        @media (max-width: 768px) {
+            body {
+                background: #EFEFEF;
+                margin: 0;
+                padding: 20px;
+                font-size: 17px;
+                color: #333;
+            }
+            .header {
+                background-color: transparent;
+                border-bottom: none;            
+            }
+            .question-box h3 {
+                display: block !important; /* ép hiển thị */
+                border-bottom:none;
+
+            }
+            ul li {
+                background: white;
+                border: 1px solid #205AB1;
+                border-radius: 30px;
+                margin-bottom: 10px;
+                /* padding: 10px; */
+                transition: all 0.3s ease;
+            }
+
+            ul li label {
+                display: block;
+                font-size: 17px;
+                border-radius: 25px;
+                cursor: pointer;
+                padding: 12px 18px;
+            }
+
+            /* Hiệu ứng khi được chọn */
+            li:has(input[type="radio"]:checked) {
+                box-shadow: 1px 1px 20px 1px rgba(31, 90, 177, 0.5) inset;
+                border: 2px solid #1f5ab1;
+                background-color: #f9fcff;
+            }
+        }
+
         @media only screen and (max-width: 768px) {
             .mobile-only-header {
                 display: block;
             }
-            .btn-area {
-                flex-direction: column;
+           .btn-area {
+                display: flex;
+                flex-direction: row; /* Theo chiều ngang mặc định */
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                font-size:20px;
             }
+           
+            .back-btn span {
+                display: none;
+            }
+                
             button {
                 width: 100%;
             }
@@ -477,33 +638,45 @@ $conn->close();
 <body>
     <header class="header">
         <div class="header-content">
-            <a href="javascript:void(0)" class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i>
+            <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
+                <img src="../../iconQL.png" alt="Quay lại" style="width:16px; height:16px; vertical-align:middle; margin-right:5px;">
                 <span>Quay lại</span>
             </a>
+
             <div class="logo">
-                <img src="../../ROSA_AI_Ready.png" alt="Logo">
+                <img src="../../ROSA_AI_Ready.png" alt="ROSA">
             </div>
-            <button2 class="menu-btn" onclick="toggleSidebar()">
+
+            <button class="menu-btn" onclick="toggleSidebar()">
                 <i class="fas fa-bars"></i>
-            </button2>
+            </button>
         </div>
-    </header>
-    <div class="container">
-        <div class="mobile-only-header">
-            <h2>BÀI KIỂM TRA CUỐI KHOÁ</h2>
+
+        <div class="mobile-title">
+            <h2>BÀI KIỂM TRA CUỐI KHÓA</h2>
             <p>Bạn cần vượt qua bài kiểm tra để hoàn tất khóa học</p>
         </div>
+    </header>
+
+   
+    
+    <div class="container">
+        <!-- <div class="mobile-only-header">
+            <h2>BÀI KIỂM TRA CUỐI KHOÁ</h2>
+            <p>Bạn cần vượt qua bài kiểm tra để hoàn tất khóa học</p>
+        </div> -->
         <?php if ($attempts >= $max_attempts): ?>
             <p class="no-answers">Bạn đã sử dụng hết số lần làm bài! <a class="nav-link" href="chuong1_result.php?id_test=<?php echo htmlspecialchars($id_test); ?>">Xem kết quả</a></p>
         <?php elseif ($current_index < count($_SESSION['questions_' . $id_test])): ?>
             <?php $question = $_SESSION['questions_' . $id_test][$current_index]; ?>
             <form method="POST" action="">
                 <div class="question-box">
-                    <h3>Câu <?php echo $current_index + 1; ?> / <?php echo count($_SESSION['questions_' . $id_test]); ?>: </h3>
-                    <h3><?php echo htmlspecialchars($question['question']); ?></h3>
+                        <h3>
+                            Câu <?php echo $current_index + 1; ?> / <?php echo count($_SESSION['questions_' . $id_test]); ?>:
+                            <?php echo htmlspecialchars($question['question']); ?>
+                        </h3>
                     <?php if (!empty($question['image'])): ?>
-                        <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
+                        <img src="<?php echo '../../admin/' . htmlspecialchars($question['image']); ?>" alt="Hình ảnh câu hỏi">
                     <?php endif; ?>
                     <ul>
                         <?php foreach ($question['choices'] as $key => $value): ?>
@@ -514,10 +687,11 @@ $conn->close();
                                         required>
                                     <?php echo $key; ?>. <?php echo htmlspecialchars($value); ?>
                                 </label>
-                                <?php if (!empty($question['images'][$key])): ?>
-                                    <img src="<?php echo '/rosa_courses/login/admin/' . htmlspecialchars($question['images'][$key]); ?>" alt="Hình ảnh đáp án <?php echo $key; ?>">
-                                <?php endif; ?>
                             </li>
+                               
+                            <?php if (!empty($question['images'][$key])): ?>
+                                <img src="<?php echo '../../admin/' . htmlspecialchars($question['images'][$key]); ?>" alt="Hình ảnh đáp án <?php echo $key; ?>">
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
                     <div class="btn-area">

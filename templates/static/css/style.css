@@ -5,16 +5,16 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Montserrat, sans-serif;
     line-height: 1.6;
     color: #333;
     font-size: 16px;
-    background:#ffffff;
+    background: #ffffff;
     min-height: 100vh;
 }
 
-/* Header Styles */
-.header {
+/* Site Header Styles - Đổi tên từ .header thành .site-header */
+.site-header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     position: fixed;
@@ -35,13 +35,6 @@ body {
     margin: 0 auto;
 }
 
-/* Force header items to always be visible
-.header-content > * {
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: flex !important;
-} */
-
 .back-btn {
     display: flex;
     font-size: 20px;
@@ -53,23 +46,23 @@ body {
     border-radius: 8px;
     transition: all 0.3s ease;
     background: #ffffff;
-    visibility: visible !important; /* Force always visible */
-    opacity: 1 !important; /* Force always visible */
-}
-
-
-/* Force back button to always be visible - override any JavaScript changes */
-/* .back-btn,
-.back-btn span,
-.back-btn i {
-    display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
-} */
+}
+
+.back-btn:hover {
+    background: rgba(117, 88, 93, 0.1);
+    transform: translateX(-2px);
+}
 
 .logo-img {
     height: 60px;
     width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
 }
 
 .menu-btn {
@@ -86,35 +79,45 @@ body {
     transition: all 0.3s ease;
 }
 
+.menu-btn:hover {
+    background: rgba(117, 88, 93, 0.1);
+    transform: scale(0.98);
+}
+
 /* Title Section */
 .title-section {
-    margin-top: 80px;
+    /* margin-top: 80px; */
     padding: 30px 20px;
     text-align: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: white;
+    color: #000000;
 }
 
 .main-title {
-    font-size: 2.5rem;
+    font-size: 30px;
     font-weight: 700;
     margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
+    background: linear-gradient(135deg, #21a6ff 0%, #1e90ff 100%);
+    /* -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    background-clip: text;
 }
 
 .subtitle {
     font-size: 1.1rem;
     opacity: 0.9;
+    margin-bottom: 20px;
 }
 
 .subtitle a {
-    color: rgba(255, 255, 255, 0.9);
+    color: #203D6F;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .subtitle a:hover {
-    color: white;
+    color: #21a6ff;
 }
 
 /* Navigation Links */
@@ -138,6 +141,14 @@ a.start-quiz {
     background: linear-gradient(135deg, #21a6ff 0%, #1e90ff 100%);
 }
 
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
 a.nav-link:hover,
 a.start-quiz:hover {
     transform: translateY(-2px);
@@ -145,7 +156,7 @@ a.start-quiz:hover {
     background: linear-gradient(135deg, #1e90ff 0%, #21a6ff 100%);
 }
 
-/* Container Layout - Alternative approach */
+/* Container Layout */
 .container {
     display: flex;
     flex-direction: row;
@@ -158,18 +169,18 @@ a.start-quiz:hover {
 
 /* Force positioning with specific selectors */
 .container > .chapter {
-    order: 3 !important; /* Highest order to be on the right */
+    order: 3 !important;
 }
 
 .container > .content {
-    order: 1 !important; /* Lowest order to be on the left */
+    order: 1 !important;
 }
 
 .container > .space {
-    order: 2; /* Middle */
+    order: 2;
 }
 
-/* Chapter Sidebar - Force to the right */
+/* Chapter Sidebar */
 .chapter {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -177,11 +188,12 @@ a.start-quiz:hover {
     min-width: 300px;
     border-radius: 15px;
     overflow-y: auto;
-    /* max-height: calc(100vh - 200px); */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    /* border: 1px solid rgba(226, 226, 226, 0.3); */
     padding: 20px;
-    order: 2; /* Force to appear last (right side) */
+    order: 2;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(0);
+    opacity: 1;
 }
 
 .chapter h3 {
@@ -201,11 +213,11 @@ a.start-quiz:hover {
     display: block;
     margin: 8px 0;
     text-decoration: none;
-    color: #666;
+    color: #064E96;
     padding: 8px 12px;
     border-radius: 8px;
     transition: all 0.3s ease;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .chapter a:hover {
@@ -214,7 +226,7 @@ a.start-quiz:hover {
     transform: translateX(5px);
 }
 
-/* Content Area - Force to the left */
+/* Content Area */
 .content {
     flex: 1;
     background: rgba(255, 255, 255, 0.95);
@@ -223,9 +235,9 @@ a.start-quiz:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(226, 226, 226, 0.3);
     overflow: hidden;
-    order: 1; /* Force to appear first (left side) */
+    order: 1;
+    transition: all 0.3s ease-in-out;
 }
-
 
 .main {
     padding: 30px;
@@ -233,7 +245,7 @@ a.start-quiz:hover {
 }
 
 .main h3 {
-    color: #4f96e7;
+    color: #064E96;
     margin: 25px 0 15px 0;
     font-size: 1.4rem;
     font-weight: 600;
@@ -371,12 +383,6 @@ section a:hover {
 }
 
 /* Animation for showing/hiding chapter */
-.chapter {
-    transition: all 0.3s ease-in-out;
-    transform: translateX(0);
-    opacity: 1;
-}
-
 .chapter.hiding {
     transform: translateX(100%);
     opacity: 0;
@@ -388,10 +394,6 @@ section a:hover {
 }
 
 /* Content expansion animation */
-.content {
-    transition: all 0.3s ease-in-out;
-}
-
 .container.hide-chapter .content {
     animation: expandContent 0.3s ease-in-out;
 }
@@ -405,9 +407,10 @@ section a:hover {
     }
 }
 
-/* Menu button active state */
+/* Menu button states */
 .menu-btn.active {
     background: #3d7bc7;
+    color: white;
     transform: scale(0.95);
 }
 
@@ -416,21 +419,41 @@ section a:hover {
     transition: transform 0.3s ease;
 }
 
-/* THAY THẾ TOÀN BỘ PHẦN CSS TỪ @media (max-width: 768px) TRỞ XUỐNG */
+ .navigation {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
 
-/* Responsive - Hide chapter behavior */
+
+@media (max-width: 767px) {
+   .navigation {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .select {
+        padding: 8px 15px; /* Giảm padding cho nút trên điện thoại */
+        font-size: 15px; /* Giảm cỡ chữ trên điện thoại */
+        min-width: unset; /* Bỏ min-width nếu có */
+    }
+}
+/* Responsive Design */
 @media (max-width: 768px) {
     .main-title {
         font-size: 2rem;
     }
-    
+
     .container {
         flex-direction: column;
         padding: 10px;
         position: relative;
     }
-    
-    /* Chapter styling for mobile - initially hidden */
+
+    /* Chapter styling for mobile */
     .chapter {
         position: fixed;
         top: 80px;
@@ -450,71 +473,73 @@ section a:hover {
         display: block;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
     }
-    
-    /* When chapter is shown (not hide-chapter) */
+
+    .back-btn {
+        display: none;
+    }
+
+    /* When chapter is shown */
     .container:not(.hide-chapter) .chapter {
         transform: translateY(0);
     }
-    
+
     /* Hide chapter when hide-chapter class is present */
     .container.hide-chapter .chapter {
         transform: translateY(-100%);
     }
-    
-    /* LOGIC NÚT QUAY LẠI TRÊN MOBILE */
-    /* Khi chapter HIỂN THỊ - ẩn nút quay lại */
+
+    /* Back button logic on mobile */
     .container:not(.hide-chapter) .back-btn {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
     }
-    
-    /* Khi chapter ẨN - hiển thị nút quay lại */
+
     .container.hide-chapter .back-btn {
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
     }
-    
+
     /* Keep header always visible */
-    .header {
+    .site-header {
         z-index: 1000;
         position: fixed;
     }
-    
+
     /* Content remains normal */
     .content {
         width: 100%;
         order: 2;
     }
-    
+
     .container.hide-chapter .content {
         width: 100%;
         max-width: none;
     }
-    
+
     .main {
         padding: 20px;
     }
-    
+
     .display {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .select {
         min-width: auto;
         max-width: none;
     }
-    
+
     .header-content {
         padding: 10px 15px;
     }
-    
+
     .menu-btn span {
         display: none;
     }
-    
+
     /* Chapter header styling */
     .chapter h3:first-child {
         margin-top: 0;
@@ -525,62 +550,69 @@ section a:hover {
         border-bottom: 2px solid #4f96e7;
         margin-bottom: 15px;
     }
+
+    .navigation {
+        gap: 1rem;
+    }
+
+    .navigation a {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
     body {
         font-size: 14px;
     }
-    
+
     .main-title {
         font-size: 1.5rem;
     }
-    
+
     .title-section {
-        padding: 20px 15px;
+        padding: 35px 15px;
     }
-    
+
     .main {
         padding: 15px;
     }
-    
+
     .main h3 {
         font-size: 1.2rem;
     }
-    
+
     .select {
         padding: 15px;
     }
-    
+
     .header-content {
         justify-content: space-between;
         align-items: center;
     }
-    
+
     /* Chapter full screen overlay on small screens */
     .chapter {
         padding: 70px 15px 15px 15px;
         font-size: 14px;
     }
-    
+
     .chapter h3 {
         font-size: 1.1rem;
     }
-    
+
     .chapter a {
         font-size: 13px;
         padding: 6px 10px;
     }
-    
-    /* LOGIC NÚT QUAY LẠI TRÊN MOBILE NHỎ */
-    /* Khi chapter HIỂN THỊ - ẩn nút quay lại */
+
+    /* Back button logic on small mobile */
     .container:not(.hide-chapter) .back-btn {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
     }
-    
-    /* Khi chapter ẨN - hiển thị nút quay lại */
+
     .container.hide-chapter .back-btn {
         display: flex !important;
         visibility: visible !important;
@@ -590,11 +622,11 @@ section a:hover {
         font-size: 14px;
         padding: 6px 12px;
     }
-    
+
     .container.hide-chapter .back-btn span {
         display: inline !important;
     }
-    
+
     .menu-btn {
         display: flex !important;
         align-items: center;
@@ -602,12 +634,27 @@ section a:hover {
         font-size: 14px;
         padding: 6px 12px;
     }
-    
+
     .menu-btn span {
         display: none;
     }
-    
+
     .logo-img {
-        height: 30px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 50px;
+    }
+
+    .navigation {
+        /* flex-direction: column; */
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .navigation a {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
     }
 }

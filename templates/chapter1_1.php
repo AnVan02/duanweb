@@ -11,9 +11,11 @@
     <title>Giới thiệu</title>
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/chapter1_1.css">
-    <link rel="stylesheet" href="static/css/code.css">
+     <link rel="stylesheet" href="static/css/code.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header class="header">
@@ -36,11 +38,7 @@
        
     </div>
 
-    <nav>
-         <div class="title-section">
-            <button class="button" onclick="toggleChapter()"><i class="fa fa-bars"></i></button>
-        </div>
-    </nav>
+    
     <div class="container">
         <div class="chapter" id="chapter">
             <h3><a href="chapter1.php">Chương 1:Giới thiệu chung về Python</a></h3>
@@ -270,35 +268,33 @@
                 <p>• <b>Pandas:</b> Đây là thư viện quan trọng trong lĩnh vực khoa học dữ liệu và xử lý dữ liệu lớn. Các
                     phiên bản mới nhất của Pandas chỉ hỗ trợ Python 3, giúp cải thiện tốc độ xử lý dữ liệu, tối ưu bộ
                     nhớ và hỗ trợ tốt hơn các kiểu dữ liệu hiện đại như Categorical và Datetime64..</p>
-                <div class="display">
-                    <a href="chapter1.php" class="select">
-                        <div class="arrow">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                        <div class="text-container_left">
-                            <div class="previously">PREVIOUSLY</div>
-                            <div class="link">Tổng quan chương 1.</div>
-                        </div>
-                    </a>
-
-                    <a href="chapter1_2.php" class="select">
-                        <div class="text-container_right">
-                            <div class="previously">UP NEXT</div>
-                            <div class="link">Chương trình đầu tiên làm quen với python.</div>
-                        </div>
-                        <div class="arrow">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
-        <div class="space">
+    </div>
+    
+   <div class="navigation">
+        <a href="chapter1.php" class="select">
+            <div class="arrow">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="text-container_left">
+                <div class="previously">PREVIOUSLY</div>
+                <div class="link">Tổng quan chương 1.</div>
+            </div>
+        </a>
 
-        </div>
+        <a href="chapter1_2.php" class="select">
+            <div class="text-container_right">
+                <div class="previously">UP NEXT</div>
+                <div class="link">Chương trình đầu tiên làm quen với python.</div>
+            </div>
+            <div class="arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </a>
     </div>
     <script src="static/javascript/main.js"></script>
-    <script src="static/javascript/code.js"></script>
+    <!-- <script src="static/javascript/code.js"></script> -->
     <script src="static/javascript/study.js"></script>
 </body>
 

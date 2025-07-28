@@ -18,7 +18,8 @@
     margin-bottom: 15px;
 }
 
-.header {
+/* Đổi tên từ .header thành .code-header để tránh xung đột */
+.code-header {
     height: 10%;
     display: flex;
     flex-direction: row;
@@ -26,18 +27,21 @@
     background-color: #e6e5e5;
 }
 
-.header button {
+.code-header button {
     border: none;
     margin-right: 10px;
     background-color: #e6e5e5;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.header button:hover {
+.code-header button:hover {
     color: #477fbe;
 }
 
 .circle {
     display: flex;
+    align-items: center;
 }
 
 .circle svg {
@@ -46,9 +50,12 @@
 
 .circle p {
     color: #6e6e6e;
+    margin: 0;
+    padding: 0 5px;
 }
 
-.code {
+/* Đổi tên từ .code thành .code-content để rõ ràng hơn */
+.code-content {
     height: 88%;
     width: 98%;
     background-color: #0c0c0c;
@@ -58,6 +65,7 @@
     padding: 10px;
     margin-left: 10px;
     border-radius: 20px;
+    overflow-x: auto;
 }
 
 code {
@@ -70,13 +78,15 @@ code {
     white-space: pre-wrap; 
     word-wrap: break-word;
     overflow-wrap: break-word;
+    line-height: 1.4;
 }
 
 code span {
     color: #ee905a;
 }
 
-.output {
+/* Đổi tên từ .output thành .code-output để tránh xung đột */
+.code-output {
     background-color: #fff;
     color: #333;
     padding: 10px;
@@ -86,4 +96,54 @@ code span {
     min-height: 30px;
     width: 98%;
     margin-left: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+/* Responsive cho code editor */
+@media (max-width: 768px) {
+    .example {
+        width: 95%;
+        padding: 3px;
+    }
+    
+    .code-header {
+        height: auto;
+        min-height: 40px;
+        padding: 5px;
+    }
+    
+    .code-content {
+        width: 100%;
+        margin-left: 0;
+        padding: 8px;
+    }
+    
+    .code-output {
+        width: 100%;
+        margin-left: 0;
+        padding: 8px;
+    }
+    
+    code {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .example {
+        width: 100%;
+        border-radius: 10px;
+    }
+    
+    code {
+        font-size: 14px;
+        padding: 6px;
+    }
+    
+    .code-output {
+        font-size: 12px;
+        padding: 6px;
+    }
 }

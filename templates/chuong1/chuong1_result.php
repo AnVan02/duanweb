@@ -186,11 +186,12 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <title>Kết quả Quiz - <?php echo htmlspecialchars($ten_khoa); ?></title>
      <style>
         /* CSS tổng thể cho trang */
         body {
-            font-family: 'Montserrat', sans-serif; /* Sử dụng font Montserrat */
+            font-family: 'Montserrat'; /* Sử dụng font Montserrat */
             background: #F0F2F5; /* Nền màu xám nhạt */
             margin: 0;
             padding: 0;
@@ -234,10 +235,6 @@ $conn->close();
             transition: color 0.2s ease; /* Hiệu ứng chuyển màu mượt mà */
         }
 
-        .back-btn:hover {
-            color: #007bff; /* Màu xanh khi di chuột qua */
-        }
-
         .back-btn i {
             font-size: 1.2rem;
         }
@@ -274,7 +271,7 @@ $conn->close();
             /* background-color: #ffffff; */
             border-radius: 15px;
             /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); Bóng đổ cho container */
-            padding: 30px; /* Khoảng đệm bên trong container */
+            /* padding: 30px; Khoảng đệm bên trong container */
         }
 
         /* Tiêu đề chính của trang kết quả */
@@ -406,7 +403,7 @@ $conn->close();
 
         ul li {
             margin-bottom: 10px;
-            padding: 12px 18px;
+            /* padding: 12px 18px; */
             border-radius: 8px;
             /* background-color: #f7f7f7;
             border: 1px solid #e9e9e9; */
@@ -431,6 +428,41 @@ $conn->close();
             color: #dc3545; /* Chữ đỏ */
             font-weight: 600;
         }
+
+        .quiz-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin: 16px;
+            display: none;
+        }
+
+
+        .course-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .course-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin: 4px 0 12px;
+        }
+
+        .test-title {
+            font-weight: bold;
+            font-size: 1em;
+            margin: 8px 0;
+        }
+
+        .test-info p {
+            font-size: 0.9em;
+            margin: 4px 0;
+        }
+
+
         
         /* Kiểu dáng chung cho biểu tượng check/cross */
         .icon-status {
@@ -486,15 +518,71 @@ $conn->close();
         .navigation-actions .nav-link:hover {
             background-color: #0056b3;
         }
+        @media (max-width: 768px) {
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto; /* Căn giữa và tạo khoảng cách trên dưới */
+            /* background-color: #ffffff; */
+            border-radius: 15px;
+            /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); Bóng đổ cho container */
+            /* padding: 30px; Khoảng đệm bên trong container */
+        }
+        .back-btn span {
+            display: none;
+        }
+        
+        .quiz-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-family: sans-serif;
+            margin: 16px;
+            display: block;
+            
+        }
+
+        .course-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .course-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin: 4px 0 12px;
+        }
+
+        .test-title {
+            font-weight: bold;
+            font-size: 1em;
+            margin: 8px 0;
+        }
+
+        .test-info p {
+            font-size: 0.9em;
+            margin: 4px 0;
+        }
+        .mobile-visible {
+            display: table; /* hoặc block nếu không phải table */
+            width: 100%;
+            display:none;
+        }
+
+
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
             <a href="<?php echo htmlspecialchars($link_quay_lai); ?>" class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i>
+                <img src="../../iconQL.png" alt="Quay lại" style="width:16px; height:16px; vertical-align:middle; margin-right:5px;">
                 <span>Quay lại</span>
             </a>
+
             <div class="logo">
                 <img src="../../ROSA_AI_Ready.png" alt="Logo">
             </div>
@@ -506,7 +594,21 @@ $conn->close();
     <div class="container">
         <h1>KẾT QUẢ BÀI KIỂM TRA CUỐI KHOÁ</h1>
         <h3 class="quiz-subtitle">Bạn phải vượt qua bài kiểm tra để hoàn tất bài học</h3>
-        <table  class="score-info" border="1"  cellpadding="5" cellspacing="0">
+
+        <div class="quiz-card">
+            <p><?php echo htmlspecialchars($ten_khoa); ?></p>
+            <p class="course-desc">Dành cho người mới nắm vững nền tảng với biến, vòng lặp, hàm và cấu trúc dữ liệu</p>
+
+            <hr>
+            <h4><?php echo htmlspecialchars($ten_test); ?></h4>
+            <hr>
+            <div class="test-info">
+                <p>Số lần làm: <?php echo $max_attempts; ?></p>
+                <p>Yêu cầu đạt: <?php echo $highest_score >= $pass_score ? 'Đạt' : 'Không đạt'; ?></p>
+            </div>
+        </div>
+
+        <table  class="score-info mobile-visible" border="1"  cellpadding="5" cellspacing="0">
             <tr>
                 <th>Tên khoá học</th>
                 <th>Bài test</th>
@@ -553,17 +655,18 @@ $conn->close();
                             // Nếu người dùng chọn đúng, tô xanh đáp án đúng
                             if ($selected_is_correct && $is_correct_answer) {
                                 $li_class = 'correct';
-                                $icon = '✔️';
+                                $icon = '<img src="../../dung.png" alt="icon" style="width:16px; height:16px;">';
+
                             }
                             // Nếu người dùng chọn sai, chỉ tô đỏ đáp án họ chọn
                             if (!$selected_is_correct && $is_selected) {
                                 $li_class = 'incorrect';
-                                $icon = '❌';
+                                $icon = '<img src="../../sai.png" alt="icon" style="width:16px; height:16px;">';
                             }
                             ?>
                             <li class="<?php echo $li_class; ?>">
-                                <span class="icon-status"><?php echo $icon; ?></span>
                                 <span><?php echo $key; ?>. <?php echo htmlspecialchars($value); ?></span>
+                                <span class="icon-status"><?php echo $icon; ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>

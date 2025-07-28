@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
 </head>
 <body>
      <header class="header">
@@ -30,7 +32,7 @@
     <div class="title-section">
         <h1 class="main-title">GIỚI THIỆU CHUNG VỀ PYTHON</h1>
         <p class="subtitle">
-            <a href="#">Chương 1: Giới thiệu chung</a> > <a href="#">Làm quen với Python</a>
+            <a href="#">Chương 1: Giới thiệu chung</a><a href="#">Làm quen với Python</a>
         </p>
     </div>
     <div class="container">
@@ -103,7 +105,7 @@
             </div>
         </div>
     </div>
-    <div class="display">
+       <div class="navigation">
         <a href="index.php" class="select">
             <div class="arrow">
                 <i class="fas fa-arrow-left"></i>
