@@ -14,7 +14,7 @@ $query_article_edit = mysqli_query($mysqli, $sql_article_edit);
 </div>
 
 <?php while ($row = mysqli_fetch_array($query_article_edit)) { ?>
-    <form method="POST" action="modules/blog/xuly.php?article_link=<?php echo $row['article_link'] ?>" enctype="multipart/form-data">
+    <form method="POST" action="modules/blog/xuly.php?article_link=<?php echo $row['article_id'] ?>" enctype="multipart/form-data">
         <div class="row">
             <!-- Cột trái -->
             <div class="col-lg-8 grid-margin stretch-card">

@@ -22,3 +22,5 @@ RewriteRule ^tintuc/tag/([^/]+)$ tag.php?tag=$1 [L,QSA]
 
 
 
+
+

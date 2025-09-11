@@ -1,0 +1,111 @@
+/* Reset đơn giản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat;
+}
+
+.banner {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 80%;
+    height: auto;
+    /* display: block; */
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero-text p {
+    font-size: 20px;
+}
+
+.product-section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.product-section h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.product-section p {
+    font-size: 18px;
+    max-width: 900px;
+    margin: auto;
+    line-height: 1.6;
+}
+
+/* Phần lợi ích và bước cài đặt */
+.install-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 50px 10%;
+}
+
+.install-step.reverse {
+    flex-direction: row-reverse;
+}
+
+.install-text h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.install-text p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.install-image img {
+    max-width: 450px;
+    width: 100%;
+    height: auto;
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    .hero-text h2 {
+        font-size: 28px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    .install-step,
+    .install-step.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .install-step {
+        padding: 30px 5%;
+    }
+}

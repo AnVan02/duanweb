@@ -1,0 +1,232 @@
+    /* === CSS CHUNG === */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #222;
+        background: #fff;
+    }
+
+    .banner {
+        position: relative;
+        text-align: center;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .hero-text {
+        position: absolute;
+        font-size: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align: center;
+    }
+
+    .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 48px 24px 0 24px;
+    }
+
+    .section-container h4 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 12px;
+    }
+
+    .section-container p {
+        font-size: 1.08rem;
+        line-height: 1.6;
+    }
+
+    .image-container {
+        width: 100%;
+        margin: 36px auto 0 auto;
+        text-align: center;
+    }
+
+    .image-container img {
+        width: 100%;
+        max-width: 900px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        border-radius: 18px;
+    }
+
+    .install-section {
+        margin: 64px auto;
+        padding: 0 24px;
+        max-width: 1000px;
+    }
+
+    .install-section h2 {
+        text-align: center;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 48px;
+        letter-spacing: 1px;
+    }
+
+    .install-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 48px;
+        gap: 32px;
+    }
+
+    .install-step.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .install-text {
+        flex: 1;
+    }
+
+    .install-text h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .install-image {
+        flex: 1;
+        text-align: center;
+    }
+
+    .install-image img {
+        max-width: 470px;
+        width: 100%;
+    }
+
+    /* === MOBILE === */
+    @media (max-width: 768px) {
+        .hero {
+            padding: 16px 0 0 0;
+        }
+
+        .hero-content {
+            min-height: 220px;
+            padding: 0;
+        }
+
+        .hero-bg {
+            background-size: cover !important;
+            background-position: center !important;
+        }
+
+        .hero-text {
+            padding: 0 8px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            width: 100vw;
+            max-width: 100vw;
+            z-index: 10;
+        }
+
+        .hero-text h2 {
+            color: #FFD1D1;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .hero-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .hero-text p {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .feature-logo {
+            /* max-width: 140px; */
+            margin-bottom: 10px;
+
+        }
+
+
+        .install-step,
+        .install-step.reverse {
+            flex-direction: column;
+        }
+
+        .install-image img {
+            max-width: 100%;
+        }
+
+        .section-container {
+            padding: 24px;
+        }
+
+        .install-section h2 {
+            font-size: 1.8rem;
+        }
+
+        .install-text h3 {
+            font-size: 1.1rem;
+        }
+    }
+
+    /* === DESKTOP === */
+    @media (min-width: 769px) {
+        .hero {
+            padding: 16px 0 0 0;
+        }
+
+        .hero-content {
+            min-height: 220px;
+            padding: 0;
+        }
+
+        .hero-bg {
+            background-size: cover !important;
+            background-position: center !important;
+        }
+
+        .hero-text {
+            padding: 0 8px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            width: 100vw;
+            max-width: 100vw;
+            z-index: 10;
+        }
+
+        .hero-text h2 {
+            color: #FFD1D1;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .hero-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .hero-text p {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .feature-logo {
+            /* max-width: 140px; */
+            margin-bottom: 10px;
+
+        }
+    }
